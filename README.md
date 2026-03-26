@@ -1,0 +1,2 @@
+# maxmin
+auto stream
