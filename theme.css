@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════
-   THEME — Softer Dark + Clean Light
+   THEME — Softer Dark + Clean Light + Motion System
    Ref: Linear, Stripe, Vercel, Notion
    ══════════════════════════════════════════════════════ */
 
@@ -29,67 +29,73 @@
   --amber: #ffac7e;
   --amber-glow: rgba(255,172,126,.06);
   --red: #ff6b6b;
+  --transition-fast: .15s cubic-bezier(.22,1,.36,1);
+  --transition-mid: .25s cubic-bezier(.22,1,.36,1);
+  --transition-slow: .4s cubic-bezier(.22,1,.36,1);
+  --spring: cubic-bezier(.16,1,.3,1);
 }
 
-/* ── Light Mode — clean whites, inspired by Linear/Stripe ── */
+/* ══════════════════════════════════════════════════════
+   LIGHT MODE — 3-tier depth: page / card+border / float+shadow
+   ══════════════════════════════════════════════════════ */
 html[data-theme="light"] {
   color-scheme: light;
 }
 
 html[data-theme="light"],
 html[data-theme="light"] :root {
-  --bg: #ffffff;
+  /* Tier 0: Page — soft off-white, not pure white */
+  --bg: #f9fafb;
   --bg-card: #ffffff;
-  --bg-card-h: #fafafa;
-  --bg-input: #f7f7f8;
-  --bg-nav: rgba(255,255,255,.85);
-  --bg-hover: rgba(0,0,0,.02);
-  --border: rgba(0,0,0,.06);
-  --border-h: rgba(0,0,0,.1);
-  --border-accent: rgba(239,68,68,.1);
-  --text: #111827;
-  --text-dim: rgba(17,24,39,.65);
+  --bg-card-h: #f3f4f6;
+  --bg-input: #ffffff;
+  --bg-nav: #ffffff;
+  --bg-hover: rgba(0,0,0,.025);
+  /* Borders — subtle but visible */
+  --border: rgba(0,0,0,.08);
+  --border-h: rgba(0,0,0,.13);
+  --border-accent: rgba(200,55,40,.1);
+  /* Text — warm dark, not pure black */
+  --text: #1f2937;
+  --text-dim: rgba(31,41,55,.62);
   --text-sec: #6b7280;
-  --text-muted: rgba(17,24,39,.4);
-  --coral: #ef4444;
-  --coral-dark: #dc2626;
-  --coral-glow: rgba(239,68,68,.04);
-  --peach: #f87171;
-  --teal: #10b981;
-  --teal-g: rgba(16,185,129,.2);
-  --teal-glow: rgba(16,185,129,.04);
-  --green: #10b981;
-  --amber: #f59e0b;
-  --amber-glow: rgba(245,158,11,.05);
-  --red: #ef4444;
+  --text-muted: rgba(31,41,55,.38);
+  /* Accent — muted, professional, not neon */
+  --coral: #e54d3a;
+  --coral-dark: #c7392a;
+  --coral-glow: rgba(229,77,58,.05);
+  --peach: #e8756a;
+  --teal: #0d9668;
+  --teal-g: rgba(13,150,104,.18);
+  --teal-glow: rgba(13,150,104,.04);
+  --green: #0d9668;
+  --amber: #ca8a04;
+  --amber-glow: rgba(202,138,4,.05);
+  --red: #dc2626;
 }
 
 /* ─────────────────────────────────────────────────────
-   LIGHT MODE — Component overrides
+   LIGHT: Tier 1 — Sidebar & Topbar (solid, no blur)
    ───────────────────────────────────────────────────── */
-
-/* Layout: sidebar */
 html[data-theme="light"] .sidebar {
   background: #ffffff;
   border-right-color: rgba(0,0,0,.06);
 }
-
-/* Layout: topbar */
 html[data-theme="light"] .topbar {
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(20px) saturate(1.2);
+  background: #ffffff;
+  backdrop-filter: none;
   border-bottom-color: rgba(0,0,0,.06);
 }
-
-/* Header (landing) */
 html[data-theme="light"] .header.scrolled {
-  background: rgba(255,255,255,.85);
-  backdrop-filter: blur(20px) saturate(1.2);
+  background: #ffffff;
+  backdrop-filter: none;
   border-bottom-color: rgba(0,0,0,.06);
-  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  box-shadow: none;
 }
 
-/* Cards — white with subtle ring border, like Linear */
+/* ─────────────────────────────────────────────────────
+   LIGHT: Tier 1 — Cards (border only, NO shadow)
+   ───────────────────────────────────────────────────── */
 html[data-theme="light"] .card,
 html[data-theme="light"] .price-card,
 html[data-theme="light"] .ob-card,
@@ -98,60 +104,112 @@ html[data-theme="light"] .ck-summary,
 html[data-theme="light"] .detail-panel,
 html[data-theme="light"] .current-plan,
 html[data-theme="light"] .plat-item,
-html[data-theme="light"] .dp-stat {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
-}
-
-/* Stat cards on dashboard */
+html[data-theme="light"] .dp-stat,
 html[data-theme="light"] .stat-card,
-html[data-theme="light"] .sc {
+html[data-theme="light"] .sc,
+html[data-theme="light"] .chart-wrap,
+html[data-theme="light"] .qa-card,
+html[data-theme="light"] .ql-card {
   background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  border-color: rgba(0,0,0,.08);
+  box-shadow: none;
 }
 
-/* Inputs — very light gray, like Stripe */
+/* Landing cards */
+html[data-theme="light"] .feat-card,
+html[data-theme="light"] .step-card,
+html[data-theme="light"] .blog-card,
+html[data-theme="light"] .test-card,
+html[data-theme="light"] .faq-item {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.08);
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────────────
+   LIGHT: Tier 2 — Floating elements (shadow allowed)
+   ───────────────────────────────────────────────────── */
+html[data-theme="light"] .sb-dropdown {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+}
+html[data-theme="light"] .confirm-box,
+html[data-theme="light"] .dg-card,
+html[data-theme="light"] .terms-modal {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.06);
+  box-shadow: 0 16px 48px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.04);
+}
+html[data-theme="light"] .confirm-overlay,
+html[data-theme="light"] .dg-overlay {
+  background: rgba(0,0,0,.18);
+  backdrop-filter: blur(4px);
+}
+html[data-theme="light"] .maxi-orb {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+html[data-theme="light"] .maxi-msg {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  color: #374151;
+}
+html[data-theme="light"] .toast.success {
+  background: rgba(13,150,104,.06);
+  border-color: rgba(13,150,104,.15);
+  color: #0d9668;
+}
+html[data-theme="light"] .toast.info {
+  background: rgba(59,130,246,.06);
+  border-color: rgba(59,130,246,.12);
+  color: #2563eb;
+}
+
+/* Hero mockup floats */
+html[data-theme="light"] .hero-mock {
+  border-color: rgba(0,0,0,.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.04);
+}
+
+/* ─────────────────────────────────────────────────────
+   LIGHT: Inputs — white bg, clear border
+   ───────────────────────────────────────────────────── */
 html[data-theme="light"] input,
 html[data-theme="light"] textarea,
 html[data-theme="light"] select {
-  background: #f7f7f8;
-  border-color: rgba(0,0,0,.1);
-  color: #111827;
+  background: #ffffff;
+  border-color: rgba(0,0,0,.12);
+  color: #1f2937;
 }
 html[data-theme="light"] input:focus,
 html[data-theme="light"] textarea:focus {
-  border-color: #111827;
-  box-shadow: 0 0 0 3px rgba(17,24,39,.06);
+  border-color: #1f2937;
+  box-shadow: 0 0 0 3px rgba(31,41,55,.06);
 }
 html[data-theme="light"] input::placeholder {
   color: #9ca3af;
 }
 
-/* Google button — white with subtle border like real Google btn */
+/* ─────────────────────────────────────────────────────
+   LIGHT: Buttons
+   ───────────────────────────────────────────────────── */
 html[data-theme="light"] .btn-google {
   background: #ffffff;
   color: #1f2937;
-  border: 1px solid rgba(0,0,0,.1);
-  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.12);
+  box-shadow: none;
 }
-html[data-theme="light"] .btn-google:hover {
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-  border-color: rgba(0,0,0,.15);
-}
-
-/* Primary buttons — solid, clean shadow */
 html[data-theme="light"] .btn-submit,
 html[data-theme="light"] .btn-pay,
 html[data-theme="light"] .ob-btn-next,
 html[data-theme="light"] .price-btn.fill,
 html[data-theme="light"] .tb-btn.primary,
 html[data-theme="light"] .ob-btn-finish {
-  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  box-shadow: none;
 }
-
-/* Outline buttons */
 html[data-theme="light"] .price-btn.outline,
 html[data-theme="light"] .ob-btn-back,
 html[data-theme="light"] .dg-btn.cancel,
@@ -166,327 +224,593 @@ html[data-theme="light"] .nav-cta:hover {
   border-color: var(--coral);
 }
 
-/* Sidebar items */
+/* ─────────────────────────────────────────────────────
+   LIGHT: Sidebar items
+   ───────────────────────────────────────────────────── */
 html[data-theme="light"] .sb-item.active {
-  background: rgba(239,68,68,.05);
-  color: #dc2626;
+  background: rgba(229,77,58,.05);
+  color: #c7392a;
 }
 html[data-theme="light"] .sb-item.active::before {
-  background: #dc2626;
+  background: #c7392a;
 }
 html[data-theme="light"] .sb-item:hover {
-  background: rgba(0,0,0,.02);
-}
-
-/* Sidebar user dropdown */
-html[data-theme="light"] .sb-dropdown {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  background: rgba(0,0,0,.025);
 }
 html[data-theme="light"] .sb-dd-item:hover {
-  background: #f9fafb;
+  background: #f3f4f6;
 }
-
-/* User avatar */
 html[data-theme="light"] .sb-avatar {
-  background: linear-gradient(135deg, #ef4444, #f87171);
+  background: linear-gradient(135deg, #e54d3a, #e8756a);
+}
+html[data-theme="light"] .sb-badge,
+html[data-theme="light"] .sb-item .sb-badge {
+  background: #e54d3a;
 }
 
-/* Mascot helper */
-html[data-theme="light"] .maxi-orb {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.08);
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-}
-html[data-theme="light"] .maxi-msg {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  color: #374151;
-}
-
-/* Toast */
-html[data-theme="light"] .toast.success {
-  background: rgba(16,185,129,.06);
-  border-color: rgba(16,185,129,.15);
-  color: #059669;
-}
-html[data-theme="light"] .toast.info {
-  background: rgba(59,130,246,.06);
-  border-color: rgba(59,130,246,.12);
-  color: #2563eb;
-}
+/* ─────────────────────────────────────────────────────
+   LIGHT: Specific components
+   ───────────────────────────────────────────────────── */
 
 /* Stream status */
 html[data-theme="light"] .st-status.live {
-  background: rgba(16,185,129,.06);
-  color: #059669;
+  background: rgba(13,150,104,.06);
+  color: #0d9668;
 }
 html[data-theme="light"] .st-status.sched {
-  background: rgba(245,158,11,.06);
-  color: #d97706;
+  background: rgba(202,138,4,.06);
+  color: #a16207;
 }
-html[data-theme="light"] .st-viewers {
-  color: #059669;
-}
+html[data-theme="light"] .st-viewers { color: #0d9668; }
 
-/* Badge */
-html[data-theme="light"] .sb-badge,
-html[data-theme="light"] .sb-item .sb-badge {
-  background: #ef4444;
-}
-
-/* Card preview in checkout — keep dark */
+/* Checkout card preview — keep dark */
 html[data-theme="light"] .card-preview {
   background: linear-gradient(135deg, #1e1b4b, #312e81);
 }
 
-/* Auth right panel — very subtle warm tint */
+/* Auth right panel — visible separation */
 html[data-theme="light"] .auth-right {
-  background: #fafafa;
-  border-left-color: rgba(0,0,0,.04);
+  background: #f3f4f6;
+  border-left-color: rgba(0,0,0,.06);
 }
-html[data-theme="light"] .auth-right::before {
-  opacity: .025;
-}
-html[data-theme="light"] .auth-right::after {
-  opacity: .02;
-}
-
-/* Auth pills */
+html[data-theme="light"] .auth-right::before { opacity: .02; }
+html[data-theme="light"] .auth-right::after { opacity: .015; }
 html[data-theme="light"] .auth-pill {
   background: #ffffff;
-  border-color: rgba(0,0,0,.06);
+  border-color: rgba(0,0,0,.08);
   color: #4b5563;
 }
 
-/* Ambient blurs — off in light */
+/* Ambient / noise — off in light */
 html[data-theme="light"] .amb,
 html[data-theme="light"] .amb-wrap,
 html[data-theme="light"] .amb-1,
-html[data-theme="light"] .amb-2 {
-  opacity: 0 !important;
-}
+html[data-theme="light"] .amb-2 { opacity: 0 !important; }
+html[data-theme="light"] body::after { opacity: 0 !important; }
 
-/* Body noise overlay — off */
-html[data-theme="light"] body::after {
-  opacity: 0 !important;
-}
-
-/* Landing announce bar */
+/* Landing announce */
 html[data-theme="light"] .announce {
   background: #fefce8;
   border-bottom-color: rgba(0,0,0,.04);
 }
-html[data-theme="light"] .announce strong {
-  color: #dc2626;
-}
+html[data-theme="light"] .announce strong { color: #c7392a; }
 
 /* Mobile menu */
-html[data-theme="light"] .mobile-menu {
-  background: rgba(255,255,255,.97);
-}
-html[data-theme="light"] .mobile-menu a {
-  color: #374151;
-}
+html[data-theme="light"] .mobile-menu { background: rgba(249,250,251,.98); }
+html[data-theme="light"] .mobile-menu a { color: #374151; }
 
 /* Pricing */
 html[data-theme="light"] .price-card.current {
-  border-color: rgba(16,185,129,.3);
-  background: linear-gradient(170deg, rgba(16,185,129,.02), #fff 35%);
+  border-color: rgba(13,150,104,.25);
+  background: #ffffff;
 }
-html[data-theme="light"] .price-card.current::after {
-  background: #10b981;
-}
+html[data-theme="light"] .price-card.current::after { background: #0d9668; }
 html[data-theme="light"] .price-card.rec {
-  border-color: rgba(239,68,68,.2);
-  background: linear-gradient(170deg, rgba(239,68,68,.02), #fff 35%);
+  border-color: rgba(229,77,58,.18);
+  background: #ffffff;
 }
-html[data-theme="light"] .price-card.rec::after {
-  background: linear-gradient(90deg, #ef4444, #f87171);
-}
+html[data-theme="light"] .price-card.rec::after { background: linear-gradient(90deg, #e54d3a, #e8756a); }
 html[data-theme="light"] .price-btn.current-btn {
-  background: rgba(16,185,129,.06);
-  border-color: rgba(16,185,129,.15);
-  color: #059669;
+  background: rgba(13,150,104,.05);
+  border-color: rgba(13,150,104,.15);
+  color: #0d9668;
 }
 html[data-theme="light"] .price-badge.cur {
-  background: rgba(16,185,129,.06);
-  color: #059669;
-  border-color: rgba(16,185,129,.15);
+  background: rgba(13,150,104,.06);
+  color: #0d9668;
+  border-color: rgba(13,150,104,.15);
 }
 html[data-theme="light"] .price-badge.pop {
-  background: rgba(239,68,68,.06);
-  color: #dc2626;
-  border-color: rgba(239,68,68,.12);
+  background: rgba(229,77,58,.06);
+  color: #c7392a;
+  border-color: rgba(229,77,58,.12);
 }
+html[data-theme="light"] .billing-switch { background: rgba(0,0,0,.08); border-color: rgba(0,0,0,.06); }
+html[data-theme="light"] .billing-switch.on { background: #e54d3a; border-color: #e54d3a; }
 
-/* Billing toggle */
-html[data-theme="light"] .billing-switch {
-  background: rgba(0,0,0,.08);
-  border-color: rgba(0,0,0,.06);
-}
-html[data-theme="light"] .billing-switch.on {
-  background: #ef4444;
-  border-color: #ef4444;
-}
+/* Onboarding */
+html[data-theme="light"] .upload-zone { border-color: rgba(0,0,0,.12); background: #ffffff; }
+html[data-theme="light"] .upload-zone:hover { border-color: #e54d3a; background: rgba(229,77,58,.02); }
+html[data-theme="light"] .upload-zone.has-file { border-color: #0d9668; background: rgba(13,150,104,.02); }
+html[data-theme="light"] .plat-btn.connect { color: #c7392a; border-color: rgba(229,77,58,.2); background: rgba(229,77,58,.04); }
+html[data-theme="light"] .plat-btn.done { color: #0d9668; border-color: rgba(13,150,104,.2); background: rgba(13,150,104,.04); }
+html[data-theme="light"] .plat-item.connected { border-color: rgba(13,150,104,.15); background: rgba(13,150,104,.02); }
 
-/* Onboarding: upload zone */
-html[data-theme="light"] .upload-zone {
-  border-color: rgba(0,0,0,.1);
-  background: #fafafa;
-}
-html[data-theme="light"] .upload-zone:hover {
-  border-color: #ef4444;
-  background: rgba(239,68,68,.02);
-}
-html[data-theme="light"] .upload-zone.has-file {
-  border-color: #10b981;
-  background: rgba(16,185,129,.02);
-}
-
-/* Platform connect buttons */
-html[data-theme="light"] .plat-btn.connect {
-  color: #dc2626;
-  border-color: rgba(239,68,68,.2);
-  background: rgba(239,68,68,.04);
-}
-html[data-theme="light"] .plat-btn.done {
-  color: #059669;
-  border-color: rgba(16,185,129,.2);
-  background: rgba(16,185,129,.04);
-}
-html[data-theme="light"] .plat-item.connected {
-  border-color: rgba(16,185,129,.15);
-  background: rgba(16,185,129,.02);
-}
-
-/* QR box */
-html[data-theme="light"] .qr-box {
-  border: 1px solid rgba(0,0,0,.06);
-  box-shadow: none;
-}
-
-/* Modals & overlays */
-html[data-theme="light"] .confirm-overlay,
-html[data-theme="light"] .dg-overlay {
-  background: rgba(0,0,0,.2);
-  backdrop-filter: blur(4px);
-}
-html[data-theme="light"] .confirm-box,
-html[data-theme="light"] .dg-card,
-html[data-theme="light"] .terms-modal {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 20px 60px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.04);
-}
-
-/* Bank transfer info */
-html[data-theme="light"] .bank-info {
-  background: #f9fafb;
-  border-color: rgba(0,0,0,.06);
-}
-
-/* Copy button */
-html[data-theme="light"] .bank-copy {
-  color: #059669;
-  border-color: rgba(16,185,129,.2);
-  background: rgba(16,185,129,.04);
-}
+/* Checkout */
+html[data-theme="light"] .bank-info { background: #f3f4f6; border-color: rgba(0,0,0,.06); }
+html[data-theme="light"] .bank-copy { color: #0d9668; border-color: rgba(13,150,104,.2); background: rgba(13,150,104,.04); }
+html[data-theme="light"] .qr-box { border: 1px solid rgba(0,0,0,.08); box-shadow: none; }
 
 /* Dividers */
 html[data-theme="light"] .ck-divider,
 html[data-theme="light"] .price-div,
 html[data-theme="light"] .sb-dd-div,
 html[data-theme="light"] .auth-divider::before,
-html[data-theme="light"] .auth-divider::after {
-  background: rgba(0,0,0,.06);
-}
+html[data-theme="light"] .auth-divider::after { background: rgba(0,0,0,.06); }
 
-/* Dashboard quick action / chart areas */
-html[data-theme="light"] .chart-wrap,
-html[data-theme="light"] .qa-card,
-html[data-theme="light"] .ql-card {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-}
-
-/* Settings tabs & toggle */
+/* Tabs */
 html[data-theme="light"] .st-tab.active,
 html[data-theme="light"] .stream-tabs .st-tab.active {
-  color: #dc2626;
-  border-color: rgba(239,68,68,.2);
-  background: rgba(239,68,68,.04);
+  color: #c7392a;
+  border-color: rgba(229,77,58,.2);
+  background: rgba(229,77,58,.04);
 }
 
 /* Scrollbar */
-html[data-theme="light"] ::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.1);
-}
-html[data-theme="light"] ::-webkit-scrollbar-track {
-  background: transparent;
-}
+html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.1); }
+html[data-theme="light"] ::-webkit-scrollbar-track { background: transparent; }
 
-/* Password strength bar — ensure visibility */
-html[data-theme="light"] .pw-strength {
-  background: rgba(0,0,0,.06);
-}
-
-/* Landing: hero mockup should stay dark-themed for contrast */
-html[data-theme="light"] .hero-mock {
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 20px 60px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
-}
-
-/* Landing: section labels */
-html[data-theme="light"] .sec-label {
-  color: #dc2626;
-}
-
-/* Landing: feature cards */
-html[data-theme="light"] .feat-card,
-html[data-theme="light"] .step-card,
-html[data-theme="light"] .blog-card,
-html[data-theme="light"] .test-card,
-html[data-theme="light"] .faq-item {
-  background: #ffffff;
-  border-color: rgba(0,0,0,.06);
-  box-shadow: 0 1px 3px rgba(0,0,0,.03);
-}
-
-/* Landing: ticker */
-html[data-theme="light"] .ticker-item {
-  color: #9ca3af;
-}
-html[data-theme="light"] .ticker-dot {
-  background: rgba(0,0,0,.12);
-}
-
-/* Nav links on landing */
-html[data-theme="light"] .nav-menu a {
-  color: #6b7280;
-}
-html[data-theme="light"] .nav-menu a:hover {
-  color: #111827;
-  background: rgba(0,0,0,.03);
-}
-html[data-theme="light"] .nav-login {
-  color: #6b7280;
-}
-html[data-theme="light"] .nav-login:hover {
-  color: #111827;
-}
-
-/* Manage section backgrounds */
+/* Misc */
+html[data-theme="light"] .pw-strength { background: rgba(0,0,0,.06); }
+html[data-theme="light"] .sec-label { color: #c7392a; }
+html[data-theme="light"] .ticker-item { color: #9ca3af; }
+html[data-theme="light"] .ticker-dot { background: rgba(0,0,0,.1); }
+html[data-theme="light"] .nav-menu a { color: #6b7280; }
+html[data-theme="light"] .nav-menu a:hover { color: #1f2937; background: rgba(0,0,0,.03); }
+html[data-theme="light"] .nav-login { color: #6b7280; }
+html[data-theme="light"] .nav-login:hover { color: #1f2937; }
 html[data-theme="light"] .cta-section,
-html[data-theme="light"] .sec-cta {
-  background: #f9fafb;
+html[data-theme="light"] .sec-cta { background: #f3f4f6; }
+
+
+/* ══════════════════════════════════════════════════════
+   ADVANCED HOVER & MOTION SYSTEM (both themes)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Global smooth transitions ── */
+*, *::before, *::after {
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 
-/* ─────────────────────────────────────────────────────
+/* ── Cards: lift on hover ── */
+.price-card,
+.feat-card,
+.step-card,
+.blog-card,
+.test-card,
+.plat-item,
+.stat-card,
+.sc,
+.qa-card,
+.ql-card {
+  transition: transform .3s var(--spring), border-color .25s, background .25s;
+}
+.price-card:hover,
+.feat-card:hover,
+.step-card:hover,
+.test-card:hover {
+  transform: translateY(-4px);
+}
+html[data-theme="light"] .price-card:hover,
+html[data-theme="light"] .feat-card:hover,
+html[data-theme="light"] .step-card:hover,
+html[data-theme="light"] .test-card:hover {
+  border-color: rgba(0,0,0,.14);
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.plat-item {
+  transition: transform .25s var(--spring), border-color .2s, background .2s;
+}
+.plat-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Stat cards: subtle scale */
+.stat-card:hover,
+.sc:hover,
+.qa-card:hover,
+.ql-card:hover {
+  transform: translateY(-2px);
+}
+html[data-theme="light"] .stat-card:hover,
+html[data-theme="light"] .sc:hover {
+  border-color: rgba(0,0,0,.12);
+}
+
+/* ── Buttons: press + lift ── */
+.btn-submit,
+.btn-pay,
+.btn-google,
+.ob-btn-next,
+.ob-btn-back,
+.ob-btn-finish,
+.price-btn,
+.tb-btn,
+.nav-cta,
+.plat-btn,
+.dg-btn,
+.confirm-btn,
+.bank-copy {
+  transition: transform .2s var(--spring), background .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s;
+}
+.btn-submit:hover,
+.btn-pay:hover,
+.ob-btn-next:hover,
+.ob-btn-finish:hover,
+.price-btn.fill:hover,
+.tb-btn.primary:hover {
+  transform: translateY(-2px);
+}
+.btn-submit:active,
+.btn-pay:active,
+.btn-google:active,
+.ob-btn-next:active,
+.ob-btn-finish:active,
+.price-btn:active,
+.tb-btn:active,
+.nav-cta:active,
+.plat-btn:active,
+.dg-btn:active,
+.confirm-btn:active,
+.bank-copy:active {
+  transform: scale(.97);
+  transition-duration: .1s;
+}
+
+/* ── Sidebar items: slide indicator ── */
+.sb-item {
+  transition: background .2s, color .2s, transform .2s var(--spring);
+  position: relative;
+}
+.sb-item:hover {
+  transform: translateX(2px);
+}
+.sb-item.active {
+  transform: translateX(0);
+}
+.sb-item.active::before {
+  transition: height .25s var(--spring), background .2s;
+}
+.sb-item:hover:not(.active)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 12px;
+  background: var(--text-muted);
+  border-radius: 0 2px 2px 0;
+  opacity: .5;
+  animation: sbHintIn .2s var(--spring);
+}
+@keyframes sbHintIn {
+  0% { height: 0; opacity: 0; }
+  100% { height: 12px; opacity: .5; }
+}
+
+/* ── Sidebar user: glow ring on hover ── */
+.sb-user {
+  transition: background .2s, box-shadow .3s;
+}
+.sb-user:hover {
+  box-shadow: 0 0 0 2px var(--coral-glow);
+}
+
+/* ── Sidebar toggle: rotate icon ── */
+.sb-toggle {
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.sb-toggle:hover {
+  background: var(--bg-card-h);
+  border-color: var(--border-h);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ── Nav links: underline slide-in ── */
+.nav-menu a {
+  position: relative;
+}
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: var(--coral);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .25s var(--spring);
+}
+.nav-menu a:hover::after {
+  transform: scaleX(1);
+}
+.nav-menu a[aria-current="page"]::after {
+  transform: scaleX(1);
+  background: var(--coral);
+}
+
+/* ── Stream table rows: highlight slide ── */
+.stream-table tr {
+  transition: background .15s;
+  position: relative;
+}
+.stream-table tr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--coral);
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: opacity .2s, transform .2s var(--spring);
+}
+.stream-table tr:hover::after {
+  opacity: 1;
+  transform: scaleY(.6);
+}
+.stream-table tr.selected::after {
+  opacity: 1;
+  transform: scaleY(1);
+  background: var(--teal);
+}
+
+/* ── Action buttons (stream controls): pop ── */
+.st-act,
+.dp-ctrl {
+  transition: transform .2s var(--spring), background .15s, border-color .15s;
+}
+.st-act:hover,
+.dp-ctrl:hover {
+  transform: scale(1.08);
+}
+.st-act:active,
+.dp-ctrl:active {
+  transform: scale(.92);
+}
+
+/* ── Maxi mascot: bounce on hover ── */
+.maxi-orb {
+  transition: transform .3s var(--spring), box-shadow .3s, border-color .2s;
+}
+.maxi-orb:hover {
+  transform: scale(1.12);
+  border-color: var(--coral);
+}
+.maxi-orb:active {
+  transform: scale(.95);
+}
+
+/* ── Pricing cards: recommended glow pulse ── */
+.price-card.rec {
+  position: relative;
+}
+.price-card.rec::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, var(--coral), var(--peach));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity .4s;
+}
+.price-card.rec:hover::before {
+  opacity: .08;
+}
+html[data-theme="light"] .price-card.rec:hover::before {
+  opacity: .05;
+}
+
+/* ── FAQ items: smooth expand ── */
+.faq-item {
+  transition: transform .25s var(--spring), border-color .2s, background .2s;
+}
+.faq-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-h);
+}
+
+/* ── Upload zone: pulse border on drag ── */
+.upload-zone {
+  transition: border-color .3s, background .3s, transform .3s var(--spring);
+}
+.upload-zone.dragover {
+  transform: scale(1.02);
+}
+
+/* ── Inputs: smooth glow on focus ── */
+input, textarea, select {
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+/* ── Logo: subtle hover glow ── */
+.logo, .sb-logo, .auth-logo, .ob-logo, .ck-logo {
+  transition: opacity .2s;
+}
+.logo:hover, .sb-logo:hover, .auth-logo:hover {
+  opacity: .85;
+}
+
+/* ── Auth showcase mascot: tilt on hover ── */
+.auth-mascot svg {
+  transition: transform .4s var(--spring);
+}
+.auth-mascot:hover svg {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+/* ── Onboarding progress bars: glow active ── */
+.ob-bar.active .fill {
+  position: relative;
+  overflow: visible;
+}
+.ob-bar.active .fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  box-shadow: 0 0 8px var(--coral);
+  animation: progressGlow 1.5s ease-in-out infinite;
+}
+@keyframes progressGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.7); }
+}
+
+/* ── Page transitions: fade-slide on load ── */
+.auth-card,
+.ob-page.active,
+.checkout-wrap,
+.main {
+  animation: pageSlideIn .5s var(--spring);
+}
+@keyframes pageSlideIn {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll reveal enhancement ── */
+.rv {
+  transition: opacity .6s var(--spring), transform .6s var(--spring);
+}
+.rv.vis {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Theme transition: smooth color change ── */
+html {
+  transition: background-color .35s ease, color .35s ease;
+}
+body,
+.sidebar,
+.topbar,
+.header,
+input,
+textarea,
+button,
+.card,
+.price-card,
+.sb-dropdown,
+.maxi-orb,
+.maxi-msg {
+  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+
+/* ── Notification badge: pulse ── */
+.sb-badge {
+  animation: badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.tb-notif .notif-dot {
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--coral); }
+  50% { opacity: .8; box-shadow: 0 0 0 4px rgba(255,107,84,.15); }
+}
+
+/* ── Link hover: color shift ── */
+.auth-footer a,
+.form-link,
+.auth-terms a {
+  transition: color .2s, opacity .2s;
+  position: relative;
+}
+.auth-footer a::after,
+.form-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .25s var(--spring);
+}
+.auth-footer a:hover::after,
+.form-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── Pay method tabs: slide indicator ── */
+.pay-method {
+  transition: border-color .25s, background .25s, transform .2s var(--spring);
+}
+.pay-method:hover {
+  transform: translateY(-2px);
+}
+.pay-method.active {
+  transform: translateY(-2px);
+}
+
+/* ── Hover ring on interactive cards ── */
+.price-card {
+  position: relative;
+  overflow: hidden;
+}
+.price-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s var(--spring);
+}
+.price-card:hover::after {
+  transform: scaleX(1);
+}
+/* Don't override existing ::after for .current and .rec cards */
+.price-card.current::after,
+.price-card.rec::after {
+  transform: scaleX(1);
+}
+
+/* ── Respect reduced motion preference ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ══════════════════════════════════════════════════════
    Theme toggle button
-   ───────────────────────────────────────────────────── */
+   ══════════════════════════════════════════════════════ */
 .theme-toggle {
   width: 32px;
   height: 32px;
@@ -497,7 +821,7 @@ html[data-theme="light"] .sec-cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .2s;
+  transition: all .25s var(--spring);
   flex-shrink: 0;
   color: var(--text-dim);
 }
@@ -505,17 +829,18 @@ html[data-theme="light"] .sec-cta {
   border-color: var(--border-h);
   background: var(--bg-hover);
   color: var(--text);
+  transform: rotate(15deg);
+}
+.theme-toggle:active {
+  transform: rotate(30deg) scale(.9);
 }
 .theme-toggle svg {
   width: 16px;
   height: 16px;
-  transition: transform .3s ease;
-}
-.theme-toggle:active svg {
-  transform: rotate(30deg) scale(.9);
+  transition: transform .4s var(--spring);
 }
 
-/* Sun icon hidden in dark, moon hidden in light */
+/* Sun/moon visibility */
 .theme-toggle .icon-sun { display: none; }
 .theme-toggle .icon-moon { display: block; }
 html[data-theme="light"] .theme-toggle .icon-sun { display: block; }
