@@ -84,7 +84,7 @@
 <div class="app">
 <aside class="sidebar" id="sidebar">
 <div class="sb-logo"><span class="dot"></span><span>MAXMIN</span></div>
-<button class="sb-toggle" id="sbToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+<button class="sb-toggle" id="sbToggle" aria-label="Thu gọn sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
 <nav class="sb-nav">
 <a href="dashboard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="sb-label">Tổng quan</span></a>
 <a href="streams.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/></svg><span class="sb-label">Luồng phát</span><span class="sb-badge" title="4 luồng đang hoạt động">4</span></a>
@@ -161,7 +161,7 @@ const toastEl=document.getElementById('toast');if(toastEl){toastEl.textContent=_
 if(_annual){document.getElementById('proPriceAmount').innerHTML='<span class="price-old">1.188K</span><span class="price-num" id="proPrice">990K</span><span class="price-unit">/năm</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng năm';document.getElementById('bizPriceAmount').innerHTML='<span class="price-old">5.988K</span><span class="price-num" id="bizPrice">4.990K</span><span class="price-unit">/năm</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng năm'}else{document.getElementById('proPriceAmount').innerHTML='<span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng tháng';document.getElementById('bizPriceAmount').innerHTML='<span class="price-num" id="bizPrice">499K</span><span class="price-unit">/tháng</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng tháng'}}
 window.toggleBilling=toggleBilling</script>
 <!-- Downgrade modal -->
-<div class="dg-overlay" id="dgOverlay" onclick="if(event.target===this)this.classList.remove('show')">
+<div class="dg-overlay" id="dgOverlay" role="dialog" aria-modal="true" onclick="if(event.target===this)this.classList.remove('show')">
   <div class="dg-card">
     <div class="dg-title">Xác nhận hạ cấp</div>
     <div class="dg-msg">Bạn đang dùng gói Pro. Hạ cấp xuống Free sẽ mất các tính năng Pro. Bạn có chắc không?</div>

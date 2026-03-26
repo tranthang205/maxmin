@@ -15,9 +15,9 @@
   --border-h: rgba(255,255,255,.12);
   --border-accent: rgba(200,90,70,.1);
   --text: #dcdce6;
-  --text-dim: rgba(220,220,230,.5);
+  --text-dim: rgba(220,220,230,.55);
   --text-sec: #8b8b9e;
-  --text-muted: rgba(220,220,230,.32);
+  --text-muted: rgba(220,220,230,.42);
   --coral: #d4644f;
   --coral-dark: #b84d3a;
   --coral-glow: rgba(212,100,79,.04);
@@ -59,7 +59,7 @@ html[data-theme="light"] :root {
   --text: #1f2937;
   --text-dim: rgba(31,41,55,.62);
   --text-sec: #6b7280;
-  --text-muted: rgba(31,41,55,.38);
+  --text-muted: rgba(31,41,55,.48);
   /* Accent — warm, muted, professional */
   --coral: #c44836;
   --coral-dark: #a33a2c;
@@ -1039,6 +1039,26 @@ button,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* ── Button padding normalization ── */
+.btn-submit,
+.btn-pay,
+.ob-btn-next,
+.price-btn.fill,
+.tb-btn.primary {
+  padding: 12px 24px;
+  font-size: 14px;
+}
+
+/* Loading button timeout indicator */
+.btn-loading {
+  animation: loadingTimeout 8s linear forwards;
+}
+@keyframes loadingTimeout {
+  0%, 90% { opacity: 1; }
+  100% { opacity: .6; }
 }
 
 
