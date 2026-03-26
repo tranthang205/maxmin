@@ -55,29 +55,35 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 
 /* ══ MAIN ══ */
 .main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
-.main{padding:calc(var(--topbar-h) + 24px) 32px 40px}
+.main{padding:calc(var(--topbar-h) + 16px) 20px 24px}
 
-/* ══ STAT CARDS — clean, monochrome with coral accent ══ */
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:0}
-.stat-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .2s;position:relative}
+/* ══ STAT CARDS — compact row ══ */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+.stat-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s;position:relative}
 .stat-card:hover{border-color:var(--border-h)}
 .stat-card.selected{border-color:var(--coral);background:var(--coral-glow)}
 .stat-card.selected::after{content:'';position:absolute;bottom:-1.5px;left:20%;right:20%;height:2px;background:var(--coral);border-radius:1px}
-.sc-label{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
-.sc-value{font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;margin-bottom:3px;color:var(--text)}
+.sc-label{font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px}
+.sc-value{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1;margin-bottom:2px;color:var(--text)}
 .stat-card.selected .sc-value{color:var(--coral)}
-.sc-change{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:600;color:var(--teal)}
+.sc-change{display:inline-flex;align-items:center;gap:2px;font-size:9px;font-weight:600;color:var(--teal)}
 
-/* ══ CHART — clean white line on dark bg ══ */
-.chart-area{background:var(--bg-card);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:8px 20px 16px;margin-bottom:16px}
-.chart-header{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+/* ══ MAIN GRID — chart left + panels right (YouTube Studio style) ══ */
+.dash-grid{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:0}
+
+/* ══ CHART — left column ══ */
+.chart-area{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px 16px 12px;display:flex;flex-direction:column}
+.chart-header{display:flex;align-items:center;justify-content:space-between;padding:6px 0}
 .chart-label{font-size:12px;font-weight:600;color:var(--text-dim)}
 .chart-tabs{display:flex;gap:2px}.chart-tab{padding:4px 10px;border-radius:6px;font-size:10.5px;font-weight:600;color:var(--text-muted);transition:all .15s}.chart-tab:hover{color:var(--text-dim)}.chart-tab.active{color:var(--coral);background:var(--coral-glow)}
-.chart-wrap{position:relative;height:240px}
+.chart-wrap{position:relative;flex:1;min-height:160px}
 .chart-canvas{display:block;width:100%;height:100%}
 
-/* ══ BOTTOM GRID — full width, 3 cols ══ */
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+/* ══ RIGHT PANEL — stacked cards ══ */
+.dash-right{display:flex;flex-direction:column;gap:10px;min-height:0}
+
+/* ══ BOTTOM GRID — full width, 2 cols under the main grid ══ */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .card-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px}
 .card-title{font-size:13px;font-weight:800}
@@ -121,9 +127,9 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .maxi-orb{width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;transition:all .2s}.maxi-orb:hover{transform:scale(1.06);border-color:var(--border-h)}
 
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
-@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.bottom-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stat-row{grid-template-columns:1fr 1fr}.bottom-grid{grid-template-columns:1fr}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 12px) 14px 28px}.stat-row{grid-template-columns:1fr}.sc-value{font-size:20px}.tb-title{font-size:15px}.chart-area{padding:14px}.chart-tabs{flex-wrap:wrap;gap:4px}.welcome-banner>div{flex-direction:column;text-align:center}.welcome-banner div:last-child{flex-direction:column;width:100%}.welcome-banner a{width:100%;justify-content:center}.qa-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}.bottom-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stat-row{grid-template-columns:1fr 1fr}.dash-grid{grid-template-columns:1fr}.bottom-grid{grid-template-columns:1fr}.chart-wrap{min-height:140px}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 20px}.stat-row{grid-template-columns:1fr 1fr}.sc-value{font-size:18px}.tb-title{font-size:15px}.chart-area{padding:10px}.chart-tabs{flex-wrap:wrap;gap:4px}.welcome-banner>div{flex-direction:column;text-align:center}.welcome-banner div:last-child{flex-direction:column;width:100%}.welcome-banner a{width:100%;justify-content:center}.qa-grid{grid-template-columns:1fr 1fr 1fr}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -148,7 +154,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 
 <main class="main">
 <!-- WELCOME BANNER (for new users) -->
-<div class="welcome-banner" id="welcomeBanner" style="background:linear-gradient(135deg,rgba(200,85,65,.06),rgba(70,190,150,.04));border:1px solid rgba(200,85,65,.12);border-radius:16px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden">
+<div class="welcome-banner" id="welcomeBanner" style="background:linear-gradient(135deg,rgba(200,85,65,.06),rgba(70,190,150,.04));border:1px solid rgba(200,85,65,.12);border-radius:12px;padding:16px 20px;margin-bottom:12px;position:relative;overflow:hidden">
 <button onclick="document.getElementById('welcomeBanner').style.display='none';sessionStorage.setItem('maxmin-welcome-dismissed','1')" style="position:absolute;top:12px;right:12px;color:var(--text-muted);font-size:16px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s">✕</button>
 <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
 <svg viewBox="0 0 120 120" width="60" height="60" fill="none"><defs><linearGradient id="gwb" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gwb)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="50" cy="63.5" r="1.4" fill="white" opacity=".85"/><circle cx="76" cy="63.5" r="1.4" fill="white" opacity=".85"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
@@ -171,27 +177,39 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
   <div class="stat-card" data-metric="hours" onclick="pick(this)"><div class="sc-label">Thời gian live</div><div class="sc-value">14h 32p</div><div class="sc-change">↑ 2h</div></div>
 </div>
 
-<!-- CHART -->
-<div class="chart-area">
-  <div class="chart-header">
-    <div class="chart-label" id="chartLabel">Viewers theo giờ</div>
-    <div class="chart-tabs"><button class="chart-tab active" onclick="setTab(this)">Hôm nay</button><button class="chart-tab" onclick="setTab(this)">7 ngày</button><button class="chart-tab" onclick="setTab(this)">30 ngày</button></div>
+<!-- MAIN GRID: Chart left + Panels right -->
+<div class="dash-grid">
+  <div class="chart-area">
+    <div class="chart-header">
+      <div class="chart-label" id="chartLabel">Viewers theo giờ</div>
+      <div class="chart-tabs"><button class="chart-tab active" onclick="setTab(this)">Hôm nay</button><button class="chart-tab" onclick="setTab(this)">7 ngày</button><button class="chart-tab" onclick="setTab(this)">30 ngày</button></div>
+    </div>
+    <div class="chart-wrap"><canvas class="chart-canvas" id="chart"></canvas></div>
   </div>
-  <div class="chart-wrap"><canvas class="chart-canvas" id="chart"></canvas></div>
-</div>
 
-<!-- BOTTOM 3-COL -->
-<div class="bottom-grid">
-  <div class="card">
-    <div class="card-head"><div class="card-title">Luồng phát</div><a href="streams.html" style="font-size:10px;color:var(--coral);font-weight:600">Tất cả →</a></div>
-    <div class="stream-list">
-      <a href="streams.html" class="s-row"><div class="s-icon tt">T</div><div class="s-info"><div class="s-name">TikTok @shophanavn</div><div class="s-meta">3h 20p · 1.239 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
-      <a href="streams.html" class="s-row"><div class="s-icon yt">Y</div><div class="s-info"><div class="s-name">YouTube Shop Hana</div><div class="s-meta">3h 20p · 859 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
-      <a href="streams.html" class="s-row"><div class="s-icon fb">F</div><div class="s-info"><div class="s-name">Facebook Hana Beauty</div><div class="s-meta">3h 20p · 2.111 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
-      <a href="streams.html" class="s-row"><div class="s-icon sp">S</div><div class="s-info"><div class="s-name">Shopee shophanavn</div><div class="s-meta">Lên lịch 20:00</div></div><div class="s-live wait"><span class="dot"></span>Chờ</div></a>
+  <div class="dash-right">
+    <div class="card" style="flex:1;min-height:0">
+      <div class="card-head"><div class="card-title">Luồng phát</div><a href="streams.html" style="font-size:10px;color:var(--coral);font-weight:600">Tất cả →</a></div>
+      <div class="stream-list">
+        <a href="streams.html" class="s-row"><div class="s-icon tt">T</div><div class="s-info"><div class="s-name">TikTok @shophanavn</div><div class="s-meta">3h 20p · 1.239 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
+        <a href="streams.html" class="s-row"><div class="s-icon yt">Y</div><div class="s-info"><div class="s-name">YouTube Shop Hana</div><div class="s-meta">3h 20p · 859 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
+        <a href="streams.html" class="s-row"><div class="s-icon fb">F</div><div class="s-info"><div class="s-name">Facebook Hana Beauty</div><div class="s-meta">3h 20p · 2.111 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
+        <a href="streams.html" class="s-row"><div class="s-icon sp">S</div><div class="s-info"><div class="s-name">Shopee shophanavn</div><div class="s-meta">Lên lịch 20:00</div></div><div class="s-live wait"><span class="dot"></span>Chờ</div></a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Thao tác nhanh</div></div>
+      <div class="qa-grid">
+        <a href="wizard.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Tạo luồng</a>
+        <a href="library.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload</a>
+        <a href="settings.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>Kết nối</a>
+      </div>
     </div>
   </div>
+</div>
 
+<!-- BOTTOM ROW: Activity -->
+<div class="bottom-grid">
   <div class="card">
     <div class="card-head"><div class="card-title">Hoạt động</div></div>
     <div class="act-list">
@@ -199,15 +217,6 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
       <div class="act-row"><div class="act-dot" style="background:var(--coral)"></div><div class="act-text"><strong>12 đơn</strong> mới từ Shopee</div><div class="act-time">1h</div></div>
       <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">Video <strong>"Flash Sale"</strong> uploaded</div><div class="act-time">5h</div></div>
       <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">AI gợi ý live <strong>19:00-21:00</strong></div><div class="act-time">6h</div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><div class="card-title">Thao tác nhanh</div></div>
-    <div class="qa-grid">
-      <a href="wizard.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Tạo luồng</a>
-      <a href="library.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload</a>
-      <a href="settings.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>Kết nối</a>
     </div>
   </div>
 </div>
