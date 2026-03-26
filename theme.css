@@ -372,6 +372,19 @@ html[data-theme="light"] .nav-login:hover { color: #1f2937; }
 html[data-theme="light"] .cta-section,
 html[data-theme="light"] .sec-cta { background: #f3f4f6; }
 
+/* Stat bar pills */
+html[data-theme="light"] .sbar-item {
+  background: #ffffff;
+  border-color: rgba(0,0,0,.08);
+}
+html[data-theme="light"] .sbar-item:hover {
+  border-color: rgba(0,0,0,.14);
+  background: #ffffff;
+}
+html[data-theme="light"] .sbar-num {
+  color: #c7392a;
+}
+
 
 /* ─────────────────────────────────────────────────────
    LIGHT: Missing border overrides (hardcoded rgba(255) in dark)
