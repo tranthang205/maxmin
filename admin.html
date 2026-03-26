@@ -48,18 +48,28 @@ input:focus{border-color:var(--coral)}input::placeholder{color:var(--text-muted)
 .s-av{width:28px;height:28px;border-radius:6px;background:var(--coral);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
 .s-uname{font-size:11px;font-weight:600}.s-urole{font-size:11px;color:var(--text-sec)}
 .main-w{margin-left:var(--side);flex:1;min-height:100vh}
-.top{position:sticky;top:0;z-index:50;height:50px;background:rgba(11,11,22,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
-.t-left{display:flex;align-items:center;gap:12px}
-.t-title{font-size:16px;font-weight:700}
-.t-crumb{font-size:11px;color:var(--text-sec)}
-.t-right{display:flex;align-items:center;gap:8px}
-.t-search{position:relative;width:200px}
-.t-search input{padding-left:30px;height:32px;font-size:11px;border-radius:6px;background:rgba(255,255,255,.03)}
-.t-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text-muted)}
-.t-ibtn{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;position:relative}
-.t-ibtn:hover{background:rgba(255,255,255,.04)}
-.t-ibtn svg{width:16px;height:16px;color:var(--text-sec)}
-.t-dot{position:absolute;top:6px;right:7px;width:5px;height:5px;border-radius:50%;background:var(--coral)}
+.topbar{position:sticky;top:0;z-index:50;height:50px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2vw,24px)}
+.tb-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;min-width:0}
+.tb-bc-home{color:var(--text);font-weight:800;font-size:14px;letter-spacing:-.02em;white-space:nowrap}
+.tb-bc-sep{color:var(--text-muted);font-size:12px;font-weight:400}
+.tb-bc-page{color:var(--text-dim);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-right{display:flex;align-items:center;gap:4px}
+.tb-action{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;position:relative;transition:all .15s;color:var(--text-dim)}
+.tb-action:hover{background:var(--bg-hover);border-color:var(--border);color:var(--text)}
+.tb-action svg{width:16px;height:16px}
+.tb-action .notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--coral);border:1.5px solid var(--bg)}
+.tb-avatar{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:8px;cursor:pointer;transition:all .15s;margin-left:4px;position:relative}
+.tb-avatar:hover{background:var(--bg-hover)}
+.tb-av-circle{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FFA490);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.tb-av-info{display:flex;flex-direction:column;line-height:1.2}
+.tb-av-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap}
+.tb-av-plan{font-size:11px;font-weight:600;color:var(--teal);white-space:nowrap}
+.tb-dropdown{position:absolute;top:calc(100% + 6px);right:0;min-width:180px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .15s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.tb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}
+.tb-dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .12s;white-space:nowrap}
+.tb-dd-item:hover{background:var(--bg-hover);color:var(--text)}
+.tb-dd-item svg{width:14px;height:14px;opacity:.5;flex-shrink:0}
+.tb-dd-div{height:1px;background:var(--border);margin:4px 0}
 .mob-tog{display:none;width:32px;height:32px;align-items:center;justify-content:center;border-radius:var(--r);border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-tog:hover{border-color:var(--border-h)}
 .mob-tog svg{width:18px;height:18px;color:var(--text-dim)}
 .content{padding:20px 24px 36px}
@@ -122,9 +132,9 @@ input:focus{border-color:var(--coral)}input::placeholder{color:var(--text-muted)
 .bulk-bar{display:none;padding:10px 16px;background:var(--bg-card-h);border-bottom:1px solid var(--border);align-items:center;gap:8px;font-size:12px;font-weight:600}.bulk-bar.show{display:flex}.bulk-bar .count{color:var(--coral)}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}
 @media(max-width:1024px){.stats{grid-template-columns:1fr 1fr}.g2,.g2e{grid-template-columns:1fr}.srv-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){.side{transform:translateX(-100%);transition:transform .2s ease}.side.open{transform:none}.main-w{margin-left:0}.mob-tog{display:flex!important}.t-search{display:none}.stats{grid-template-columns:1fr 1fr}.srv-grid{grid-template-columns:1fr}.mob-overlay.show{display:block}}
-@media(max-width:480px){.content{padding:14px 12px}.stats{grid-template-columns:1fr}.st-val{font-size:18px}.top{padding:0 12px;height:46px}.t-title{font-size:13px}}
-@media(max-width:360px){.content{padding:10px 8px}.st-val{font-size:14px}.t-title{font-size:12px}.stats{gap:8px}}
+@media(max-width:768px){.side{transform:translateX(-100%);transition:transform .2s ease}.side.open{transform:none}.main-w{margin-left:0}.mob-tog{display:flex!important}.stats{grid-template-columns:1fr 1fr}.srv-grid{grid-template-columns:1fr}.mob-overlay.show{display:block}}
+@media(max-width:480px){.content{padding:14px 12px}.stats{grid-template-columns:1fr}.st-val{font-size:18px}.topbar{padding:0 12px;height:46px}}
+@media(max-width:360px){.content{padding:10px 8px}.st-val{font-size:14px}.stats{gap:8px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -149,9 +159,26 @@ input:focus{border-color:var(--coral)}input::placeholder{color:var(--text-muted)
 </aside>
 <div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('side').classList.remove('open');this.classList.remove('show')"></div>
 <div class="main-w">
-<header class="top">
-<div class="t-left"><button class="mob-tog" onclick="document.getElementById('side').classList.toggle('open');document.getElementById('mobOverlay').classList.toggle('show')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div><div class="t-title" id="tTitle">Bảng điều khiển</div><div class="t-crumb">Admin / <span id="tCrumb">Bảng điều khiển</span></div></div></div>
-<div class="t-right"><div class="t-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input placeholder="Tìm kiếm... (⌘K)"></div><button class="t-ibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="t-dot"></span></button></div>
+<header class="topbar">
+  <div class="tb-breadcrumb">
+    <button class="mob-tog" onclick="document.getElementById('side').classList.toggle('open');document.getElementById('mobOverlay').classList.toggle('show')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <span class="tb-bc-home">MAXMIN</span>
+    <span class="tb-bc-sep">/</span>
+    <span class="tb-bc-page" id="tTitle">Quản trị</span>
+  </div>
+  <div class="tb-right">
+    <button class="tb-action" aria-label="Thông báo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+    <div class="tb-avatar" onclick="document.getElementById('tbDropdown').classList.toggle('show')">
+      <div class="tb-av-circle">H</div>
+      <div class="tb-av-info"><span class="tb-av-name">Shop Hana</span><span class="tb-av-plan">Pro</span></div>
+      <div class="tb-dropdown" id="tbDropdown">
+        <a href="settings.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg>Cài đặt</a>
+        <a href="admin.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Quản trị</a>
+        <div class="tb-dd-div"></div>
+        <a href="login.html" class="tb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Đăng xuất</a>
+      </div>
+    </div>
+  </div>
 </header>
 <div class="content">
 
@@ -227,8 +254,9 @@ input:focus{border-color:var(--coral)}input::placeholder{color:var(--text-muted)
 </div></div></div>
 
 <script>
+document.addEventListener('click',function(e){var d=document.getElementById('tbDropdown');if(d&&!e.target.closest('.tb-avatar'))d.classList.remove('show')});
 document.querySelectorAll('.s-btn[data-pg]').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.pg)));
-function nav(pg){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById('pg-'+pg).classList.add('on');document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on'));const a=document.querySelector('.s-btn[data-pg="'+pg+'"]');if(a)a.classList.add('on');const nm={dash:'Bảng điều khiển',users:'Người dùng',streams:'Luồng phát',videos:'Video',subs:'Thanh toán',infra:'Hạ tầng',logs:'Nhật ký'};document.getElementById('tTitle').textContent=nm[pg];document.getElementById('tCrumb').textContent=nm[pg];document.getElementById('side').classList.remove('open');document.getElementById('mobOverlay').classList.remove('show')}
+function nav(pg){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById('pg-'+pg).classList.add('on');document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on'));const a=document.querySelector('.s-btn[data-pg="'+pg+'"]');if(a)a.classList.add('on');const nm={dash:'Bảng điều khiển',users:'Người dùng',streams:'Luồng phát',videos:'Video',subs:'Thanh toán',infra:'Hạ tầng',logs:'Nhật ký'};document.getElementById('tTitle').textContent=nm[pg];document.getElementById('side').classList.remove('open');document.getElementById('mobOverlay').classList.remove('show')}
 document.querySelectorAll('.fbar').forEach(bar=>bar.addEventListener('click',e=>{const b=e.target.closest('.fbtn');if(!b)return;bar.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}));
 document.getElementById('lastUp').textContent=new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
 const U=[{n:'Shop Hana',e:'hana@gmail.com',p:'pro',s:4,v:12,st:'2.4 GB',pl:'T Y F',d:'21/03',x:'active'},{n:'Minh Cosmetics',e:'minh@shop.vn',p:'business',s:8,v:45,st:'12.8 GB',pl:'T Y F S',d:'15/03',x:'active'},{n:'Linh Fashion',e:'linh.f@gmail.com',p:'free',s:1,v:3,st:'0.8 GB',pl:'T',d:'20/03',x:'active'},{n:'Trung Tech',e:'trung@tech.vn',p:'pro',s:3,v:8,st:'4.1 GB',pl:'T Y',d:'19/03',x:'active'},{n:'Hoang Decor',e:'hoang@decor.vn',p:'pro',s:2,v:6,st:'3.2 GB',pl:'F S',d:'18/03',x:'active'},{n:'Trang Jewelry',e:'trang@gmail.com',p:'free',s:0,v:1,st:'0.2 GB',pl:'T',d:'17/03',x:'inactive'},{n:'Duc Foods',e:'duc.f@gmail.com',p:'business',s:10,v:67,st:'28.4 GB',pl:'T Y F S',d:'10/03',x:'active'},{n:'An Beauty',e:'an.b@shop.vn',p:'pro',s:5,v:22,st:'8.9 GB',pl:'T Y F',d:'08/03',x:'active'}];

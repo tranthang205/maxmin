@@ -23,8 +23,30 @@
 .sb-nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px}.sb-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text-dim);transition:all .2s;white-space:nowrap;position:relative}.sb-item:hover{background:var(--bg-hover);color:var(--text)}.sb-item.active{background:var(--coral-glow);color:var(--coral);font-weight:600}.sb-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--coral);border-radius:0 3px 3px 0}.sb-item svg{width:18px;height:18px;flex-shrink:0;opacity:.6}.sb-item.active svg{opacity:1}.sb-item .sb-label{transition:opacity .2s}.sidebar.collapsed .sb-label{opacity:0;width:0}.sb-item .sb-badge{margin-left:auto;padding:1px 7px;border-radius:100px;font-size:11px;font-weight:700;background:var(--coral);color:#fff}.sidebar.collapsed .sb-badge{display:none}
 .sb-footer{padding:12px;border-top:1px solid var(--border);position:relative}.sb-user{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}.sb-user:hover{background:var(--bg-hover)}.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--peach));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}.sb-uinfo{overflow:hidden}.sb-uname{font-size:12px;font-weight:700}.sb-uplan{font-size:11px;color:var(--teal);font-weight:600}.sidebar.collapsed .sb-uinfo{display:none}.sb-dropdown{position:absolute;bottom:100%;left:8px;right:8px;margin-bottom:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transform:translateY(6px);transition:all .2s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.15)}.sb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}.sb-dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap}.sb-dd-item:hover{background:var(--bg-hover);color:var(--text)}.sb-dd-item svg{width:15px;height:15px;opacity:.6;flex-shrink:0}.sb-dd-div{height:1px;background:var(--border);margin:4px 0}
 .sb-toggle{position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101}.sb-toggle svg{width:14px;height:14px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
-.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:99;transition:left .3s var(--ease)}.sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
-.tb-title{font-size:18px;font-weight:800}.tb-btn{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}.tb-btn.primary{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 2px 12px rgba(200,85,65,.2)}.tb-btn.primary:hover{transform:translateY(-1px)}.tb-btn.primary svg{width:16px;height:16px}
+/* ══ TOPBAR — Vercel-style ══ */
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2vw,24px);z-index:99;transition:left .3s var(--ease)}
+.sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
+.tb-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;min-width:0}
+.tb-bc-home{color:var(--text);font-weight:800;font-size:14px;letter-spacing:-.02em;white-space:nowrap}
+.tb-bc-sep{color:var(--text-muted);font-size:12px;font-weight:400}
+.tb-bc-page{color:var(--text-dim);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-right{display:flex;align-items:center;gap:4px}
+.tb-action{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;position:relative;transition:all .15s;color:var(--text-dim)}
+.tb-action:hover{background:var(--bg-hover);border-color:var(--border);color:var(--text)}
+.tb-action svg{width:16px;height:16px}
+.tb-action .notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--coral);border:1.5px solid var(--bg)}
+.tb-avatar{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:8px;cursor:pointer;transition:all .15s;margin-left:4px;position:relative}
+.tb-avatar:hover{background:var(--bg-hover)}
+.tb-av-circle{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FFA490);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.tb-av-info{display:flex;flex-direction:column;line-height:1.2}
+.tb-av-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap}
+.tb-av-plan{font-size:11px;font-weight:600;color:var(--teal);white-space:nowrap}
+.tb-dropdown{position:absolute;top:calc(100% + 6px);right:0;min-width:180px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .15s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.tb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}
+.tb-dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .12s;white-space:nowrap}
+.tb-dd-item:hover{background:var(--bg-hover);color:var(--text)}
+.tb-dd-item svg{width:14px;height:14px;opacity:.5;flex-shrink:0}
+.tb-dd-div{height:1px;background:var(--border);margin:4px 0}
 .main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
 .main{padding:calc(var(--topbar-h) + 20px) 24px 40px}
 .mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px}.mob-toggle .ml2{margin:4px 0}
@@ -103,8 +125,8 @@
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
 @media(max-width:1024px){.video-grid{grid-template-columns:1fr 1fr}.lib-body{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.video-grid{grid-template-columns:1fr 1fr}.lib-body{grid-template-columns:1fr}.preview-panel{position:fixed;right:0;top:var(--topbar-h);bottom:0;width:320px;z-index:50;border-radius:0;transform:translateX(100%);transition:transform .3s var(--ease)}.preview-panel.open{transform:translateX(0)}.pp-close{display:flex}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.video-grid{grid-template-columns:1fr}.pp-detail{grid-template-columns:1fr}.lib-toolbar{flex-direction:column;gap:8px;align-items:stretch}.lib-search{width:100%}.lib-filter{flex-wrap:wrap}.lib-stats{justify-content:center}.tb-title{font-size:14px}.tb-btn{padding:6px 14px;font-size:12px}.preview-panel{width:100%}}
-@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 20px}.tb-title{font-size:13px}.lib-filter{gap:8px}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.video-grid{grid-template-columns:1fr}.pp-detail{grid-template-columns:1fr}.lib-toolbar{flex-direction:column;gap:8px;align-items:stretch}.lib-search{width:100%}.lib-filter{flex-wrap:wrap}.lib-stats{justify-content:center}.preview-panel{width:100%}}
+@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 20px}.lib-filter{gap:8px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -115,8 +137,25 @@
 
 <div class="main-wrap">
 <header class="topbar">
-<div style="display:flex;align-items:center;gap:12px"><button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button><h1 class="tb-title">Thư viện video</h1></div>
-<button class="tb-btn primary" onclick="openUploadModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload video</button>
+  <div class="tb-breadcrumb">
+    <button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button>
+    <span class="tb-bc-home">MAXMIN</span>
+    <span class="tb-bc-sep">/</span>
+    <span class="tb-bc-page">Thư viện video</span>
+  </div>
+  <div class="tb-right">
+    <button class="tb-action" onclick="document.getElementById('notifPanel')&&document.getElementById('notifPanel').classList.toggle('show')" aria-label="Thông báo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+    <div class="tb-avatar" onclick="document.getElementById('tbDropdown').classList.toggle('show')">
+      <div class="tb-av-circle">H</div>
+      <div class="tb-av-info"><span class="tb-av-name">Shop Hana</span><span class="tb-av-plan">Pro</span></div>
+      <div class="tb-dropdown" id="tbDropdown">
+        <a href="settings.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg>Cài đặt</a>
+        <a href="admin.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Quản trị</a>
+        <div class="tb-dd-div"></div>
+        <a href="login.html" class="tb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Đăng xuất</a>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main class="main">
@@ -181,6 +220,7 @@
 <div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('sidebar').classList.remove('mob-open');this.classList.remove('show')"></div>
 
 <script>
+document.addEventListener('click',function(e){var d=document.getElementById('tbDropdown');if(d&&!e.target.closest('.tb-avatar'))d.classList.remove('show')});
 (()=>{
 document.getElementById('sbToggle').addEventListener('click',()=>{const s=document.getElementById('sidebar');s.classList.toggle('collapsed');localStorage.setItem('sb-collapsed',s.classList.contains('collapsed'))});
 if(localStorage.getItem('sb-collapsed')==='true')document.getElementById('sidebar').classList.add('collapsed');
@@ -320,28 +360,4 @@ function simulateUpload(file,queue){
   const el=document.createElement('div');
   el.id=id;
   el.style.cssText='padding:12px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;';
-  el.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:18px">🎬</span><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${file.name}</div><div style="font-size:11px;color:var(--text-muted)">${size} MB</div></div><span class="up-status" style="font-size:11px;font-weight:700;color:var(--coral)">0%</span></div><div style="height:4px;border-radius:2px;background:var(--border);overflow:hidden"><div class="up-bar" style="height:100%;border-radius:2px;background:var(--coral);width:0;transition:width .3s"></div></div>`;
-  queue.appendChild(el);
-
-  let pct=0;
-  const iv=setInterval(()=>{
-    pct+=Math.random()*18+4;if(pct>100)pct=100;
-    el.querySelector('.up-bar').style.width=pct+'%';
-    el.querySelector('.up-status').textContent=Math.round(pct)+'%';
-    if(pct>=100){
-      clearInterval(iv);
-      el.querySelector('.up-bar').style.background='var(--teal)';
-      el.querySelector('.up-status').textContent='✓';
-      el.querySelector('.up-status').style.color='var(--teal)';
-      // Add to video list
-      const newId='v'+Date.now();
-      const dur=Math.floor(Math.random()*20+3)+':'+String(Math.floor(Math.random()*59)).padStart(2,'0');
-      videos.unshift({id:newId,name:file.name.replace(/\.[^.]+$/,''),dur:dur,size:size+' MB',date:new Date().toLocaleDateString('vi-VN'),tag:'Mỹ phẩm',status:'ready',statusText:'Sẵn sàng'});
-      render();showToast('Upload thành công: '+file.name,'success');
-    }
-  },250);
-}
-})();
-</script>
-</body>
-</html>
+  el.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:18px">🎬</span><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${file.name}</div><div style="font-size:11px;color:var(--text-muted)">${size} MB</div></div><span class="up
