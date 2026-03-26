@@ -3,6 +3,51 @@
    Ref: Linear, Stripe, Vercel, Notion
    ══════════════════════════════════════════════════════ */
 
+/* ── Design System Tokens ── */
+:root {
+  /* Spacing scale (4px base) */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
+  --sp-10: 40px; --sp-12: 48px;
+
+  /* Font size scale */
+  --fs-xs: 11px;  --fs-sm: 12px;  --fs-base: 13px; --fs-md: 14px;
+  --fs-lg: 16px;  --fs-xl: 18px;  --fs-2xl: 20px;  --fs-3xl: 24px;
+  --fs-4xl: 28px; --fs-5xl: 36px;
+
+  /* Border radius */
+  --r-sm: 6px;  --r-md: 8px;  --r-lg: 10px;  --r-xl: 12px;
+  --r-2xl: 14px; --r-3xl: 16px; --r-pill: 100px; --r-full: 50%;
+
+  /* Component tokens — Buttons */
+  --btn-font: var(--fs-base);
+  --btn-pad-y: 10px; --btn-pad-x: 22px;
+  --btn-pad-sm-y: 8px; --btn-pad-sm-x: 16px;
+  --btn-radius: var(--r-pill);
+
+  /* Component tokens — Cards */
+  --card-pad: var(--sp-5);
+  --card-pad-sm: var(--sp-4);
+  --card-radius: var(--r-2xl);
+  --card-gap: var(--sp-3);
+
+  /* Component tokens — Inputs */
+  --input-pad-y: 10px; --input-pad-x: 14px;
+  --input-font: var(--fs-base);
+  --input-radius: var(--r-md);
+
+  /* Component tokens — Sidebar */
+  --sb-item-pad-y: 9px; --sb-item-pad-x: 12px;
+  --sb-item-font: var(--fs-base);
+  --sb-item-radius: var(--r-lg);
+  --sb-icon: 17px;
+
+  /* Component tokens — Badge */
+  --badge-pad-y: 3px; --badge-pad-x: 10px;
+  --badge-font: var(--fs-xs);
+  --badge-radius: var(--r-pill);
+}
+
 /* ── Dark Mode — muted, premium palette ── */
 :root {
   --bg: #0c0c18;

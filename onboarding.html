@@ -29,7 +29,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .ob-skip:hover{color:var(--text-dim)}
 
 /* Progress */
-.ob-progress{width:100%;max-width:600px;display:flex;gap:6px;margin:16px 0 32px;padding:0 32px;position:relative;z-index:1}
+.ob-progress{width:100%;max-width:600px;display:flex;gap:8px;margin:16px 0 32px;padding:0 32px;position:relative;z-index:1}
 .ob-bar{flex:1;height:4px;border-radius:2px;background:var(--border);overflow:hidden;transition:all .3s}
 .ob-bar .fill{height:100%;border-radius:2px;background:var(--coral);width:0;transition:width .5s var(--ease)}
 .ob-bar.done .fill{width:100%;background:var(--teal)}
@@ -44,17 +44,17 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .ob-mascot{text-align:center;margin-bottom:20px;animation:mFloat 3s ease-in-out infinite}
 @keyframes mFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-.ob-title{font-size:26px;font-weight:900;letter-spacing:-.03em;text-align:center;margin-bottom:6px}
+.ob-title{font-size:24px;font-weight:900;letter-spacing:-.03em;text-align:center;margin-bottom:6px}
 .ob-desc{font-size:14px;color:var(--text-sec);text-align:center;margin-bottom:28px;line-height:1.6}
 
 /* Cards */
-.ob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:12px}
+.ob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:12px}
 
 /* Platform connect */
-.plat-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;transition:all .2s}
+.plat-item{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--border);border-radius:14px;margin-bottom:8px;transition:all .2s}
 .plat-item:hover{border-color:var(--border-h)}
 .plat-item.connected{border-color:rgba(70,190,150,.2);background:var(--teal-glow)}
-.plat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
+.plat-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
 .plat-icon.tt{background:#000}.plat-icon.yt{background:#F00}.plat-icon.fb{background:#1877F2}.plat-icon.sp{background:#EE4D2D}
 .plat-info{flex:1}
 .plat-name{font-size:14px;font-weight:700}
@@ -67,7 +67,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .plat-hint{text-align:center;font-size:12px;color:var(--text-muted);margin-top:12px}
 
 /* Upload area */
-.upload-zone{border:2px dashed var(--border);border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.upload-zone{border:2px dashed var(--border);border-radius:14px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
 .upload-zone:hover{border-color:var(--coral);background:var(--coral-glow)}
 .upload-zone.dragover{border-color:var(--coral);background:rgba(200,85,65,.06);transform:scale(1.01)}
 .upload-zone.has-file{border-color:var(--teal);border-style:solid;background:var(--teal-glow)}
@@ -81,19 +81,19 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .uz-pfill{height:100%;border-radius:2px;background:var(--coral);width:0;transition:width .3s}
 .uz-ptext{font-size:11px;color:var(--text-dim);display:flex;justify-content:space-between}
 .uz-file-info{display:none;margin-top:12px;padding:12px;background:var(--bg);border-radius:8px}
-.uz-file-info.show{display:flex;align-items:center;gap:10px}
+.uz-file-info.show{display:flex;align-items:center;gap:8px}
 .uz-fname{font-size:13px;font-weight:700;flex:1}
 .uz-fsize{font-size:11px;color:var(--text-muted)}
 .uz-fremove{color:var(--red);font-size:14px;cursor:pointer}
 
 /* Actions */
-.ob-actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-bottom:40px}
-.ob-btn-back{padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;color:var(--text-dim);border:1px solid var(--border);transition:all .2s}
+.ob-actions{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-bottom:40px}
+.ob-btn-back{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:600;color:var(--text-dim);border:1px solid var(--border);transition:all .2s}
 .ob-btn-back:hover{color:var(--text);border-color:var(--border-h)}
-.ob-btn-next{padding:12px 28px;border-radius:100px;font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 16px rgba(200,85,65,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
+.ob-btn-next{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 16px rgba(200,85,65,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
 .ob-btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(200,85,65,.3)}
 .ob-btn-next svg{width:14px;height:14px}
-.ob-btn-finish{padding:14px 32px;border-radius:100px;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--teal),#20c997);color:#0a0a18;box-shadow:0 4px 20px rgba(70,190,150,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
+.ob-btn-finish{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:800;background:linear-gradient(135deg,var(--teal),#20c997);color:#0a0a18;box-shadow:0 4px 20px rgba(70,190,150,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
 .ob-btn-finish:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(70,190,150,.3)}
 .ob-btn-finish svg{width:18px;height:18px}
 
@@ -105,8 +105,8 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 @keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
 
 @media(max-width:1024px){.ob-content{max-width:520px}.ob-progress{max-width:520px}}
-@media(max-width:768px){.ob-header{padding:16px 20px}.ob-content{padding:0 20px}.ob-title{font-size:24px}.ob-progress{padding:0 20px}.plat-item{padding:12px 14px}.plat-icon{width:36px;height:36px;font-size:14px}.upload-zone{padding:28px 16px}.ob-actions{flex-direction:column-reverse;gap:10px;align-items:stretch}.ob-actions>*{width:100%;text-align:center;justify-content:center}}
-@media(max-width:480px){.ob-content{padding:0 14px}.ob-title{font-size:20px}.ob-desc{font-size:13px;margin-bottom:20px}.ob-progress{padding:0 14px}.ob-btn-next{padding:10px 20px;font-size:13px}.ob-btn-finish{padding:12px 24px;font-size:14px}.plat-item{flex-wrap:wrap;gap:10px}.plat-btn{width:100%;text-align:center}}
+@media(max-width:768px){.ob-header{padding:16px 20px}.ob-content{padding:0 20px}.ob-title{font-size:24px}.ob-progress{padding:0 20px}.plat-item{padding:12px 16px}.plat-icon{width:36px;height:36px;font-size:14px}.upload-zone{padding:28px 16px}.ob-actions{flex-direction:column-reverse;gap:12px;align-items:stretch}.ob-actions>*{width:100%;text-align:center;justify-content:center}}
+@media(max-width:480px){.ob-content{padding:0 14px}.ob-title{font-size:20px}.ob-desc{font-size:13px;margin-bottom:20px}.ob-progress{padding:0 14px}.ob-btn-next{padding:10px 22px;font-size:13px}.ob-btn-finish{padding:10px 22px;font-size:13px}.plat-item{flex-wrap:wrap;gap:8px}.plat-btn{width:100%;text-align:center}}
 @media(max-width:360px){.ob-header{padding:12px 14px}.ob-logo{font-size:18px}.ob-mascot svg{width:60px;height:60px}.upload-zone{padding:20px 12px}}
 </style>
 <link rel="stylesheet" href="theme.css">
@@ -236,12 +236,12 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 <h1 class="ob-title">Thiết lập hoàn tất!</h1>
 <p class="ob-desc">Tuyệt vời! Bạn đã sẵn sàng bắt đầu live bán hàng trên MAXMIN. Maxi sẽ đồng hành cùng bạn từ đây.</p>
 
-<div class="ob-card" style="text-align:center;padding:28px">
+<div class="ob-card" style="text-align:center;padding:24px">
 <div style="font-size:14px;font-weight:800;margin-bottom:16px">Bạn muốn làm gì tiếp?</div>
-<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-<a href="wizard.html" style="padding:12px 20px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:0 4px 16px rgba(200,85,65,.2);transition:all .2s">🚀 Tạo luồng phát đầu tiên</a>
-<a href="library.html" style="padding:12px 20px;border-radius:10px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s">📂 Upload thêm video</a>
-<a href="dashboard.html" style="padding:12px 20px;border-radius:10px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s">📊 Xem Dashboard</a>
+<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<a href="wizard.html" style="padding:12px 20px;border-radius:12px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(200,85,65,.2);transition:all .2s">🚀 Tạo luồng phát đầu tiên</a>
+<a href="library.html" style="padding:12px 20px;border-radius:12px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s">📂 Upload thêm video</a>
+<a href="dashboard.html" style="padding:12px 20px;border-radius:12px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;transition:all .2s">📊 Xem Dashboard</a>
 </div>
 </div>
 
