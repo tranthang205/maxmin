@@ -124,9 +124,10 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .maxi-orb{width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;transition:all .2s}.maxi-orb:hover{transform:scale(1.06);border-color:var(--border-h)}
 
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
-@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stat-row{grid-template-columns:1fr 1fr}.dash-grid{grid-template-columns:1fr}.chart-wrap{height:160px}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 16px}.stat-row{grid-template-columns:1fr 1fr}.sc-value{font-size:18px}.tb-title{font-size:14px}}
+@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}.dash-right{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stat-row{grid-template-columns:1fr 1fr}.dash-grid{grid-template-columns:1fr}.dash-right{grid-template-columns:1fr}.chart-wrap{height:180px}.welcome{padding:12px 16px}.wc-cta{flex-direction:column;gap:6px}.wc-cta .btn{width:100%;text-align:center;justify-content:center}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 16px}.stat-row{grid-template-columns:1fr 1fr}.sc-value{font-size:16px}.sc-label{font-size:8px}.tb-title{font-size:13px}.chart-wrap{height:150px}.qa-grid{gap:6px}.qa-btn{padding:8px 6px;font-size:9px}.qa-btn svg{width:16px;height:16px}}
+@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 12px}.stat-row{gap:6px}.stat-card{padding:8px 10px}.sc-value{font-size:14px}.chart-wrap{height:130px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
