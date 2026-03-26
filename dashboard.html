@@ -66,7 +66,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .sc-label{font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
 .sc-value{font-size:20px;font-weight:800;letter-spacing:-.5px;line-height:1.1;margin-bottom:2px;color:var(--text)}
 .stat-card.selected .sc-value{color:var(--coral)}
-.sc-change{display:inline-flex;align-items:center;gap:2px;font-size:9px;font-weight:600;color:var(--teal)}
+.sc-change{display:inline-flex;align-items:center;gap:2px;font-size:12px;font-weight:700;color:#2EE89E}
 
 /* ══ MAIN GRID — chart left + panels right ══ */
 .dash-grid{display:grid;grid-template-columns:1fr 340px;gap:10px;min-height:0}
@@ -74,8 +74,8 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 /* ══ CHART ══ */
 .chart-area{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px;display:flex;flex-direction:column}
 .chart-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 6px}
-.chart-label{font-size:12px;font-weight:600;color:var(--text-dim)}
-.chart-tabs{display:flex;gap:2px}.chart-tab{padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;color:var(--text-muted);transition:all .15s}.chart-tab:hover{color:var(--text-dim)}.chart-tab.active{color:var(--coral);background:var(--coral-glow)}
+.chart-label{font-size:13px;font-weight:700;color:var(--text-dim)}
+.chart-tabs{display:flex;gap:2px}.chart-tab{padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;color:var(--text-muted);transition:all .15s}.chart-tab:hover{color:var(--text-dim)}.chart-tab.active{color:#fff;background:var(--coral);border-radius:5px}
 .chart-wrap{position:relative;height:260px}
 .chart-canvas{display:block;width:100%;height:100%}
 
@@ -91,7 +91,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .s-row:hover{background:var(--bg-hover)}
 .s-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
 .s-icon.tt{background:rgba(255,255,255,.08)}.s-icon.yt{background:rgba(255,59,48,.2)}.s-icon.fb{background:rgba(24,119,242,.15)}.s-icon.sp{background:rgba(238,77,45,.15)}
-.s-info{flex:1;min-width:0}.s-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.s-meta{font-size:9.5px;color:var(--text-muted)}
+.s-info{flex:1;min-width:0}.s-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.s-meta{font-size:11px;color:var(--text-muted)}
 .s-live{display:flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:var(--teal);flex-shrink:0}
 .s-live .dot{width:4px;height:4px;border-radius:50%;background:var(--teal);animation:pulse 2s ease-in-out infinite}
 .s-live.wait{color:var(--text-muted)}.s-live.wait .dot{background:var(--text-muted);animation:none}
@@ -101,15 +101,16 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .act-list{padding:2px 10px 10px}
 .act-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
 .act-row:last-child{border:none}
-.act-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.act-row{border-left:2px solid var(--border);padding-left:10px;margin-left:4px}
 .act-text{flex:1;font-size:11px;color:var(--text-dim)}.act-text strong{color:var(--text);font-weight:700}
 .act-time{font-size:9px;color:var(--text-muted);font-family:var(--mono)}
 
 /* Quick actions */
 .qa-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:6px 10px 10px}
-.qa-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:6px;border:1px solid var(--border);font-size:10px;font-weight:600;color:var(--text-dim);transition:all .2s}
-.qa-btn:hover{border-color:var(--border-h);color:var(--text);background:var(--bg-hover)}
-.qa-btn svg{width:16px;height:16px;opacity:.4}.qa-btn:hover svg{opacity:.7}
+.qa-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:6px;border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--text-dim);transition:all .2s}
+.qa-btn:hover{border-color:var(--coral);color:var(--text);background:var(--bg-hover);transform:scale(1.04)}
+.qa-btn svg{width:24px;height:24px;opacity:.4}.qa-btn:hover svg{opacity:.7}
 
 /* Notif panel */
 .notif-panel{display:none;position:absolute;top:var(--topbar-h);right:60px;width:280px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 36px rgba(0,0,0,.2);z-index:200;overflow:hidden}
@@ -153,7 +154,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 <main class="main">
 <!-- WELCOME BANNER (for new users) -->
 <div class="welcome-banner" id="welcomeBanner" style="background:linear-gradient(135deg,rgba(200,85,65,.05),rgba(70,190,150,.03));border:1px solid rgba(200,85,65,.1);border-radius:8px;padding:12px 16px;margin-bottom:8px;position:relative;overflow:hidden">
-<button onclick="document.getElementById('welcomeBanner').style.display='none';sessionStorage.setItem('maxmin-welcome-dismissed','1')" style="position:absolute;top:12px;right:12px;color:var(--text-muted);font-size:16px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s">✕</button>
+<button onclick="document.getElementById('welcomeBanner').style.display='none';localStorage.setItem('welcome-dismissed','1')" style="position:absolute;top:12px;right:12px;color:var(--text-muted);font-size:16px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:1">✕</button>
 <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
 <svg viewBox="0 0 120 120" width="40" height="40" fill="none"><defs><linearGradient id="gwb" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gwb)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="50" cy="63.5" r="1.4" fill="white" opacity=".85"/><circle cx="76" cy="63.5" r="1.4" fill="white" opacity=".85"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
 <div style="flex:1;min-width:200px">
@@ -161,18 +162,17 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 <div style="font-size:12px;color:var(--text-sec);line-height:1.5">Upload video và tạo luồng phát đầu tiên. Maxi sẽ hướng dẫn bạn.</div>
 </div>
 <div style="display:flex;gap:8px;flex-shrink:0">
-<a href="library.html" style="padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;border:1px solid var(--border);color:var(--text-dim);transition:all .2s;display:flex;align-items:center;gap:5px">📤 Upload</a>
-<a href="wizard.html" style="padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;background:var(--coral);color:#fff;transition:all .2s;display:flex;align-items:center;gap:5px">🚀 Tạo luồng</a>
+<a href="wizard.html" style="padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;background:var(--coral);color:#fff;transition:all .2s;display:flex;align-items:center;gap:5px">🚀 Tạo luồng phát đầu tiên</a>
 </div>
 </div>
 </div>
 
 <!-- STAT CARDS -->
 <div class="stat-row" id="statRow">
-  <div class="stat-card selected" data-metric="viewers" onclick="pick(this)"><div class="sc-label">Viewers</div><div class="sc-value">4.847</div><div class="sc-change">↑ 12.3%</div></div>
-  <div class="stat-card" data-metric="orders" onclick="pick(this)"><div class="sc-label">Đơn hàng</div><div class="sc-value">127</div><div class="sc-change">↑ 8.1%</div></div>
-  <div class="stat-card" data-metric="streams" onclick="pick(this)"><div class="sc-label">Luồng phát</div><div class="sc-value">4</div><div class="sc-change">↑ 1</div></div>
-  <div class="stat-card" data-metric="hours" onclick="pick(this)"><div class="sc-label">Thời gian live</div><div class="sc-value">14h 32p</div><div class="sc-change">↑ 2h</div></div>
+  <div class="stat-card selected" data-metric="viewers" onclick="pick(this)"><div class="sc-label">Viewers</div><div class="sc-value">4.847</div><div class="sc-change">↑ 12.3% vs hôm qua</div></div>
+  <div class="stat-card" data-metric="orders" onclick="pick(this)"><div class="sc-label">Đơn hàng</div><div class="sc-value">127</div><div class="sc-change">↑ 8.1% vs hôm qua</div></div>
+  <div class="stat-card" data-metric="streams" onclick="pick(this)"><div class="sc-label">Luồng phát</div><div class="sc-value">4</div><div class="sc-change">↑ 1 vs hôm qua</div></div>
+  <div class="stat-card" data-metric="hours" onclick="pick(this)"><div class="sc-label">Thời gian live</div><div class="sc-value">14h 32p</div><div class="sc-change">↑ 2h vs hôm qua</div></div>
 </div>
 
 <!-- MAIN GRID: Chart left + Panels right -->
@@ -192,6 +192,8 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
         <a href="streams.html" class="s-row"><div class="s-icon tt">T</div><div class="s-info"><div class="s-name">TikTok @shophanavn</div><div class="s-meta">3h 20p · 1.239 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
         <a href="streams.html" class="s-row"><div class="s-icon yt">Y</div><div class="s-info"><div class="s-name">YouTube Shop Hana</div><div class="s-meta">3h 20p · 859 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
         <a href="streams.html" class="s-row"><div class="s-icon fb">F</div><div class="s-info"><div class="s-name">Facebook Hana Beauty</div><div class="s-meta">3h 20p · 2.111 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
+        <div style="height:1px;background:var(--border);margin:4px 8px"></div>
+        <div style="font-size:9px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;padding:4px 8px 2px">Sắp tới</div>
         <a href="streams.html" class="s-row"><div class="s-icon sp">S</div><div class="s-info"><div class="s-name">Shopee shophanavn</div><div class="s-meta">Lên lịch 20:00</div></div><div class="s-live wait"><span class="dot"></span>Chờ</div></a>
       </div>
     </div>
@@ -218,7 +220,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 </main></div></div>
 
 <!-- MAXI -->
-<div class="maxi-helper"><div class="maxi-msg" id="maxiMsg"></div><div class="maxi-orb" id="maxiOrb"><svg viewBox="0 0 120 120" width="28" height="28" fill="none"><defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gm)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div></div>
+<div class="maxi-helper" id="maxiHelper"><button onclick="document.getElementById('maxiHelper').style.display='none';localStorage.setItem('maxi-dismissed','1')" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:201;line-height:1">✕</button><div class="maxi-msg" id="maxiMsg"></div><div class="maxi-orb" id="maxiOrb"><svg viewBox="0 0 120 120" width="28" height="28" fill="none"><defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gm)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div></div>
 <div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('sidebar').classList.remove('mob-open');this.classList.remove('show')"></div>
 
 <script>
@@ -311,8 +313,10 @@ let mi=0;function showM(t){msg.textContent=t;msg.classList.add('show');setTimeou
 setTimeout(()=>showM('Bấm ô số liệu để xem biểu đồ 📊'),1200);
 orb.addEventListener('click',()=>{mi=(mi+1)%msgs.length;showM(msgs[mi])});
 
-// Show welcome banner (session-dismissible only — always shows on new session)
-if(!sessionStorage.getItem('maxmin-welcome-dismissed')){document.getElementById('welcomeBanner').style.display='block'}else{document.getElementById('welcomeBanner').style.display='none'}
+// Show welcome banner (localStorage-persistent dismiss)
+if(localStorage.getItem('welcome-dismissed')){document.getElementById('welcomeBanner').style.display='none'}else{document.getElementById('welcomeBanner').style.display='block'}
+// Maxi chatbot dismiss
+if(localStorage.getItem('maxi-dismissed')){document.getElementById('maxiHelper').style.display='none'}
 })();
 </script>
 </body>

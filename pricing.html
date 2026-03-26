@@ -40,7 +40,7 @@
 .price-badge.cur{background:var(--teal-glow);color:var(--teal);border:1px solid rgba(70,190,150,.2)}
 .price-badge.pop{background:var(--coral-glow);color:var(--coral);border:1px solid rgba(200,85,65,.2)}
 .price-tier{font-size:18px;font-weight:900;margin-bottom:3px}.price-sub{font-size:11.5px;color:var(--text-sec);margin-bottom:18px;min-height:16px}
-.price-amount{display:flex;align-items:baseline;gap:3px;margin-bottom:2px}.price-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1}.price-unit{font-size:13px;color:var(--text-dim)}
+.price-amount{display:flex;align-items:baseline;gap:3px;margin-bottom:2px}.price-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1;transition:all .3s ease}.price-unit{font-size:13px;color:var(--text-dim)}
 .price-period{font-size:10.5px;color:var(--text-muted);margin-bottom:20px}
 .price-div{height:1px;background:var(--border);margin-bottom:16px}
 .price-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}.price-features li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--text-dim)}.price-features .ck{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
@@ -48,7 +48,7 @@
 .price-btn{display:block;width:100%;padding:11px 0;border-radius:100px;font-size:13px;font-weight:700;text-align:center;transition:all .3s var(--ease)}
 .price-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text)}.price-btn.outline:hover{border-color:var(--border-h)}
 .price-btn.fill{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 20px rgba(200,85,65,.2)}.price-btn.fill:hover{transform:translateY(-1px)}
-.price-btn.current-btn{background:var(--teal-glow);border:1px solid rgba(70,190,150,.2);color:var(--teal);pointer-events:none;cursor:default}
+.price-btn.current-btn{background:var(--teal-glow);border:1px solid rgba(70,190,150,.2);color:var(--teal);pointer-events:none;cursor:not-allowed}.price-btn.current-btn:hover{transform:none;box-shadow:none}
 
 /* ══ DOWNGRADE MODAL ══ */
 .dg-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.2);align-items:center;justify-content:center}.dg-overlay.show{display:flex}
@@ -68,7 +68,7 @@
 .billing-switch.on{background:var(--coral);border-color:var(--coral)}
 .billing-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
 .billing-switch.on::after{transform:translateX(20px)}
-.billing-save{font-size:11px;color:var(--teal);font-weight:700}
+.billing-save{font-size:10px;color:var(--teal);font-weight:700;background:var(--teal-glow);padding:2px 8px;border-radius:100px;border:1px solid rgba(70,190,150,.15);margin-left:6px}
 .price-old{font-size:13px;color:var(--text-muted);text-decoration:line-through;margin-right:6px;font-family:var(--mono)}
 
 .mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;position:relative;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px;transition:all .3s var(--ease)}.mob-toggle .ml2{margin:4px 0}@media(max-width:768px){.mob-toggle{display:flex}.sidebar.mob-open{transform:translateX(0)!important}.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}}
@@ -115,8 +115,7 @@
 <div class="billing-toggle">
   <span class="billing-label active" id="blMonth">Hàng tháng</span>
   <div class="billing-switch" id="billingSwitch" onclick="toggleBilling()"></div>
-  <span class="billing-label" id="blYear">Hàng năm</span>
-  <span class="billing-save">Tiết kiệm 20%</span>
+  <span class="billing-label" id="blYear">Hàng năm <span class="billing-save">Tiết kiệm 20%</span></span>
 </div>
 
 <div class="pricing-grid">
@@ -133,7 +132,7 @@
     <div class="price-amount" id="proPriceAmount"><span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span></div><div class="price-period" id="proPeriod">Thanh toán hàng tháng</div>
     <div class="price-div"></div>
     <ul class="price-features"><li><span class="ck c">✓</span>5 luồng live đồng thời</li><li><span class="ck c">✓</span>50GB lưu trữ video</li><li><span class="ck c">✓</span>Hỗ trợ ưu tiên</li></ul>
-    <button class="price-btn current-btn" disabled style="opacity:.6;cursor:default">Gói hiện tại</button>
+    <button class="price-btn current-btn" disabled style="opacity:.6;cursor:not-allowed">Gói hiện tại</button>
   </div>
   <div class="price-card rec">
     <div class="price-badge pop">Nâng cấp</div>
@@ -158,6 +157,7 @@ _orb.addEventListener('click',()=>{_mi=(_mi+1)%_msgs.length;_showM(_msgs[_mi])})
 setTimeout(()=>_showM('Xem gói nào phù hợp với bạn nhé! 📦'),1500);
 let _annual=false;
 function toggleBilling(){_annual=!_annual;const sw=document.getElementById('billingSwitch');sw.classList.toggle('on',_annual);document.getElementById('blMonth').classList.toggle('active',!_annual);document.getElementById('blYear').classList.toggle('active',_annual);
+document.querySelectorAll('.price-amount').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(4px)';setTimeout(()=>{el.style.transition='all .3s ease';el.style.opacity='1';el.style.transform='translateY(0)'},50)});
 const toastEl=document.getElementById('toast');if(toastEl){toastEl.textContent=_annual?'✓ Đã chuyển sang gói năm — tiết kiệm 20%!':'✓ Đã chuyển sang gói tháng';toastEl.className='toast show '+ (_annual?'success':'info');setTimeout(()=>toastEl.classList.remove('show'),2500);}
 if(_annual){document.getElementById('proPriceAmount').innerHTML='<span class="price-old">1.188K</span><span class="price-num" id="proPrice">990K</span><span class="price-unit">/năm</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng năm';document.getElementById('bizPriceAmount').innerHTML='<span class="price-old">5.988K</span><span class="price-num" id="bizPrice">4.990K</span><span class="price-unit">/năm</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng năm'}else{document.getElementById('proPriceAmount').innerHTML='<span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng tháng';document.getElementById('bizPriceAmount').innerHTML='<span class="price-num" id="bizPrice">499K</span><span class="price-unit">/tháng</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng tháng'}}
 window.toggleBilling=toggleBilling</script>

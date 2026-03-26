@@ -30,23 +30,23 @@
 .wiz-step.done:not(:last-child)::after{background:var(--teal)}.wiz-step.active:not(:last-child)::after{background:linear-gradient(90deg,var(--coral) 50%,var(--border) 50%)}
 .wiz-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;border:2px solid var(--border);color:var(--text-muted);flex-shrink:0;transition:all .3s var(--ease);cursor:pointer}
 .wiz-step.active .wiz-num{border-color:var(--coral);color:var(--coral);background:var(--coral-glow)}.wiz-step.done .wiz-num{border-color:var(--teal);color:#fff;background:var(--teal)}
-.wiz-label{font-size:12px;font-weight:600;color:var(--text-muted);white-space:nowrap}.wiz-step.active .wiz-label{color:var(--text)}.wiz-step.done .wiz-label{color:var(--teal)}
+.wiz-label{font-size:12px;font-weight:700;color:var(--text-sec);white-space:nowrap}.wiz-step.active .wiz-label{color:var(--text)}.wiz-step.done .wiz-label{color:var(--teal)}
 .wiz-page{display:none;animation:fadeIn .3s var(--ease)}.wiz-page.active{display:block}
 @keyframes fadeIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
 .maxi-tip{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(70,190,150,.04);border:1px solid rgba(70,190,150,.1);margin-bottom:24px}
 .maxi-tip-face{width:32px;height:32px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--coral));display:flex;align-items:center;justify-content:center;font-size:14px}
-.maxi-tip-text{font-size:12.5px;color:var(--text-dim);line-height:1.6}.maxi-tip-text strong{color:var(--teal)}
+.maxi-tip-text{font-size:12.5px;color:var(--text-dim);line-height:1.6;max-width:600px}.maxi-tip-text strong{color:var(--teal)}
 .wiz-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px}
 .wiz-card h2{font-size:18px;font-weight:900;letter-spacing:-.02em;margin-bottom:4px}.wiz-card .wiz-desc{font-size:13px;color:var(--text-sec);margin-bottom:20px}
 .form-group{margin-bottom:18px}.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text-dim)}.form-hint{font-size:11px;color:var(--text-muted);margin-top:4px}
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.vg-item{padding:10px 12px;border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s var(--ease);user-select:none}.vg-item:hover{border-color:var(--border-h);background:var(--bg-hover)}.vg-item.selected{border-color:var(--coral);background:var(--coral-glow)}
+.vg-item{padding:10px 12px;border:2px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s var(--ease);user-select:none;position:relative}.vg-item:hover{border-color:var(--border-h);background:var(--bg-hover)}.vg-item.selected{border-color:var(--coral);background:var(--coral-glow);box-shadow:0 0 0 1px var(--coral)}.vg-item.selected::before{content:'\2713';position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--coral);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700;z-index:1}
 .vg-thumb{width:52px;height:32px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--text-muted);flex-shrink:0}
 .vg-info{flex:1;min-width:0}.vg-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vg-meta{font-size:10px;color:var(--text-muted)}
 .vg-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .2s}.vg-item.selected .vg-check{border-color:var(--coral);background:var(--coral);color:#fff}
 .playlist-preview{margin-top:16px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .playlist-title{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
-.playlist-empty{font-size:12px;color:var(--text-muted);text-align:center;padding:16px 0}
+.playlist-empty{font-size:12px;color:var(--text-muted);text-align:center;padding:16px;border:2px dashed var(--border);border-radius:8px}.playlist-empty::before{content:'\2195';display:block;font-size:20px;margin-bottom:4px;opacity:.4}
 .pl-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);margin-bottom:4px;cursor:grab;transition:all .2s}.pl-item:hover{background:var(--bg-hover)}.pl-item:active{cursor:grabbing;background:var(--bg-card-h);border-color:var(--coral)}
 .pl-drag{color:var(--text-muted);font-size:14px;flex-shrink:0;cursor:grab}.pl-num{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--coral);width:16px;text-align:center;flex-shrink:0}.pl-name{flex:1;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pl-dur{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex-shrink:0}.pl-remove{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text-muted);transition:all .2s;flex-shrink:0}.pl-remove:hover{color:var(--red);background:rgba(255,82,82,.08)}
 .plat-grid{display:flex;flex-direction:column;gap:8px}
@@ -99,7 +99,7 @@
 .mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;position:relative;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px;transition:all .3s var(--ease)}.mob-toggle .ml2{margin:4px 0}@media(max-width:768px){.mob-toggle{display:flex}.sidebar.mob-open{transform:translateX(0)!important}.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}}
 @media(max-width:1024px){.video-grid,.sched-grid{grid-template-columns:1fr 1fr}.wiz-card{padding:22px}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main-wrap{margin-left:0!important}.topbar{left:0!important}.video-grid,.sched-grid{grid-template-columns:1fr}.wiz-card{padding:18px}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 12px) 14px 28px;max-width:100%}.wiz-progress{flex-wrap:wrap;gap:4px}.wiz-label{display:none}.wiz-card{padding:16px}.wiz-card h2{font-size:16px}.wiz-actions{flex-direction:column-reverse;gap:10px}.wiz-actions>*{width:100%;text-align:center;justify-content:center}.wiz-next,.wiz-back,.wiz-launch{width:100%;justify-content:center}.maxi-tip{flex-direction:column;gap:8px;text-align:center}.pg-item{padding:10px 12px}.sk-item{flex-wrap:wrap;gap:8px}.sk-name{min-width:auto;width:100%}.sk-input-wrap{width:100%}.tb-title{font-size:15px}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 12px) 14px 28px;max-width:100%}.wiz-progress{flex-wrap:wrap;gap:4px}.wiz-card{padding:16px}.wiz-card h2{font-size:16px}.wiz-actions{flex-direction:column-reverse;gap:10px}.wiz-actions>*{width:100%;text-align:center;justify-content:center}.wiz-next,.wiz-back,.wiz-launch{width:100%;justify-content:center}.maxi-tip{flex-direction:column;gap:8px;text-align:center}.pg-item{padding:10px 12px}.sk-item{flex-wrap:wrap;gap:8px}.sk-name{min-width:auto;width:100%}.sk-input-wrap{width:100%}.tb-title{font-size:15px}}
 @media(max-width:360px){.wiz-card{padding:14px}.wiz-card h2{font-size:14px}.pg-item{padding:8px 10px;font-size:12px}.sk-name{font-size:12px}.tb-title{font-size:13px}}
 </style>
 <link rel="stylesheet" href="theme.css">
@@ -127,7 +127,7 @@
 </div>
 <div class="form-hint">Đã chọn <strong id="videoCount">0</strong> video · Hoặc <a href="library.html" style="color:var(--coral);font-weight:600">upload video mới</a></div></div>
 <div class="playlist-preview"><div class="playlist-title">📋 Playlist phát (kéo thả để sắp xếp)</div><div id="playlistBody"><div class="playlist-empty">Chưa chọn video nào</div></div></div></div>
-<div class="wiz-actions"><a href="dashboard.html" class="wiz-back">← Hủy</a><div style="display:flex;flex-direction:column;align-items:flex-end"><button class="wiz-next" id="btn1" disabled onclick="goStep(2)">Tiếp: Chọn nền tảng <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button><div class="wiz-hint" id="wizHint" style="font-size:11px;color:var(--text-muted);margin-top:6px;text-align:center">Chọn ít nhất 1 video để tiếp tục</div></div></div></div>
+<div class="wiz-actions"><a href="dashboard.html" class="wiz-back">← Hủy</a><div style="display:flex;flex-direction:column;align-items:flex-end"><button class="wiz-next" id="btn1" disabled title="Chọn ít nhất 1 video để tiếp tục" onclick="goStep(2)">Tiếp: Chọn nền tảng <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button><div class="wiz-hint" id="wizHint" style="font-size:11px;color:var(--text-muted);margin-top:6px;text-align:center">Chọn ít nhất 1 video để tiếp tục</div></div></div></div>
 
 <!-- STEP 2 -->
 <div class="wiz-page" id="step2">
@@ -149,7 +149,7 @@
 <div class="sk-note"><strong>⚠️ Bảo mật:</strong> Không chia sẻ stream key cho người khác. Nếu bị lộ, bạn có thể tạo lại key mới trong Cài đặt.</div>
 </div>
 </div>
-<div class="wiz-actions"><button class="wiz-back" onclick="goStep(1)">← Quay lại</button><button class="wiz-next" id="btn2" disabled onclick="goStep(3)">Tiếp: Cấu hình <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div></div>
+<div class="wiz-actions"><button class="wiz-back" onclick="goStep(1)">← Quay lại</button><button class="wiz-next" id="btn2" disabled title="Chọn ít nhất 1 nền tảng để tiếp tục" onclick="goStep(3)">Tiếp: Cấu hình <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button></div></div>
 
 <!-- STEP 3 -->
 <div class="wiz-page" id="step3">

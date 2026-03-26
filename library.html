@@ -123,13 +123,13 @@
 <div class="lib-toolbar">
   <div class="lib-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Tìm kiếm video..." id="searchInput"></div>
   <div class="lib-filter" id="filterBtns"><button class="lib-filter-btn active" data-tag="all">Tất cả</button><button class="lib-filter-btn" data-tag="Mỹ phẩm">Mỹ phẩm</button><button class="lib-filter-btn" data-tag="Flash sale">Flash sale</button><button class="lib-filter-btn" data-tag="Review">Review</button></div>
-  <div class="lib-stats"><span><strong id="videoCountStat">6</strong> video</span><span><strong>2.4 GB</strong> / 50 GB</span></div>
+  <div class="lib-stats"><span><strong id="videoCountStat">6</strong> video</span><span style="display:flex;align-items:center;gap:8px"><span><strong>2.4 GB</strong> / 50 GB</span><span style="display:inline-block;width:60px;height:4px;border-radius:2px;background:var(--border);overflow:hidden;vertical-align:middle"><span style="display:block;width:4.8%;height:100%;border-radius:2px;background:var(--teal)"></span></span></span></div>
 </div>
 <div class="lib-body" id="libBody">
   <div class="video-grid" id="videoGrid"></div>
   <div class="preview-panel" id="previewPanel" style="position:relative">
     <button class="pp-close" onclick="document.getElementById('previewPanel').classList.remove('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    <div class="pp-empty" id="ppEmpty"><div class="pp-empty-icon">📹</div><div class="pp-empty-text">Chọn video để xem trước</div></div>
+    <div class="pp-empty" id="ppEmpty"><div class="pp-empty-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="var(--text-muted)" stroke="none"/></svg></div><div class="pp-empty-text">Chọn video từ danh sách để xem trước</div></div>
     <div id="ppContent" style="display:none">
       <div class="pp-screen"><div class="pp-play"><svg viewBox="0 0 24 24"><polygon points="8,5 20,12 8,19"/></svg></div><div class="pp-dur" id="ppDur"></div></div>
       <div class="pp-body">
@@ -211,10 +211,10 @@ function render(){
     const matchSearch=!searchQuery||v.name.toLowerCase().includes(searchQuery.toLowerCase())||v.tag.toLowerCase().includes(searchQuery.toLowerCase());
     return matchTag&&matchSearch;
   });
-  let html='<div class="upload-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Kéo thả hoặc upload</span></div>';
+  let html='<div class="upload-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Kéo thả hoặc upload</span><div style="font-size:11px;color:var(--text-muted);margin-top:6px">MP4, MOV, AVI · Tối đa 2GB/file</div></div>';
   if(!filtered.length&&videos.length)html+='<div style="grid-column:1/-1;text-align:center;padding:40px 0"><div style="font-size:28px;margin-bottom:8px">🔍</div><div style="font-size:13px;font-weight:700">Không tìm thấy video</div><div style="font-size:11px;color:var(--text-muted)">Thử từ khóa khác</div></div>';
   else if(!videos.length)html='<div style="grid-column:1/-1;text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:12px">📹</div><div style="font-size:17px;font-weight:800;margin-bottom:6px">Chưa có video nào</div><div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6">Upload video đầu tiên để bắt đầu tạo luồng phát trên các nền tảng.</div><button onclick="openUploadModal()" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 2px 12px rgba(200,85,65,.2);border:none;cursor:pointer;transition:all .2s"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload video đầu tiên</button></div>';
-  else filtered.forEach(v=>{html+=`<div class="video-card ${v.id===selectedId?'active':''}" data-id="${v.id}" onclick="selectVideo('${v.id}')"><div class="video-thumb"><div class="video-duration">${v.dur}</div></div><div class="video-info"><div class="video-name">${v.name}</div><div class="video-meta">${v.size} · ${v.date}</div><span class="video-tag ${v.status}">${v.statusText}</span></div></div>`});
+  else filtered.forEach(v=>{html+=`<div class="video-card ${v.id===selectedId?'active':''}" data-id="${v.id}" onclick="selectVideo('${v.id}')"><div class="video-thumb"><div class="video-duration">${v.dur}</div></div><div class="video-info"><div class="video-name">${v.name}</div><div class="video-meta">${v.size} · ${v.date}</div><span class="video-tag ${v.status}" title="${v.status==='live'?'Video đang được phát trực tiếp trên nền tảng':'Video sẵn sàng để tạo luồng phát'}">${v.statusText}</span></div></div>`});
   grid.innerHTML=html;
   document.getElementById('videoCountStat').textContent=filtered.length;
 }
