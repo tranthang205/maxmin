@@ -20,7 +20,7 @@
   --coral:#FF6B54;--coral-dark:#e85a42;--coral-glow:rgba(200,85,65,.06);
   --teal:#4AE3B5;--teal-glow:rgba(70,190,150,.05);
   --font:'SVN-Gilroy',system-ui,sans-serif;--mono:'Space Mono',monospace;
-  --ease:cubic-bezier(.22,1,.36,1);--sidebar-w:220px;--sidebar-collapsed:60px;--topbar-h:52px;
+  --ease:cubic-bezier(.22,1,.36,1);--sidebar-w:200px;--sidebar-collapsed:56px;--topbar-h:48px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
@@ -30,13 +30,13 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .app{display:flex;min-height:100vh}
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:width .3s var(--ease);overflow:hidden}
 .sidebar.collapsed{width:var(--sidebar-collapsed)}
-.sb-logo{display:flex;align-items:center;gap:8px;padding:16px 18px;font-size:17px;font-weight:900;border-bottom:1px solid var(--border);height:var(--topbar-h);flex-shrink:0;white-space:nowrap}.sb-logo .dot{width:5px;height:5px;background:var(--coral);border-radius:50%}.sb-logo span{transition:opacity .2s}.sidebar.collapsed .sb-logo span{opacity:0;width:0}
+.sb-logo{display:flex;align-items:center;gap:6px;padding:12px 14px;font-size:15px;font-weight:900;border-bottom:1px solid var(--border);height:var(--topbar-h);flex-shrink:0;white-space:nowrap}.sb-logo .dot{width:5px;height:5px;background:var(--coral);border-radius:50%}.sb-logo span{transition:opacity .2s}.sidebar.collapsed .sb-logo span{opacity:0;width:0}
 .sb-nav{flex:1;padding:10px 6px;display:flex;flex-direction:column;gap:1px}
-.sb-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap;position:relative}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap;position:relative}
 .sb-item:hover{background:var(--bg-hover);color:var(--text)}
 .sb-item.active{background:var(--coral-glow);color:var(--coral);font-weight:600}
 .sb-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:2.5px;height:18px;background:var(--coral);border-radius:0 2px 2px 0}
-.sb-item svg{width:17px;height:17px;flex-shrink:0;opacity:.5}.sb-item.active svg{opacity:1}
+.sb-item svg{width:16px;height:16px;flex-shrink:0;opacity:.5}.sb-item.active svg{opacity:1}
 .sb-item .sb-label{transition:opacity .15s}.sidebar.collapsed .sb-label{opacity:0;width:0}
 .sb-item .sb-badge{margin-left:auto;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--coral);color:#fff}.sidebar.collapsed .sb-badge{display:none}
 .sb-footer{padding:12px;border-top:1px solid var(--border);position:relative}.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}.sb-user:hover{background:var(--bg-hover)}.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FFA490);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}.sb-uinfo{overflow:hidden}.sb-uname{font-size:11.5px;font-weight:700}.sb-uplan{font-size:9.5px;color:var(--teal);font-weight:600}.sidebar.collapsed .sb-uinfo{display:none}
@@ -44,18 +44,18 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .sb-toggle{position:absolute;top:50%;right:-12px;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101;transition:all .2s}.sb-toggle:hover{border-color:var(--border-h)}.sb-toggle svg{width:12px;height:12px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
 
 /* ══ TOPBAR ══ */
-.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:99;transition:left .3s var(--ease)}
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2vw,32px);z-index:99;transition:left .3s var(--ease)}
 .sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
-.tb-title{font-size:16px;font-weight:800;letter-spacing:-.02em}
+.tb-title{font-size:14px;font-weight:800;letter-spacing:-.02em}
 .tb-right{display:flex;align-items:center;gap:10px}
 .tb-notif{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);position:relative;transition:all .15s}.tb-notif:hover{border-color:var(--border-h)}.tb-notif svg{width:16px;height:16px;color:var(--text-dim)}.tb-notif .notif-dot{position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--coral);border:1.5px solid var(--bg)}
-.tb-btn{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}
+.tb-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;transition:all .2s}
 .tb-btn.primary{background:var(--coral);color:#fff}.tb-btn.primary:hover{opacity:.9}.tb-btn.primary svg{width:14px;height:14px}
 .mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:1px}.mob-toggle .ml2{margin:3px 0}
 
 /* ══ MAIN ══ */
-.main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
-.main{padding:calc(var(--topbar-h) + 14px) 24px 20px;max-width:1280px;margin:0 auto}
+.main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease);display:flex;flex-direction:column}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
+.main{padding:calc(var(--topbar-h) + 14px) 0 20px;width:100%;max-width:1320px;margin:0 auto;padding-left:clamp(16px,2vw,32px);padding-right:clamp(16px,2vw,32px)}
 
 /* ══ STAT CARDS ══ */
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
@@ -69,21 +69,18 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .sc-change{display:inline-flex;align-items:center;gap:2px;font-size:9px;font-weight:600;color:var(--teal)}
 
 /* ══ MAIN GRID — chart left + panels right ══ */
-.dash-grid{display:grid;grid-template-columns:1fr 300px;gap:10px;min-height:0}
+.dash-grid{display:grid;grid-template-columns:1fr 340px;gap:10px;min-height:0}
 
 /* ══ CHART ══ */
 .chart-area{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px 10px;display:flex;flex-direction:column}
 .chart-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 6px}
 .chart-label{font-size:12px;font-weight:600;color:var(--text-dim)}
 .chart-tabs{display:flex;gap:2px}.chart-tab{padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;color:var(--text-muted);transition:all .15s}.chart-tab:hover{color:var(--text-dim)}.chart-tab.active{color:var(--coral);background:var(--coral-glow)}
-.chart-wrap{position:relative;height:180px}
+.chart-wrap{position:relative;height:260px}
 .chart-canvas{display:block;width:100%;height:100%}
 
-/* ══ RIGHT PANEL ══ */
+/* ══ RIGHT PANEL — streams + activity + quick actions ══ */
 .dash-right{display:flex;flex-direction:column;gap:8px;min-height:0}
-
-/* ══ BOTTOM ══ */
-.bottom-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .card-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px}
 .card-title{font-size:12px;font-weight:800}
@@ -127,7 +124,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .maxi-orb{width:44px;height:44px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;transition:all .2s}.maxi-orb:hover{transform:scale(1.06);border-color:var(--border-h)}
 
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
-@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}.bottom-grid{grid-template-columns:1fr}}
+@media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stat-row{grid-template-columns:1fr 1fr}.dash-grid{grid-template-columns:1fr}.chart-wrap{height:160px}}
 @media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 16px}.stat-row{grid-template-columns:1fr 1fr}.sc-value{font-size:18px}.tb-title{font-size:14px}}
 </style>
@@ -188,7 +185,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
   </div>
 
   <div class="dash-right">
-    <div class="card" style="flex:1;min-height:0">
+    <div class="card" style="flex:1;min-height:0;overflow-y:auto">
       <div class="card-head"><div class="card-title">Luồng phát</div><a href="streams.html" style="font-size:10px;color:var(--coral);font-weight:600">Tất cả →</a></div>
       <div class="stream-list">
         <a href="streams.html" class="s-row"><div class="s-icon tt">T</div><div class="s-info"><div class="s-name">TikTok @shophanavn</div><div class="s-meta">3h 20p · 1.239 viewers</div></div><div class="s-live"><span class="dot"></span>Live</div></a>
@@ -198,25 +195,21 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
       </div>
     </div>
     <div class="card">
+      <div class="card-head"><div class="card-title">Hoạt động</div></div>
+      <div class="act-list">
+        <div class="act-row"><div class="act-dot" style="background:var(--teal)"></div><div class="act-text"><strong>TikTok</strong> bắt đầu live</div><div class="act-time">3h</div></div>
+        <div class="act-row"><div class="act-dot" style="background:var(--coral)"></div><div class="act-text"><strong>12 đơn</strong> mới từ Shopee</div><div class="act-time">1h</div></div>
+        <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">Video <strong>"Flash Sale"</strong> uploaded</div><div class="act-time">5h</div></div>
+        <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">AI gợi ý live <strong>19:00-21:00</strong></div><div class="act-time">6h</div></div>
+      </div>
+    </div>
+    <div class="card">
       <div class="card-head"><div class="card-title">Thao tác nhanh</div></div>
       <div class="qa-grid">
         <a href="wizard.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Tạo luồng</a>
         <a href="library.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload</a>
         <a href="settings.html" class="qa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>Kết nối</a>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- BOTTOM ROW: Activity -->
-<div class="bottom-grid">
-  <div class="card">
-    <div class="card-head"><div class="card-title">Hoạt động</div></div>
-    <div class="act-list">
-      <div class="act-row"><div class="act-dot" style="background:var(--teal)"></div><div class="act-text"><strong>TikTok</strong> bắt đầu live</div><div class="act-time">3h</div></div>
-      <div class="act-row"><div class="act-dot" style="background:var(--coral)"></div><div class="act-text"><strong>12 đơn</strong> mới từ Shopee</div><div class="act-time">1h</div></div>
-      <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">Video <strong>"Flash Sale"</strong> uploaded</div><div class="act-time">5h</div></div>
-      <div class="act-row"><div class="act-dot" style="background:var(--text-muted)"></div><div class="act-text">AI gợi ý live <strong>19:00-21:00</strong></div><div class="act-time">6h</div></div>
     </div>
   </div>
 </div>
