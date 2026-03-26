@@ -72,6 +72,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .plat-status-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 .plat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
 .plat-card:hover{border-color:var(--border-h);transform:translateY(-1px)}
+.plat-card.active{border-color:var(--coral);box-shadow:0 0 0 1px var(--coral)}
 .plat-card.is-live{border-color:rgba(76,201,160,.2)}
 .plat-card.is-live::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal)}
 .plat-card.is-sched{border-color:rgba(212,152,74,.15)}
@@ -175,36 +176,36 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
   <div class="stat-card" data-metric="hours" onclick="pick(this)"><div class="sc-label">Thời gian live</div><div class="sc-value">14h 32p</div><div class="sc-change">↑ 2h vs hôm qua</div></div>
 </div>
 
-<!-- PLATFORM STATUS (main focus) -->
-<div class="plat-status-row">
-  <a href="streams.html" class="plat-card is-live">
+<!-- PLATFORM STATUS (main focus — click to filter chart) -->
+<div class="plat-status-row" id="platRow">
+  <div class="plat-card is-live" data-plat="tiktok" onclick="pickPlat(this)">
     <div class="pc-top"><div class="pc-icon tt">T</div><div class="pc-badge live"><span class="dot"></span>Live</div></div>
     <div class="pc-name">TikTok</div>
     <div class="pc-account">@shophanavn</div>
     <div class="pc-viewers">1.239</div>
     <div class="pc-viewers-label">viewers · 3h 20p</div>
-  </a>
-  <a href="streams.html" class="plat-card is-live">
+  </div>
+  <div class="plat-card is-live" data-plat="youtube" onclick="pickPlat(this)">
     <div class="pc-top"><div class="pc-icon yt">Y</div><div class="pc-badge live"><span class="dot"></span>Live</div></div>
     <div class="pc-name">YouTube</div>
     <div class="pc-account">Shop Hana</div>
     <div class="pc-viewers">859</div>
     <div class="pc-viewers-label">viewers · 3h 20p</div>
-  </a>
-  <a href="streams.html" class="plat-card is-live">
+  </div>
+  <div class="plat-card is-live" data-plat="facebook" onclick="pickPlat(this)">
     <div class="pc-top"><div class="pc-icon fb">F</div><div class="pc-badge live"><span class="dot"></span>Live</div></div>
     <div class="pc-name">Facebook</div>
     <div class="pc-account">Hana Beauty</div>
     <div class="pc-viewers">2.111</div>
     <div class="pc-viewers-label">viewers · 3h 20p</div>
-  </a>
-  <a href="streams.html" class="plat-card is-sched">
+  </div>
+  <div class="plat-card is-sched" data-plat="shopee" onclick="pickPlat(this)">
     <div class="pc-top"><div class="pc-icon sp">S</div><div class="pc-badge sched">⏱ Lên lịch</div></div>
     <div class="pc-name">Shopee</div>
     <div class="pc-account">shophanavn</div>
     <div class="pc-sched-time">20:00</div>
     <div class="pc-viewers-label">hôm nay</div>
-  </a>
+  </div>
 </div>
 
 <!-- CHART + ACTIVITY -->
@@ -249,15 +250,24 @@ const metrics={
 function gen(b,v,n=24){const d=[];let c=b;for(let i=0;i<n;i++){c+=Math.random()*v-v*.45;c=Math.max(b*.3,Math.min(b*1.8,c));d.push(c)}return d}
 metrics.viewers.data=gen(3200,600);metrics.orders.data=gen(80,25);metrics.streams.data=gen(3,1.2);metrics.hours.data=gen(12,3);
 
+// Platform-specific viewer data
+const platforms={
+  tiktok:{label:'TikTok — Viewers',data:gen(1200,300),color:'#ffffff'},
+  youtube:{label:'YouTube — Viewers',data:gen(850,200),color:'#FF4444'},
+  facebook:{label:'Facebook — Viewers',data:gen(2100,400),color:'#4A90D9'},
+  shopee:{label:'Shopee — Chưa phát',data:gen(0,0),color:'#EE4D2D'}
+};
+let curPlat=null;
+
 let cur='viewers';
 const canvas=document.getElementById('chart'),ctx=canvas.getContext('2d');
 function resize(){const d=devicePixelRatio||1,r=canvas.parentElement.getBoundingClientRect();canvas.width=r.width*d;canvas.height=r.height*d;ctx.setTransform(d,0,0,d,0,0)}
 resize();window.addEventListener('resize',()=>{resize();draw()});
 
 function draw(){
-  const m=metrics[cur];if(!m)return;
+  const src=curPlat?platforms[curPlat]:metrics[cur];if(!src)return;
   const W=canvas.width/(devicePixelRatio||1),H=canvas.height/(devicePixelRatio||1);
-  const d=m.data,mn=Math.min(...d),mx=Math.max(...d),rng=mx-mn||1;
+  const d=src.data,mn=Math.min(...d),mx=Math.max(...d),rng=mx-mn||1;
   const pad={t:20,b:24,l:40,r:16};
   const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
   const step=cW/(d.length-1);
@@ -288,7 +298,8 @@ function draw(){
   // Line — white
   ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
   for(let i=1;i<pts.length;i++){const cp=(pts[i-1].x+pts[i].x)/2;ctx.bezierCurveTo(cp,pts[i-1].y,cp,pts[i].y,pts[i].x,pts[i].y)}
-  ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.stroke();
+  const lineColor=curPlat&&platforms[curPlat].color?platforms[curPlat].color:'rgba(255,255,255,.7)';
+  ctx.strokeStyle=lineColor;ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.stroke();
 
   // End dot
   const last=pts[pts.length-1];
@@ -303,8 +314,18 @@ function draw(){
 
 window.pick=function(el){
   document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');cur=el.dataset.metric;
+  document.querySelectorAll('.plat-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('selected');cur=el.dataset.metric;curPlat=null;
   document.getElementById('chartLabel').textContent=metrics[cur].label;
+  draw();
+};
+window.pickPlat=function(el){
+  const plat=el.dataset.plat;
+  const wasActive=el.classList.contains('active');
+  document.querySelectorAll('.plat-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.stat-card').forEach(c=>c.classList.remove('selected'));
+  if(wasActive){curPlat=null;cur='viewers';document.querySelectorAll('.stat-card')[0].classList.add('selected');document.getElementById('chartLabel').textContent=metrics.viewers.label}
+  else{el.classList.add('active');curPlat=plat;document.getElementById('chartLabel').textContent=platforms[plat].label}
   draw();
 };
 window.setTab=function(btn){
