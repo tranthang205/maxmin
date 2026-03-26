@@ -43,15 +43,40 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .sb-dropdown{position:absolute;bottom:100%;left:8px;right:8px;margin-bottom:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:8px;opacity:0;visibility:hidden;transform:translateY(6px);transition:all .2s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.15)}.sb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}.sb-dd-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap}.sb-dd-item:hover{background:var(--bg-hover);color:var(--text)}.sb-dd-item svg{width:17px;height:17px;opacity:.6;flex-shrink:0}.sb-dd-div{height:1px;background:var(--border);margin:4px 0}
 .sb-toggle{position:absolute;top:50%;right:-12px;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101;transition:all .2s}.sb-toggle:hover{border-color:var(--border-h)}.sb-toggle svg{width:12px;height:12px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
 
-/* ══ TOPBAR ══ */
-.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2vw,32px);z-index:99;transition:left .3s var(--ease)}
+/* ══ TOPBAR — Vercel-style: breadcrumb left, actions right ══ */
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,2vw,24px);z-index:99;transition:left .3s var(--ease)}
 .sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
-.tb-title{font-size:14px;font-weight:800;letter-spacing:-.02em}
-.tb-right{display:flex;align-items:center;gap:8px}
-.tb-notif{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);position:relative;transition:all .15s}.tb-notif:hover{border-color:var(--border-h)}.tb-notif svg{width:16px;height:16px;color:var(--text-dim)}.tb-notif .notif-dot{position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:var(--coral);border:1.5px solid var(--bg)}
-.tb-btn{display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;transition:all .2s}
-.tb-btn.primary{background:var(--coral);color:#fff}.tb-btn.primary:hover{opacity:.9}.tb-btn.primary svg{width:14px;height:14px}
-.mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:1px}.mob-toggle .ml2{margin:3px 0}
+
+/* Breadcrumb */
+.tb-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;min-width:0}
+.tb-bc-home{color:var(--text);font-weight:800;font-size:14px;letter-spacing:-.02em;white-space:nowrap}
+.tb-bc-sep{color:var(--text-muted);font-size:12px;font-weight:400;user-select:none}
+.tb-bc-page{color:var(--text-dim);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Actions right */
+.tb-right{display:flex;align-items:center;gap:4px}
+.tb-action{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid transparent;position:relative;transition:all .15s;color:var(--text-dim)}
+.tb-action:hover{background:var(--bg-hover);border-color:var(--border);color:var(--text)}
+.tb-action svg{width:16px;height:16px}
+.tb-action .notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--coral);border:1.5px solid var(--bg)}
+
+/* Avatar in header */
+.tb-avatar{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:8px;cursor:pointer;transition:all .15s;margin-left:4px;position:relative}
+.tb-avatar:hover{background:var(--bg-hover)}
+.tb-av-circle{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--coral),#FFA490);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.tb-av-info{display:flex;flex-direction:column;line-height:1.2}
+.tb-av-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap}
+.tb-av-plan{font-size:11px;font-weight:600;color:var(--teal);white-space:nowrap}
+
+/* Avatar dropdown */
+.tb-dropdown{position:absolute;top:calc(100% + 6px);right:0;min-width:180px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .15s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.tb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}
+.tb-dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text-dim);transition:all .12s;white-space:nowrap}
+.tb-dd-item:hover{background:var(--bg-hover);color:var(--text)}
+.tb-dd-item svg{width:14px;height:14px;opacity:.5;flex-shrink:0}
+.tb-dd-div{height:1px;background:var(--border);margin:4px 0}
+
+.mob-toggle{display:none;width:34px;height:34px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:16px;height:1.5px;background:var(--text);border-radius:1px}.mob-toggle .ml2{margin:3px 0}
 
 /* ══ MAIN ══ */
 .main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease);display:flex;flex-direction:column}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
@@ -140,13 +165,25 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 
 <div class="main-wrap">
 <header class="topbar">
-  <div style="display:flex;align-items:center;gap:8px">
+  <div class="tb-breadcrumb">
     <button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button>
-    <h1 class="tb-title">Tổng quan</h1>
+    <span class="tb-bc-home">MAXMIN</span>
+    <span class="tb-bc-sep">/</span>
+    <span class="tb-bc-page">Tổng quan</span>
   </div>
   <div class="tb-right">
-    <button class="tb-notif" onclick="document.getElementById('notifPanel').classList.toggle('show')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
-    <a href="wizard.html" class="tb-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Tạo luồng</a>
+    <button class="tb-action" id="themeToggleBtn" aria-label="Đổi theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+    <button class="tb-action" onclick="document.getElementById('notifPanel').classList.toggle('show')" aria-label="Thông báo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-dot"></span></button>
+    <div class="tb-avatar" onclick="document.getElementById('tbDropdown').classList.toggle('show')">
+      <div class="tb-av-circle">H</div>
+      <div class="tb-av-info"><span class="tb-av-name">Shop Hana</span><span class="tb-av-plan">Pro</span></div>
+      <div class="tb-dropdown" id="tbDropdown">
+        <a href="settings.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09"/></svg>Cài đặt</a>
+        <a href="admin.html" class="tb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Quản trị</a>
+        <div class="tb-dd-div"></div>
+        <a href="login.html" class="tb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Đăng xuất</a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -238,7 +275,14 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 (()=>{
 document.getElementById('sbToggle').addEventListener('click',()=>{const s=document.getElementById('sidebar');s.classList.toggle('collapsed');localStorage.setItem('sb-collapsed',s.classList.contains('collapsed'))});
 if(localStorage.getItem('sb-collapsed')==='true')document.getElementById('sidebar').classList.add('collapsed');
-document.addEventListener('click',e=>{const p=document.getElementById('notifPanel');if(p&&!e.target.closest('.tb-notif')&&!e.target.closest('.notif-panel'))p.classList.remove('show');const dd=document.getElementById('sbDropdown');if(dd&&!e.target.closest('.sb-user')&&!e.target.closest('.sb-dropdown'))dd.classList.remove('show')});
+document.addEventListener('click',e=>{
+  const p=document.getElementById('notifPanel');if(p&&!e.target.closest('.tb-action')&&!e.target.closest('.notif-panel'))p.classList.remove('show');
+  const dd=document.getElementById('sbDropdown');if(dd&&!e.target.closest('.sb-user')&&!e.target.closest('.sb-dropdown'))dd.classList.remove('show');
+  const td=document.getElementById('tbDropdown');if(td&&!e.target.closest('.tb-avatar'))td.classList.remove('show');
+});
+// Theme toggle in header
+const _thBtn=document.getElementById('themeToggleBtn');
+if(_thBtn){_thBtn.addEventListener('click',()=>{const h=document.documentElement;const cur=h.getAttribute('data-theme');const next=cur==='light'?'dark':'light';h.setAttribute('data-theme',next);localStorage.setItem('theme',next);_thBtn.innerHTML=next==='light'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>'})}
 
 // ── Chart ──
 const metrics={
