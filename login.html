@@ -189,8 +189,20 @@ function doLogin(){
   if(!email||!email.includes('@')){document.getElementById('emailError').classList.add('show');document.getElementById('loginEmail').classList.add('input-error');ok=false}
   if(!pw||pw.length<6){document.getElementById('pwError').textContent='Mật khẩu tối thiểu 6 ký tự';document.getElementById('pwError').classList.add('show');document.getElementById('loginPw').classList.add('input-error');ok=false}
   if(!ok)return;
+  const accounts={
+    'admin@gmail.com':{pw:'admin@gmail.com',role:'admin',redirect:'admin.html'},
+    'user@gmail.com':{pw:'user@gmail.com',role:'user',redirect:'dashboard.html'}
+  };
+  const acc=accounts[email];
+  if(!acc||acc.pw!==pw){
+    document.getElementById('pwError').textContent='Email hoặc mật khẩu không đúng';
+    document.getElementById('pwError').classList.add('show');
+    document.getElementById('loginPw').classList.add('input-error');
+    return;
+  }
+  localStorage.setItem('maxmin_user',JSON.stringify({email:email,role:acc.role}));
   const btn=document.getElementById('loginBtn');btn.classList.add('btn-loading');btn.textContent='';
-  setTimeout(()=>window.location.href='dashboard.html',1500);
+  setTimeout(()=>window.location.href=acc.redirect,1500);
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(document.activeElement.closest('form')||document.activeElement.closest('.auth-card')))doLogin()});
 </script>
