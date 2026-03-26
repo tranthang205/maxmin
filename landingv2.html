@@ -180,17 +180,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 .sbar-lbl{font-size:12px;color:var(--text-sec);font-weight:500}
 
 /* ══ MAXI WALKER IN DASHBOARD — UPGRADED ══ */
-.maxi-roam{position:relative;height:80px;overflow:hidden;margin-top:8px}
-.maxi-roam .ground-line{position:absolute;bottom:6px;left:16px;right:16px;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-.maxi-walker{position:absolute;bottom:8px;left:50%;width:64px;height:64px;will-change:transform;z-index:2}
+.maxi-roam{position:relative;height:72px;overflow:visible;margin-top:4px}
+.maxi-roam .ground-line{position:absolute;bottom:0;left:16px;right:16px;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.maxi-walker{position:absolute;bottom:2px;left:50%;width:64px;height:64px;will-change:transform;z-index:2}
 .maxi-walker.facing-left .mw-body{transform:scaleX(-1)}
 
 /* Walking state — full body bounce + tilt */
-@keyframes wkBody{0%{transform:translateY(0) rotate(0)}20%{transform:translateY(-5px) rotate(1.5deg)}40%{transform:translateY(-1px) rotate(0)}60%{transform:translateY(-5px) rotate(-1.5deg)}80%{transform:translateY(-1px) rotate(0)}100%{transform:translateY(0) rotate(0)}}
+@keyframes wkBody{0%{transform:translateY(0) rotate(0)}20%{transform:translateY(-7px) rotate(2deg)}40%{transform:translateY(-1px) rotate(0)}60%{transform:translateY(-7px) rotate(-2deg)}80%{transform:translateY(-1px) rotate(0)}100%{transform:translateY(0) rotate(0)}}
 @keyframes wkBlink{0%,86%,92%,100%{opacity:1}89%{opacity:0}}
 /* Left foot: lift, swing forward, plant */
-@keyframes wkFootL{0%,100%{transform:translate(0,0)}15%{transform:translate(1px,-4px)}30%{transform:translate(4px,-5px)}45%{transform:translate(5px,-1px)}50%{transform:translate(5px,0)}75%{transform:translate(2px,0)}}
-@keyframes wkFootR{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0)}50%{transform:translate(-1px,0)}65%{transform:translate(-1px,-4px)}80%{transform:translate(-4px,-5px)}90%{transform:translate(-5px,-1px)}95%{transform:translate(-5px,0)}}
+@keyframes wkFootL{0%,100%{transform:translate(0,0)}15%{transform:translate(2px,-6px)}30%{transform:translate(6px,-7px)}45%{transform:translate(7px,-2px)}50%{transform:translate(7px,0)}75%{transform:translate(3px,0)}}
+@keyframes wkFootR{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0)}50%{transform:translate(-1px,0)}65%{transform:translate(-2px,-6px)}80%{transform:translate(-6px,-7px)}90%{transform:translate(-7px,-2px)}95%{transform:translate(-7px,0)}}
 /* Arms: visible swing */
 @keyframes wkArmL{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg) translateY(-2px)}50%{transform:rotate(0)}75%{transform:rotate(10deg) translateY(-1px)}}
 @keyframes wkArmR{0%,100%{transform:rotate(0)}25%{transform:rotate(10deg) translateY(-1px)}50%{transform:rotate(0)}75%{transform:rotate(-14deg) translateY(-2px)}}
@@ -222,11 +222,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 .maxi-bubble.show{opacity:1;transform:translateX(-50%) translateY(-3px)}
 
 /* Footprints */
-.footprint{position:absolute;width:5px;height:2px;border-radius:50%;background:rgba(74,227,181,.06);pointer-events:none;animation:footFade 1.8s ease-out forwards}
-@keyframes footFade{0%{opacity:1}100%{opacity:0;transform:scale(.3)}}
-/* Dust puff */
-.walk-dust{position:absolute;border-radius:50%;pointer-events:none;animation:dustPuff .65s ease-out forwards}
-@keyframes dustPuff{0%{opacity:.3;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(2.5) translate(var(--dx),var(--dy))}}
+.footprint{position:absolute;width:6px;height:3px;border-radius:50%;background:rgba(74,227,181,.12);pointer-events:none;animation:footFade 2.2s ease-out forwards}
+@keyframes footFade{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.2)}}
+/* Dust puff — bigger, more visible */
+.walk-dust{position:absolute;border-radius:50%;pointer-events:none;animation:dustPuff .8s ease-out forwards}
+@keyframes dustPuff{0%{opacity:.45;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(3) translate(var(--dx),var(--dy))}}
+/* Dust trail — continuous small particles behind walker */
+.walk-trail{position:absolute;border-radius:50%;pointer-events:none;animation:trailFade .6s ease-out forwards}
+@keyframes trailFade{0%{opacity:.25;transform:scale(1)}100%{opacity:0;transform:scale(.3) translateY(2px)}}
 /* Sparkles */
 .walk-sparkle{position:absolute;pointer-events:none;animation:sSpark 1s ease-out forwards}
 @keyframes sSpark{0%{opacity:.8;transform:scale(1) translateY(0)}100%{opacity:0;transform:scale(0) translateY(-16px)}}
@@ -521,7 +524,7 @@ section::before{transition:opacity .6s}
   .logo{font-size:18px}
   .maxi-hero{top:-20px;left:-12px}
   .maxi-hero svg{width:56px!important;height:56px!important}
-  .maxi-roam{height:60px}
+  .maxi-roam{height:56px}
   .maxi-walker{width:48px;height:48px}
   .maxi-walker svg{width:44px;height:44px}
   .maxi-bubble{font-size:8px;padding:3px 6px}
@@ -943,21 +946,31 @@ if(roamArea&&mWalker){
     setTimeout(()=>mBubble.classList.remove('show'),2800);
   }
   function mPickTarget(){mTarget=MPAD+Math.random()*(WA()-MPAD*2);mIsIdle=false;mWalker.className='maxi-walker walking'}
-  function mSpawnFP(px){const fp=document.createElement('div');fp.className='footprint';fp.style.left=px+'px';fp.style.bottom='6px';roamArea.appendChild(fp);setTimeout(()=>fp.remove(),1800)}
+  function mSpawnFP(px){const fp=document.createElement('div');fp.className='footprint';fp.style.left=px+'px';fp.style.bottom='0';roamArea.appendChild(fp);setTimeout(()=>fp.remove(),2200)}
   function mSpawnDust(px,dir){
-    for(let i=0;i<2;i++){
+    var count=3+Math.floor(Math.random()*2);
+    for(let i=0;i<count;i++){
       const d=document.createElement('div');d.className='walk-dust';
-      const s=2+Math.random()*3;d.style.width=s+'px';d.style.height=s+'px';
-      d.style.left=(px+Math.random()*10-5)+'px';d.style.bottom='6px';
-      d.style.background='rgba(255,255,255,'+(0.03+Math.random()*0.03)+')';
-      d.style.setProperty('--dx',(dir>0?-1:1)*(3+Math.random()*5)+'px');
-      d.style.setProperty('--dy',(-1-Math.random()*5)+'px');
-      roamArea.appendChild(d);setTimeout(()=>d.remove(),650);
+      const s=3+Math.random()*4;d.style.width=s+'px';d.style.height=s+'px';
+      d.style.left=(px+Math.random()*14-7)+'px';d.style.bottom=(Math.random()*4)+'px';
+      d.style.background='rgba(180,170,160,'+(0.08+Math.random()*0.06)+')';
+      d.style.setProperty('--dx',(dir>0?-1:1)*(4+Math.random()*8)+'px');
+      d.style.setProperty('--dy',(-2-Math.random()*6)+'px');
+      roamArea.appendChild(d);setTimeout(()=>d.remove(),800);
+    }
+  }
+  function mSpawnTrail(px,dir){
+    for(let i=0;i<2;i++){
+      const tr=document.createElement('div');tr.className='walk-trail';
+      const s=2+Math.random()*2;tr.style.width=s+'px';tr.style.height=s+'px';
+      tr.style.left=(px+(dir>0?-8:-2)+Math.random()*6)+'px';tr.style.bottom=(1+Math.random()*3)+'px';
+      tr.style.background='rgba(160,155,145,'+(0.12+Math.random()*0.08)+')';
+      roamArea.appendChild(tr);setTimeout(()=>tr.remove(),600);
     }
   }
   function mSpawnSp(px){
     const sp=document.createElement('div');sp.className='walk-sparkle';
-    sp.style.left=(px+Math.random()*16-8)+'px';sp.style.bottom=(10+Math.random()*24)+'px';
+    sp.style.left=(px+Math.random()*16-8)+'px';sp.style.bottom=(6+Math.random()*24)+'px';
     const c=['#4AE3B5','#FF6B54','#FFA490'][Math.floor(Math.random()*3)];
     sp.innerHTML='<svg width="6" height="6" viewBox="0 0 12 12"><path d="M6 0L7.2 4.8 12 6 7.2 7.2 6 12 4.8 7.2 0 6 4.8 4.8z" fill="'+c+'" opacity=".7"/></svg>';
     roamArea.appendChild(sp);setTimeout(()=>sp.remove(),1000);
@@ -982,9 +995,9 @@ if(roamArea&&mWalker){
       mWalker.className='maxi-walker walking';
       if(mSpeed<-.01)mWalker.classList.add('facing-left');
       mIsIdle=false;
-      if(t-mLastFP>300&&Math.abs(mSpeed)>.03){
-        mSpawnFP(mx);mSpawnDust(mx,mSpeed);mLastFP=t;
-        if(Math.random()>.6)mSpawnSp(mx);
+      if(t-mLastFP>180&&Math.abs(mSpeed)>.02){
+        mSpawnFP(mx);mSpawnDust(mx,mSpeed);mSpawnTrail(mx,mSpeed);mLastFP=t;
+        if(Math.random()>.5)mSpawnSp(mx);
       }
     }
     mWalker.style.left=mx+'px';mWalker.style.transform='translateX(-50%)';
