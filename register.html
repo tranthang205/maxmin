@@ -42,7 +42,7 @@ input::placeholder{color:var(--text-muted)}
 .form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text-dim)}
 .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .input-wrap{position:relative}
-.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:16px}
+.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;background:none;border:none;padding:2px;display:flex;align-items:center}
 .pw-strength{height:3px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden}
 .pw-strength-bar{height:100%;border-radius:2px;width:0;transition:width .3s,background .3s}
 .pw-hint{font-size:10px;color:var(--text-muted);margin-top:3px}
@@ -113,7 +113,7 @@ input::placeholder{color:var(--text-muted)}
 <label class="form-label" for="regPw">Mật khẩu</label>
 <div class="input-wrap">
 <input type="password" id="regPw" placeholder="Tối thiểu 6 ký tự" autocomplete="new-password" oninput="checkPwStrength(this.value)">
-<span class="toggle-pw" onclick="togglePw(this)">👁</span>
+<button type="button" class="toggle-pw" onclick="togglePw(this)" aria-label="Hiện/ẩn mật khẩu"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
 </div>
 <div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
 <div class="pw-hint" id="pwHint">Chưa nhập mật khẩu</div>
@@ -137,7 +137,7 @@ input::placeholder{color:var(--text-muted)}
 
 <button class="btn-submit" id="regBtn" onclick="doRegister()">Tạo tài khoản</button>
 
-<div class="auth-terms">Bằng việc đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsModal('Điều khoản sử dụng MAXMIN — Nội dung đang được cập nhật.')">Điều khoản sử dụng</a> và <a href="javascript:void(0)" onclick="showTermsModal('Chính sách bảo mật MAXMIN — Nội dung đang được cập nhật.')">Chính sách bảo mật</a> của MAXMIN</div>
+<div class="auth-terms">Bằng việc đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsModal('terms')">Điều khoản sử dụng</a> và <a href="javascript:void(0)" onclick="showTermsModal('privacy')">Chính sách bảo mật</a> của MAXMIN</div>
 <div class="auth-footer">Đã có tài khoản? <a href="login.html">Đăng nhập</a></div>
 </div>
 </div>
@@ -179,14 +179,19 @@ input::placeholder{color:var(--text-muted)}
 </div>
 
 <script>
-function showTermsModal(text){
-  const title=text.split('—')[0].trim();
-  document.getElementById('termsModalTitle').textContent=title;
-  document.getElementById('termsModalBody').textContent=text;
+const _termsContent={
+  terms:{title:'Điều khoản sử dụng',body:'Bằng cách sử dụng MAXMIN, bạn đồng ý với các điều khoản sau:\n\n1. MAXMIN cung cấp nền tảng phát live tự động đa nền tảng cho mục đích thương mại hợp pháp.\n\n2. Bạn chịu trách nhiệm về nội dung video và tuân thủ quy định của từng nền tảng (TikTok, YouTube, Facebook, Shopee).\n\n3. Tài khoản vi phạm sẽ bị khóa mà không hoàn tiền.\n\n4. MAXMIN bảo lưu quyền thay đổi dịch vụ, giá cả với thông báo trước 7 ngày.\n\n5. Mọi tranh chấp được giải quyết theo pháp luật Việt Nam.'},
+  privacy:{title:'Chính sách bảo mật',body:'MAXMIN cam kết bảo vệ thông tin cá nhân của bạn:\n\n1. Chúng tôi thu thập: email, tên hiển thị, số điện thoại và dữ liệu sử dụng dịch vụ.\n\n2. Dữ liệu được mã hóa SSL và lưu trữ trên máy chủ bảo mật tại Việt Nam.\n\n3. Chúng tôi KHÔNG chia sẻ thông tin cá nhân với bên thứ ba vì mục đích thương mại.\n\n4. Bạn có quyền yêu cầu xóa tài khoản và toàn bộ dữ liệu bất cứ lúc nào.\n\n5. Liên hệ: support@maxmin.vn để biết thêm chi tiết.'}
+};
+function showTermsModal(type){
+  const c=_termsContent[type]||_termsContent.terms;
+  document.getElementById('termsModalTitle').textContent=c.title;
+  document.getElementById('termsModalBody').style.whiteSpace='pre-line';
+  document.getElementById('termsModalBody').textContent=c.body;
   document.getElementById('termsOverlay').classList.add('show');
 }
 function closeTermsModal(){document.getElementById('termsOverlay').classList.remove('show')}
-function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';el.textContent=inp.type==='password'?'👁':'🙈'}
+function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';el.querySelector('svg').style.opacity=inp.type==='text'?'0.8':'0.45';}
 function checkPwStrength(pw){
   const bar=document.getElementById('pwBar'),hint=document.getElementById('pwHint');
   if(!pw){bar.style.width='0';hint.textContent='Chưa nhập mật khẩu';return}

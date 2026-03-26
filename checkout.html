@@ -161,7 +161,7 @@ input.input-error{border-color:#FF6B54!important}
 <div class="bank-row"><span class="label">Chủ tài khoản</span><span class="value">CONG TY MAXMIN</span></div>
 <div class="bank-row"><span class="label">Nội dung CK</span><span class="value" style="color:var(--coral)">MAXMIN PRO HANA</span><button class="bank-copy" style="position:relative" onclick="copyToClipboard('MAXMIN PRO HANA',this)">Sao chép<span class="copy-toast"></span></button></div>
 </div>
-<p style="font-size:12px;color:var(--text-muted);text-align:center;line-height:1.6">Sau khi chuyển khoản, gói sẽ được kích hoạt trong vòng 5 phút.<br>Liên hệ hỗ trợ nếu quá 15 phút chưa nhận được.</p>
+<p style="font-size:12px;color:var(--text-muted);text-align:center;line-height:1.6">Sau khi chuyển khoản, gói sẽ được kích hoạt trong vòng 5 phút.<br>Liên hệ: <a href="mailto:support@maxmin.vn" style="color:var(--teal)">support@maxmin.vn</a> nếu quá 15 phút chưa nhận được.</p>
 </div>
 
 <!-- QR -->
@@ -208,7 +208,8 @@ input.input-error{border-color:#FF6B54!important}
 <rect x="119" y="135" width="8" height="8" fill="#000"/><rect x="135" y="135" width="8" height="8" fill="#000"/>
 </svg>
 </div>
-<div class="qr-hint">Quét mã QR để thanh toán</div>
+<div class="qr-hint">Quét mã QR bằng app ngân hàng để thanh toán</div>
+<div style="margin-top:6px;font-size:11px;color:var(--text-muted);background:rgba(255,155,106,.06);border:1px solid rgba(255,155,106,.15);border-radius:8px;padding:6px 10px">QR demo — tích hợp VietQR thực tế sẽ hiển thị sau khi kết nối tài khoản</div>
 </div>
 </div>
 
@@ -268,14 +269,14 @@ function setPayMethod(el,method){
   document.getElementById('payCard').style.display=method==='card'?'block':'none';
   document.getElementById('payBank').style.display=method==='bank'?'block':'none';
   document.getElementById('payQr').style.display=method==='qr'?'block':'none';
-  document.getElementById('payBtn').textContent=method==='bank'?'Tôi đã chuyển khoản':'Thanh toán '+(plan==='business'?'499,000₫':'99,000₫');
+  document.getElementById('payBtn').textContent=method==='bank'?'Xác nhận — Đã chuyển khoản xong':'Thanh toán '+(plan==='business'?'499,000₫':'99,000₫');
 }
 
 function formatCard(inp){let v=inp.value.replace(/\D/g,'');inp.value=v.replace(/(.{4})/g,'$1 ').trim()}
 function formatExp(inp){let v=inp.value.replace(/\D/g,'');if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);inp.value=v}
 function updatePreview(){
   const num=document.getElementById('inputCardNum').value||'•••• •••• •••• ••••';
-  const name=document.getElementById('inputCardName').value||'TÊN CHỦ THẺ';
+  const name=(document.getElementById('inputCardName').value||'TÊN CHỦ THẺ').toUpperCase();
   const exp=document.getElementById('inputCardExp').value||'MM/YY';
   document.getElementById('cardNum').textContent=num;
   document.getElementById('cardName').textContent=name;

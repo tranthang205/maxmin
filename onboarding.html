@@ -169,9 +169,11 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 
 <div class="plat-hint">Kết nối qua OAuth — MAXMIN không lưu mật khẩu nền tảng của bạn</div>
 
+<div id="platHint" style="display:none;margin-top:8px;font-size:12px;color:var(--coral);text-align:center">Vui lòng kết nối ít nhất 1 nền tảng để tiếp tục</div>
+
 <div class="ob-actions">
 <a href="login.html" style="font-size:13px;color:var(--text-dim);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-dim)'">← Quay lại</a>
-<button class="ob-btn-next" id="ob1Next" onclick="goOb(2)">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+<button class="ob-btn-next" id="ob1Next" onclick="tryNextStep1()">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
 </div>
 </div>
 
@@ -216,11 +218,11 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 <span class="uz-fremove" onclick="removeFile()">✕</span>
 </div>
 
-<div class="plat-hint">Bạn có thể upload thêm video sau trong Thư viện</div>
+<div class="plat-hint">Video sẽ được lưu vào Thư viện sau khi hoàn tất. Bạn có thể bỏ qua bước này.</div>
 
 <div class="ob-actions">
 <button class="ob-btn-back" onclick="goOb(1)">← Quay lại</button>
-<button class="ob-btn-next" onclick="goOb(3)">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+<button class="ob-btn-next" id="ob2Next" onclick="goOb(3)">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
 </div>
 </div>
 
@@ -261,6 +263,15 @@ function connectPlat(name){
     btn.textContent='✓ Đã kết nối';btn.className='plat-btn done';btn.style.opacity='1';
     connectedPlats.add(name);
   },1200);
+}
+
+function tryNextStep1(){
+  if(connectedPlats.size===0){
+    document.getElementById('platHint').style.display='block';
+    return;
+  }
+  document.getElementById('platHint').style.display='none';
+  goOb(2);
 }
 
 function goOb(step){

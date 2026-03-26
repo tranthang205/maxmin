@@ -58,7 +58,7 @@ input::placeholder{color:var(--text-muted)}
 .form-link:hover{opacity:.8}
 
 .input-wrap{position:relative}
-.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:16px;transition:color .2s}
+.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;background:none;border:none;padding:2px;transition:color .2s;display:flex;align-items:center}
 .input-wrap .toggle-pw:hover{color:var(--text-dim)}
 
 /* Submit */
@@ -118,24 +118,25 @@ input::placeholder{color:var(--text-muted)}
 
 <div class="form-group">
 <label class="form-label" for="loginEmail">Email</label>
-<input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+<input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email" onblur="validateEmailField()">
 <div class="error-text" id="emailError">Email không hợp lệ</div>
 </div>
 
 <div class="form-group">
 <div class="form-row">
 <label class="form-label" for="loginPw" style="margin-bottom:0">Mật khẩu</label>
-<a href="javascript:void(0)" class="form-link" onclick="toggleForgotPw()">Quên mật khẩu?</a>
+<a href="mailto:support@maxmin.vn" class="form-link">Quên mật khẩu?</a>
 </div>
 <div class="input-wrap">
-<input type="password" id="loginPw" placeholder="••••••••" autocomplete="current-password">
-<span class="toggle-pw" onclick="togglePw(this)">👁</span>
+<input type="password" id="loginPw" placeholder="••••••••" autocomplete="current-password" onblur="validatePwField()">
+<button type="button" class="toggle-pw" onclick="togglePw(this)" aria-label="Hiện/ẩn mật khẩu"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
 </div>
 <div class="error-text" id="pwError">Mật khẩu không đúng</div>
-<div id="forgotPwMsg" style="display:none;font-size:12px;color:var(--text-sec);margin-top:6px">Vui lòng liên hệ support@maxmin.vn</div>
 </div>
 
 <button class="btn-submit" id="loginBtn" onclick="doLogin()">Đăng nhập</button>
+
+<div style="margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(74,227,181,.04);border:1px solid rgba(74,227,181,.1);font-size:11px;color:var(--text-muted);line-height:1.6"><span style="color:var(--teal);font-weight:700">Demo:</span> Admin: admin@gmail.com · User: user@gmail.com<br>Mật khẩu = email</div>
 
 <div class="auth-footer">Chưa có tài khoản? <a href="register.html">Đăng ký miễn phí</a></div>
 </div>
@@ -170,11 +171,9 @@ input::placeholder{color:var(--text-muted)}
 </div>
 
 <script>
-function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';el.textContent=inp.type==='password'?'👁':'🙈'}
-function toggleForgotPw(){
-  const msg=document.getElementById('forgotPwMsg');
-  msg.style.display=msg.style.display==='none'?'block':'none';
-}
+function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';const isVisible=inp.type==='text';el.querySelector('svg').style.opacity=isVisible?'0.8':'0.45';}
+function validateEmailField(){const email=document.getElementById('loginEmail').value.trim();const err=document.getElementById('emailError');const inp=document.getElementById('loginEmail');if(email&&!email.includes('@')){err.classList.add('show');inp.classList.add('input-error')}else{err.classList.remove('show');inp.classList.remove('input-error')}}
+function validatePwField(){const pw=document.getElementById('loginPw').value;const err=document.getElementById('pwError');const inp=document.getElementById('loginPw');if(pw&&pw.length<6){err.textContent='Mật khẩu tối thiểu 6 ký tự';err.classList.add('show');inp.classList.add('input-error')}else{err.classList.remove('show');inp.classList.remove('input-error')}}
 function googleLogin(){
   const btn=document.querySelector('.btn-google');btn.style.opacity='.6';
   const origHTML=btn.innerHTML;btn.innerHTML='Đang kết nối Google...';
