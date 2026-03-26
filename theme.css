@@ -3,32 +3,32 @@
    Ref: Linear, Stripe, Vercel, Notion
    ══════════════════════════════════════════════════════ */
 
-/* ── Softer Dark (override inline :root) ── */
+/* ── Dark Mode — muted, premium palette ── */
 :root {
-  --bg: #0e0e1a;
-  --bg-card: #151528;
-  --bg-card-h: #1a1a36;
-  --bg-input: #121224;
-  --bg-nav: rgba(14,14,26,.88);
-  --bg-hover: rgba(255,255,255,.03);
-  --border: rgba(255,255,255,.08);
-  --border-h: rgba(255,255,255,.14);
-  --border-accent: rgba(255,120,96,.14);
-  --text: #e4e4ec;
-  --text-dim: rgba(228,228,236,.55);
-  --text-sec: #9392a4;
-  --text-muted: rgba(228,228,236,.38);
-  --coral: #ff7e6a;
-  --coral-dark: #e8614d;
-  --coral-glow: rgba(255,126,106,.07);
-  --peach: #ffb5a4;
-  --teal: #5aeac5;
-  --teal-g: rgba(90,234,197,.35);
-  --teal-glow: rgba(90,234,197,.06);
-  --green: #5aeac5;
-  --amber: #ffac7e;
-  --amber-glow: rgba(255,172,126,.06);
-  --red: #ff6b6b;
+  --bg: #0c0c18;
+  --bg-card: #13132a;
+  --bg-card-h: #181834;
+  --bg-input: #101022;
+  --bg-nav: rgba(12,12,24,.9);
+  --bg-hover: rgba(255,255,255,.025);
+  --border: rgba(255,255,255,.07);
+  --border-h: rgba(255,255,255,.12);
+  --border-accent: rgba(200,90,70,.1);
+  --text: #dcdce6;
+  --text-dim: rgba(220,220,230,.5);
+  --text-sec: #8b8b9e;
+  --text-muted: rgba(220,220,230,.32);
+  --coral: #d4644f;
+  --coral-dark: #b84d3a;
+  --coral-glow: rgba(212,100,79,.04);
+  --peach: #d49888;
+  --teal: #4cc9a0;
+  --teal-g: rgba(76,201,160,.16);
+  --teal-glow: rgba(76,201,160,.04);
+  --green: #4cc9a0;
+  --amber: #d4984a;
+  --amber-glow: rgba(212,152,74,.04);
+  --red: #d44a4a;
   --transition-fast: .15s cubic-bezier(.22,1,.36,1);
   --transition-mid: .25s cubic-bezier(.22,1,.36,1);
   --transition-slow: .4s cubic-bezier(.22,1,.36,1);
@@ -60,18 +60,18 @@ html[data-theme="light"] :root {
   --text-dim: rgba(31,41,55,.62);
   --text-sec: #6b7280;
   --text-muted: rgba(31,41,55,.38);
-  /* Accent — muted, professional, not neon */
-  --coral: #e54d3a;
-  --coral-dark: #c7392a;
-  --coral-glow: rgba(229,77,58,.05);
-  --peach: #e8756a;
-  --teal: #0d9668;
-  --teal-g: rgba(13,150,104,.18);
-  --teal-glow: rgba(13,150,104,.04);
-  --green: #0d9668;
-  --amber: #ca8a04;
-  --amber-glow: rgba(202,138,4,.05);
-  --red: #dc2626;
+  /* Accent — warm, muted, professional */
+  --coral: #c44836;
+  --coral-dark: #a33a2c;
+  --coral-glow: rgba(196,72,54,.04);
+  --peach: #c4705e;
+  --teal: #1a8a6a;
+  --teal-g: rgba(26,138,106,.14);
+  --teal-glow: rgba(26,138,106,.035);
+  --green: #1a8a6a;
+  --amber: #b07a1c;
+  --amber-glow: rgba(176,122,28,.04);
+  --red: #c43030;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -158,9 +158,9 @@ html[data-theme="light"] .maxi-msg {
   color: #374151;
 }
 html[data-theme="light"] .toast.success {
-  background: rgba(13,150,104,.06);
-  border-color: rgba(13,150,104,.15);
-  color: #0d9668;
+  background: rgba(26,138,106,.06);
+  border-color: rgba(26,138,106,.15);
+  color: #1a8a6a;
 }
 html[data-theme="light"] .toast.info {
   background: rgba(59,130,246,.06);
@@ -228,7 +228,7 @@ html[data-theme="light"] .nav-cta:hover {
    LIGHT: Sidebar items
    ───────────────────────────────────────────────────── */
 html[data-theme="light"] .sb-item.active {
-  background: rgba(229,77,58,.05);
+  background: rgba(196,72,54,.05);
   color: #c7392a;
 }
 html[data-theme="light"] .sb-item.active::before {
@@ -241,11 +241,11 @@ html[data-theme="light"] .sb-dd-item:hover {
   background: #f3f4f6;
 }
 html[data-theme="light"] .sb-avatar {
-  background: linear-gradient(135deg, #e54d3a, #e8756a);
+  background: linear-gradient(135deg, #c44836, #e8756a);
 }
 html[data-theme="light"] .sb-badge,
 html[data-theme="light"] .sb-item .sb-badge {
-  background: #e54d3a;
+  background: #c44836;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -254,14 +254,14 @@ html[data-theme="light"] .sb-item .sb-badge {
 
 /* Stream status */
 html[data-theme="light"] .st-status.live {
-  background: rgba(13,150,104,.06);
-  color: #0d9668;
+  background: rgba(26,138,106,.06);
+  color: #1a8a6a;
 }
 html[data-theme="light"] .st-status.sched {
   background: rgba(202,138,4,.06);
   color: #a16207;
 }
-html[data-theme="light"] .st-viewers { color: #0d9668; }
+html[data-theme="light"] .st-viewers { color: #1a8a6a; }
 
 /* Checkout card preview — keep dark */
 html[data-theme="light"] .card-preview {
@@ -301,44 +301,44 @@ html[data-theme="light"] .mobile-menu a { color: #374151; }
 
 /* Pricing */
 html[data-theme="light"] .price-card.current {
-  border-color: rgba(13,150,104,.25);
+  border-color: rgba(26,138,106,.25);
   background: #ffffff;
 }
-html[data-theme="light"] .price-card.current::after { background: #0d9668; }
+html[data-theme="light"] .price-card.current::after { background: #1a8a6a; }
 html[data-theme="light"] .price-card.rec {
-  border-color: rgba(229,77,58,.18);
+  border-color: rgba(196,72,54,.18);
   background: #ffffff;
 }
-html[data-theme="light"] .price-card.rec::after { background: linear-gradient(90deg, #e54d3a, #e8756a); }
+html[data-theme="light"] .price-card.rec::after { background: linear-gradient(90deg, #c44836, #e8756a); }
 html[data-theme="light"] .price-btn.current-btn {
-  background: rgba(13,150,104,.05);
-  border-color: rgba(13,150,104,.15);
-  color: #0d9668;
+  background: rgba(26,138,106,.05);
+  border-color: rgba(26,138,106,.15);
+  color: #1a8a6a;
 }
 html[data-theme="light"] .price-badge.cur {
-  background: rgba(13,150,104,.06);
-  color: #0d9668;
-  border-color: rgba(13,150,104,.15);
+  background: rgba(26,138,106,.06);
+  color: #1a8a6a;
+  border-color: rgba(26,138,106,.15);
 }
 html[data-theme="light"] .price-badge.pop {
-  background: rgba(229,77,58,.06);
+  background: rgba(196,72,54,.06);
   color: #c7392a;
-  border-color: rgba(229,77,58,.12);
+  border-color: rgba(196,72,54,.12);
 }
 html[data-theme="light"] .billing-switch { background: rgba(0,0,0,.08); border-color: rgba(0,0,0,.06); }
-html[data-theme="light"] .billing-switch.on { background: #e54d3a; border-color: #e54d3a; }
+html[data-theme="light"] .billing-switch.on { background: #c44836; border-color: #c44836; }
 
 /* Onboarding */
 html[data-theme="light"] .upload-zone { border-color: rgba(0,0,0,.12); background: #ffffff; }
-html[data-theme="light"] .upload-zone:hover { border-color: #e54d3a; background: rgba(229,77,58,.02); }
-html[data-theme="light"] .upload-zone.has-file { border-color: #0d9668; background: rgba(13,150,104,.02); }
-html[data-theme="light"] .plat-btn.connect { color: #c7392a; border-color: rgba(229,77,58,.2); background: rgba(229,77,58,.04); }
-html[data-theme="light"] .plat-btn.done { color: #0d9668; border-color: rgba(13,150,104,.2); background: rgba(13,150,104,.04); }
-html[data-theme="light"] .plat-item.connected { border-color: rgba(13,150,104,.15); background: rgba(13,150,104,.02); }
+html[data-theme="light"] .upload-zone:hover { border-color: #c44836; background: rgba(196,72,54,.02); }
+html[data-theme="light"] .upload-zone.has-file { border-color: #1a8a6a; background: rgba(26,138,106,.02); }
+html[data-theme="light"] .plat-btn.connect { color: #c7392a; border-color: rgba(196,72,54,.2); background: rgba(196,72,54,.04); }
+html[data-theme="light"] .plat-btn.done { color: #1a8a6a; border-color: rgba(26,138,106,.2); background: rgba(26,138,106,.04); }
+html[data-theme="light"] .plat-item.connected { border-color: rgba(26,138,106,.15); background: rgba(26,138,106,.02); }
 
 /* Checkout */
 html[data-theme="light"] .bank-info { background: #f3f4f6; border-color: rgba(0,0,0,.06); }
-html[data-theme="light"] .bank-copy { color: #0d9668; border-color: rgba(13,150,104,.2); background: rgba(13,150,104,.04); }
+html[data-theme="light"] .bank-copy { color: #1a8a6a; border-color: rgba(26,138,106,.2); background: rgba(26,138,106,.04); }
 html[data-theme="light"] .qr-box { border: 1px solid rgba(0,0,0,.08); box-shadow: none; }
 
 /* Dividers */
@@ -352,8 +352,8 @@ html[data-theme="light"] .auth-divider::after { background: rgba(0,0,0,.06); }
 html[data-theme="light"] .st-tab.active,
 html[data-theme="light"] .stream-tabs .st-tab.active {
   color: #c7392a;
-  border-color: rgba(229,77,58,.2);
-  background: rgba(229,77,58,.04);
+  border-color: rgba(196,72,54,.2);
+  background: rgba(196,72,54,.04);
 }
 
 /* Scrollbar */
@@ -423,9 +423,9 @@ html[data-theme="light"] .lib-filter-btn:hover {
   background: #f9fafb;
 }
 html[data-theme="light"] .lib-filter-btn.active {
-  border-color: rgba(229,77,58,.25);
+  border-color: rgba(196,72,54,.25);
   color: #c7392a;
-  background: rgba(229,77,58,.04);
+  background: rgba(196,72,54,.04);
 }
 
 /* Wizard: auto-live mode buttons */
@@ -439,9 +439,9 @@ html[data-theme="light"] .ao-btn:hover {
   color: #374151;
 }
 html[data-theme="light"] .ao-btn.active {
-  border-color: rgba(229,77,58,.25);
+  border-color: rgba(196,72,54,.25);
   color: #c7392a;
-  background: rgba(229,77,58,.04);
+  background: rgba(196,72,54,.04);
 }
 
 /* Wizard: review tags */
@@ -466,9 +466,9 @@ html[data-theme="light"] .fbtn:hover {
 }
 html[data-theme="light"] .fbtn.on,
 html[data-theme="light"] .fbtn.active {
-  border-color: rgba(229,77,58,.25);
+  border-color: rgba(196,72,54,.25);
   color: #c7392a;
-  background: rgba(229,77,58,.04);
+  background: rgba(196,72,54,.04);
 }
 
 /* Admin: outline buttons */
@@ -492,7 +492,7 @@ html[data-theme="light"] .dp-ctrl:hover {
   background: #f9fafb;
 }
 html[data-theme="light"] .dp-ctrl.danger {
-  color: #dc2626;
+  color: #b82e2e;
   border-color: rgba(220,38,38,.2);
 }
 html[data-theme="light"] .dp-ctrl.warn {
@@ -511,8 +511,8 @@ html[data-theme="light"] .st-act:hover {
 
 /* Checkout: plan selector card */
 html[data-theme="light"] .ck-plan {
-  background: rgba(229,77,58,.03);
-  border-color: rgba(229,77,58,.12);
+  background: rgba(196,72,54,.03);
+  border-color: rgba(196,72,54,.12);
 }
 
 /* Checkout: payment method tabs */
@@ -526,7 +526,7 @@ html[data-theme="light"] .pay-method:hover {
 }
 html[data-theme="light"] .pay-method.active {
   border-color: var(--coral);
-  background: rgba(229,77,58,.03);
+  background: rgba(196,72,54,.03);
 }
 
 /* Landing: blog coming soon badge */
@@ -551,7 +551,7 @@ html[data-theme="light"] .sw-track {
   border-color: rgba(0,0,0,.06);
 }
 html[data-theme="light"] .sw-track.on {
-  background: #0d9668;
+  background: #1a8a6a;
 }
 
 /* Settings: save button disabled state */
@@ -598,7 +598,7 @@ html[data-theme="light"] .stream-table tr:hover td {
   background: #f9fafb;
 }
 html[data-theme="light"] .stream-table tr.selected td {
-  background: rgba(229,77,58,.03);
+  background: rgba(196,72,54,.03);
 }
 
 /* Landing: all hardcoded rgba(255) borders catchall */
