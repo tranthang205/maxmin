@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Đăng ký miễn phí</title>
+<style>
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_SemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-weight:800}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-weight:900}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-input:#0e0e20;--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.12);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--green:#4AE3B5;--red:#FF5252;--font:'SVN-Gilroy',system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+input{font-family:inherit;color:var(--text);background:var(--bg-input);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;outline:none;width:100%;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,107,84,.08)}
+input::placeholder{color:var(--text-muted)}
+
+.auth-wrap{display:flex;min-height:100vh;width:100%}
+.auth-left{flex:1;display:flex;align-items:center;justify-content:center;padding:40px}
+.auth-right{width:480px;background:linear-gradient(135deg,rgba(74,227,181,.04),rgba(255,107,84,.05));border-left:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
+.auth-right::before{content:'';position:absolute;width:400px;height:400px;background:var(--teal);border-radius:50%;filter:blur(160px);opacity:.06;top:-100px;left:-100px}
+.auth-right::after{content:'';position:absolute;width:300px;height:300px;background:var(--coral);border-radius:50%;filter:blur(140px);opacity:.06;bottom:-80px;right:-60px}
+
+.auth-card{width:100%;max-width:400px;animation:authIn .5s var(--spring)}
+@keyframes authIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+.auth-logo{font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:32px;display:flex;align-items:center}
+.auth-logo .dot{display:inline-block;width:6px;height:6px;background:var(--coral);border-radius:50%;margin:0 5px;transform:translateY(-1px)}
+.auth-title{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+.auth-desc{font-size:14px;color:var(--text-sec);margin-bottom:28px}
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:12px;font-size:14px;font-weight:700;background:#fff;color:#1a1a2e;transition:all .2s var(--ease);box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.btn-google:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn-google svg{width:20px;height:20px}
+.auth-divider{display:flex;align-items:center;gap:14px;margin:24px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-divider span{font-size:12px;color:var(--text-muted);font-weight:600}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text-dim)}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.input-wrap{position:relative}
+.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:16px}
+.pw-strength{height:3px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden}
+.pw-strength-bar{height:100%;border-radius:2px;width:0;transition:width .3s,background .3s}
+.pw-hint{font-size:10px;color:var(--text-muted);margin-top:3px}
+.btn-submit{width:100%;padding:14px 20px;border-radius:12px;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;transition:all .2s var(--ease);box-shadow:0 4px 16px rgba(255,107,84,.2);margin-top:4px}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,107,84,.3)}
+.btn-submit:disabled{opacity:.5;pointer-events:none}
+.btn-loading{pointer-events:none;position:relative;color:transparent!important}
+.btn-loading::after{content:'';position:absolute;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;top:50%;left:50%;margin:-10px 0 0 -10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.auth-footer{margin-top:20px;text-align:center;font-size:13px;color:var(--text-sec)}
+.auth-footer a{color:var(--coral);font-weight:700}
+.auth-terms{margin-top:10px;text-align:center;font-size:11px;color:var(--text-muted);line-height:1.5}
+.auth-terms a{color:var(--text-dim);text-decoration:underline;text-underline-offset:2px}
+.input-error{border-color:var(--coral)!important;box-shadow:0 0 0 3px rgba(255,107,84,.1)!important}
+.error-text{font-size:11px;color:var(--coral);margin-top:4px;display:none}.error-text.show{display:block}
+
+/* Terms modal */
+.terms-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center}
+.terms-overlay.show{display:flex}
+.terms-modal{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:440px;width:90%;position:relative;animation:authIn .3s var(--spring)}
+.terms-modal-title{font-size:16px;font-weight:800;margin-bottom:12px}
+.terms-modal-body{font-size:13px;color:var(--text-sec);line-height:1.7}
+.terms-modal-close{position:absolute;top:16px;right:16px;font-size:18px;color:var(--text-muted);cursor:pointer;transition:color .2s}
+.terms-modal-close:hover{color:var(--text)}
+
+/* Right panel */
+.auth-showcase{position:relative;z-index:1;text-align:center;max-width:340px}
+.auth-mascot{margin-bottom:24px;animation:mascotFloat 3s ease-in-out infinite}
+@keyframes mascotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.showcase-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:28px}
+.ss-item{padding:14px 8px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--border);text-align:center}
+.ss-num{font-size:20px;font-weight:900;letter-spacing:-.02em}
+.ss-num.c1{color:var(--coral)}.ss-num.c2{color:var(--teal)}.ss-num.c3{color:var(--peach)}
+.ss-label{font-size:10px;color:var(--text-muted);font-weight:600;margin-top:2px}
+
+@media(max-width:900px){.auth-right{display:none}.auth-left{padding:24px}}
+@media(max-width:480px){.auth-card{padding:0 8px}.auth-title{font-size:22px}.auth-desc{font-size:13px;margin-bottom:20px}.form-row-2{grid-template-columns:1fr}.btn-google{padding:12px 16px;font-size:13px}.btn-submit{padding:12px 16px;font-size:14px}.form-group{margin-bottom:12px}}
+@media(max-width:360px){.auth-logo{font-size:20px;margin-bottom:20px}.auth-title{font-size:20px}input{padding:10px 12px;font-size:13px}}
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+<div class="auth-left">
+<div class="auth-card">
+<div class="auth-logo">MAXMIN<span class="dot"></span>VN</div>
+<h1 class="auth-title">Tạo tài khoản miễn phí</h1>
+<p class="auth-desc">Setup chỉ 2 phút, bắt đầu live bán hàng ngay</p>
+
+<button class="btn-google" onclick="googleSignup()">
+<svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Đăng ký bằng Google
+</button>
+
+<div class="auth-divider"><span>hoặc đăng ký bằng email</span></div>
+
+<div class="form-row-2">
+<div class="form-group"><label class="form-label" for="regName">Tên hiển thị</label><input type="text" id="regName" placeholder="Shop của bạn" autocomplete="name"><div class="error-text" id="regNameErr">Vui lòng nhập tên hiển thị</div></div>
+<div class="form-group"><label class="form-label" for="regPhone">Số điện thoại</label><input type="tel" id="regPhone" placeholder="0912 345 678" autocomplete="tel"><div class="error-text" id="regPhoneErr">Số điện thoại phải có ít nhất 9 chữ số</div></div>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="regEmail">Email</label>
+<input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+<div class="error-text" id="regEmailErr">Email không hợp lệ</div>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="regPw">Mật khẩu</label>
+<div class="input-wrap">
+<input type="password" id="regPw" placeholder="Tối thiểu 6 ký tự" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+<span class="toggle-pw" onclick="togglePw(this)">👁</span>
+</div>
+<div class="pw-strength"><div class="pw-strength-bar" id="pwBar"></div></div>
+<div class="pw-hint" id="pwHint">Chưa nhập mật khẩu</div>
+<div class="error-text" id="regPwErr">Mật khẩu tối thiểu 6 ký tự</div>
+</div>
+
+<div class="form-group">
+<label class="form-label" for="regCategory">Ngành hàng</label>
+<input type="text" id="regCategory" placeholder="VD: Mỹ phẩm, Thời trang, Đồ gia dụng..." list="categories">
+<datalist id="categories">
+<option value="Mỹ phẩm & Skincare">
+<option value="Thời trang">
+<option value="Đồ gia dụng">
+<option value="Thực phẩm">
+<option value="Công nghệ">
+<option value="Phụ kiện">
+<option value="Sức khỏe">
+<option value="Khác">
+</datalist>
+</div>
+
+<button class="btn-submit" id="regBtn" onclick="doRegister()">Tạo tài khoản</button>
+
+<div class="auth-terms">Bằng việc đăng ký, bạn đồng ý với <a href="javascript:void(0)" onclick="showTermsModal('Điều khoản sử dụng MAXMIN — Nội dung đang được cập nhật.')">Điều khoản sử dụng</a> và <a href="javascript:void(0)" onclick="showTermsModal('Chính sách bảo mật MAXMIN — Nội dung đang được cập nhật.')">Chính sách bảo mật</a> của MAXMIN</div>
+<div class="auth-footer">Đã có tài khoản? <a href="login.html">Đăng nhập</a></div>
+</div>
+</div>
+
+<div class="auth-right">
+<div class="auth-showcase">
+<div class="auth-mascot">
+<svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+<defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs>
+<path d="M44 32Q36 16 31 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="19" r="3.5" fill="#FFCABC"/>
+<path d="M76 32Q84 16 89 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="90" cy="19" r="3.5" fill="#FFCABC"/>
+<ellipse cx="18" cy="56" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(-20 18 56)"/>
+<ellipse cx="102" cy="56" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(20 102 56)"/>
+<ellipse cx="60" cy="68" rx="34" ry="40" fill="url(#gm)"/>
+<circle cx="46" cy="60" r="7.5" fill="#0a0a18"/><circle cx="74" cy="60" r="7.5" fill="#0a0a18"/>
+<circle cx="47.5" cy="60" r="3.5" fill="#4AE3B5"/><circle cx="75.5" cy="60" r="3.5" fill="#4AE3B5"/>
+<circle cx="49" cy="61.5" r="1.5" fill="white" opacity=".9"/><circle cx="77" cy="61.5" r="1.5" fill="white" opacity=".9"/>
+<path d="M50 76Q60 85 70 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/>
+<ellipse cx="48" cy="106" rx="10" ry="4" fill="#E85A3A"/><ellipse cx="72" cy="106" rx="10" ry="4" fill="#E85A3A"/>
+</svg>
+</div>
+<h2 style="font-size:20px;font-weight:900;margin-bottom:10px">Hơn <span style="color:var(--teal)">2,000+</span> sellers<br>đã tin tưởng MAXMIN</h2>
+<p style="font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:8px">Tăng doanh thu bán hàng mà không cần ngồi live cả ngày</p>
+<div class="showcase-stats">
+<div class="ss-item"><div class="ss-num c1">24/7</div><div class="ss-label">Auto-live</div></div>
+<div class="ss-item"><div class="ss-num c2">4</div><div class="ss-label">Nền tảng</div></div>
+<div class="ss-item"><div class="ss-num c3">2 phút</div><div class="ss-label">Setup</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="terms-overlay" id="termsOverlay" onclick="if(event.target===this)closeTermsModal()">
+<div class="terms-modal">
+<span class="terms-modal-close" onclick="closeTermsModal()">✕</span>
+<div class="terms-modal-title" id="termsModalTitle"></div>
+<div class="terms-modal-body" id="termsModalBody"></div>
+</div>
+</div>
+
+<script>
+function showTermsModal(text){
+  const title=text.split('—')[0].trim();
+  document.getElementById('termsModalTitle').textContent=title;
+  document.getElementById('termsModalBody').textContent=text;
+  document.getElementById('termsOverlay').classList.add('show');
+}
+function closeTermsModal(){document.getElementById('termsOverlay').classList.remove('show')}
+function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';el.textContent=inp.type==='password'?'👁':'🙈'}
+function checkPwStrength(pw){
+  const bar=document.getElementById('pwBar'),hint=document.getElementById('pwHint');
+  if(!pw){bar.style.width='0';hint.textContent='Chưa nhập mật khẩu';return}
+  let score=0;
+  if(pw.length>=6)score++;if(pw.length>=10)score++;if(/[A-Z]/.test(pw))score++;if(/[0-9]/.test(pw))score++;if(/[^A-Za-z0-9]/.test(pw))score++;
+  const levels=[{w:'20%',c:'#FF5252',t:'Yếu'},{w:'40%',c:'#FF9B6A',t:'Trung bình'},{w:'60%',c:'#FFB84D',t:'Khá'},{w:'80%',c:'#4AE3B5',t:'Mạnh'},{w:'100%',c:'#4AE3B5',t:'Rất mạnh'}];
+  const l=levels[Math.min(score,4)];
+  bar.style.width=l.w;bar.style.background=l.c;hint.textContent='Độ mạnh: '+l.t;hint.style.color=l.c;
+}
+function googleSignup(){
+  const btn=document.querySelector('.btn-google');btn.style.opacity='.6';
+  const origHTML=btn.innerHTML;btn.innerHTML='Đang kết nối Google...';
+  setTimeout(()=>window.location.href='onboarding.html',1500);
+}
+function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pw=document.getElementById('regPw').value;
+  let ok=true;
+  document.querySelectorAll('.error-text').forEach(e=>e.classList.remove('show'));
+  document.querySelectorAll('input').forEach(e=>e.classList.remove('input-error'));
+  if(!name){document.getElementById('regNameErr').classList.add('show');document.getElementById('regName').classList.add('input-error');ok=false}
+  const phoneDigits=phone.replace(/\D/g,'');
+  if(phoneDigits.length<9){document.getElementById('regPhoneErr').classList.add('show');document.getElementById('regPhone').classList.add('input-error');ok=false}
+  if(!email||!email.includes('@')){document.getElementById('regEmailErr').classList.add('show');document.getElementById('regEmail').classList.add('input-error');ok=false}
+  if(!pw||pw.length<6){document.getElementById('regPwErr').classList.add('show');document.getElementById('regPw').classList.add('input-error');ok=false}
+  if(!ok)return;
+  const btn=document.getElementById('regBtn');btn.classList.add('btn-loading');btn.textContent='';
+  setTimeout(()=>window.location.href='onboarding.html',1500);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(document.activeElement.closest('form')||document.activeElement.closest('.auth-card')))doRegister()});
+</script>
+</body>
+</html>

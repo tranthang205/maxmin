@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Luồng phát</title>
+<style>
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_SemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-weight:800}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-weight:900}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold_Italic.otf') format('opentype');font-weight:700;font-style:italic}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black_Italic.otf') format('opentype');font-weight:900;font-style:italic}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-card-h:#161632;--bg-input:#0e0e20;--bg-hover:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.1);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--amber:#FF9B6A;--amber-glow:rgba(255,155,106,.06);--green:#4AE3B5;--red:#FF5252;--font:'SVN-Gilroy',sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1);--sidebar-w:220px;--sidebar-collapsed:60px;--topbar-h:52px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5}a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:width .3s var(--ease);overflow:hidden}.sidebar.collapsed{width:var(--sidebar-collapsed)}
+.sb-logo{display:flex;align-items:center;gap:8px;padding:16px 18px;font-size:17px;font-weight:900;border-bottom:1px solid var(--border);height:var(--topbar-h);flex-shrink:0;white-space:nowrap}.sb-logo .dot{width:5px;height:5px;background:var(--coral);border-radius:50%}.sb-logo span{transition:opacity .2s}.sidebar.collapsed .sb-logo span{opacity:0;width:0}
+.sb-nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px}.sb-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--text-dim);transition:all .2s;white-space:nowrap;position:relative}.sb-item:hover{background:var(--bg-hover);color:var(--text)}.sb-item.active{background:var(--coral-glow);color:var(--coral);font-weight:600}.sb-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--coral);border-radius:0 3px 3px 0}.sb-item svg{width:18px;height:18px;flex-shrink:0;opacity:.6}.sb-item.active svg{opacity:1}.sb-item .sb-label{transition:opacity .2s}.sidebar.collapsed .sb-label{opacity:0;width:0}.sb-item .sb-badge{margin-left:auto;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;background:var(--coral);color:#fff}.sidebar.collapsed .sb-badge{display:none}
+.sb-footer{padding:12px;border-top:1px solid var(--border);position:relative}.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}.sb-user:hover{background:var(--bg-hover)}.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--peach));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}.sb-uinfo{overflow:hidden}.sb-uname{font-size:12.5px;font-weight:700}.sb-uplan{font-size:10px;color:var(--teal);font-weight:600}.sidebar.collapsed .sb-uinfo{display:none}.sb-dropdown{position:absolute;bottom:100%;left:8px;right:8px;margin-bottom:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:all .2s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4)}.sb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}.sb-dd-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap}.sb-dd-item:hover{background:var(--bg-hover);color:var(--text)}.sb-dd-item svg{width:15px;height:15px;opacity:.6;flex-shrink:0}.sb-dd-div{height:1px;background:var(--border);margin:4px 0}
+.sb-toggle{position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101}.sb-toggle svg{width:14px;height:14px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:99;transition:left .3s var(--ease)}.sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
+.tb-title{font-size:18px;font-weight:800}.tb-btn{display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}.tb-btn.primary{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 2px 12px rgba(255,107,84,.2)}.tb-btn.primary:hover{transform:translateY(-1px)}.tb-btn.primary svg{width:16px;height:16px}
+.main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
+.main{padding:calc(var(--topbar-h) + 20px) 24px 40px}
+.mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px}.mob-toggle .ml2{margin:4px 0}
+
+/* ══ STREAMS LAYOUT ══ */
+.stream-tabs{display:flex;gap:6px;margin-bottom:16px}
+.st-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text-muted);border:1px solid var(--border);transition:all .2s}.st-tab:hover{color:var(--text-dim)}.st-tab.active{color:var(--coral);border-color:rgba(255,107,84,.3);background:var(--coral-glow)}
+
+.streams-body{display:grid;grid-template-columns:1fr 380px;gap:16px;min-height:calc(100vh - var(--topbar-h) - 120px)}
+.streams-body.no-detail{grid-template-columns:1fr}
+
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.stream-table{width:100%;border-collapse:collapse}
+.stream-table th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border)}
+.stream-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:middle}
+.stream-table tr{cursor:pointer;transition:background .15s}.stream-table tr:hover td{background:var(--bg-hover)}
+.stream-table tr.selected td{background:var(--coral-glow)}
+.st-platform{display:flex;align-items:center;gap:10px}
+.st-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0}.st-icon.tt{background:#000}.st-icon.yt{background:#F00}.st-icon.fb{background:#1877F2}.st-icon.sp{background:#EE4D2D}
+.st-name{font-weight:700;font-size:12.5px}.st-account{font-size:10px;color:var(--text-muted)}
+.st-status{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:10.5px;font-weight:700}
+.st-status.live{color:var(--teal);background:rgba(46,204,113,.08)}.st-status.live .dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.6s ease-in-out infinite}
+.st-status.sched{color:rgba(255,155,106,.8);background:var(--amber-glow)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.st-viewers{font-family:var(--mono);font-weight:700;color:var(--teal);font-size:12px}
+.st-actions{display:flex;gap:4px}
+.st-act{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);transition:all .2s}.st-act:hover{border-color:var(--border-h);background:var(--bg-card-h)}.st-act svg{width:12px;height:12px;color:var(--text-dim)}
+
+/* ══ DETAIL PANEL (inline right) ══ */
+.detail-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:sticky;top:calc(var(--topbar-h) + 20px);max-height:calc(100vh - var(--topbar-h) - 60px)}
+.dp-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px;text-align:center;color:var(--text-muted)}.dp-empty-icon{font-size:32px;margin-bottom:8px}.dp-empty-text{font-size:13px;font-weight:600}
+
+/* Preview screen */
+.dp-screen{position:relative;padding-top:56.25%;background:linear-gradient(135deg,rgba(16,16,40,.95),rgba(10,10,28,.98));flex-shrink:0}
+.dp-live{position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:5px;background:rgba(255,59,48,.9);font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#fff}.dp-live .dot{width:5px;height:5px;border-radius:50%;background:#fff;animation:pulse 1.5s ease-in-out infinite}
+.dp-timer{position:absolute;top:8px;right:8px;padding:4px 10px;border-radius:5px;background:rgba(0,0,0,.6);font-family:var(--mono);font-size:11px;font-weight:700;color:#fff}
+.dp-viewers{position:absolute;bottom:8px;right:8px;padding:4px 10px;border-radius:5px;background:rgba(0,0,0,.5);font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}.dp-viewers svg{width:12px;height:12px;color:var(--text-dim)}
+
+/* Detail body */
+.dp-body{flex:1;overflow-y:auto;padding:14px}
+.dp-body::-webkit-scrollbar{width:3px}.dp-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.dp-title{font-size:14px;font-weight:800;margin-bottom:2px}.dp-subtitle{font-size:11px;color:var(--text-muted);margin-bottom:12px}
+
+/* Mini stats */
+.dp-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:12px}
+.dp-stat{padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;text-align:center}
+.dp-stat-val{font-family:var(--mono);font-size:16px;font-weight:700;line-height:1}.dp-stat-lbl{font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:.4px;text-transform:uppercase;margin-top:2px}
+
+/* Controls */
+.dp-controls{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.dp-ctrl{display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:100px;font-size:11px;font-weight:700;border:1px solid var(--border);transition:all .2s}
+.dp-ctrl:hover{border-color:var(--border-h);background:var(--bg-hover)}
+.dp-ctrl svg{width:12px;height:12px}
+.dp-ctrl.danger{color:var(--red);border-color:rgba(255,82,82,.2)}.dp-ctrl.danger:hover{background:rgba(255,82,82,.06)}
+.dp-ctrl.warn{color:rgba(255,155,106,.8);border-color:rgba(255,181,71,.2)}
+
+.dp-timer-info{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:11px;color:var(--text-dim);margin-bottom:12px}
+.dp-timer-info svg{width:14px;height:14px;color:rgba(255,155,106,.8);flex-shrink:0}
+.dp-timer-val{font-family:var(--mono);font-weight:700;color:rgba(255,155,106,.8);margin-left:auto}
+
+/* Comments mini */
+.dp-comments-head{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.dp-comments-count{font-size:10px;color:var(--text-muted);font-family:var(--mono)}
+.dp-cmt{display:flex;gap:8px;margin-bottom:8px}
+.dp-cmt-avatar{width:24px;height:24px;border-radius:50%;background:var(--bg-card-h);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-dim);flex-shrink:0}
+.dp-cmt-body{flex:1;min-width:0}.dp-cmt-name{font-size:10.5px;font-weight:700}.dp-cmt-text{font-size:11px;color:var(--text-dim);line-height:1.4;word-wrap:break-word}.dp-cmt-time{font-size:8px;color:var(--text-muted);font-family:var(--mono);margin-top:1px}
+.dp-cmt-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:4px;background:var(--coral-glow);font-size:9px;font-weight:600;color:var(--coral);margin-top:2px}
+
+/* Confirm */
+.confirm-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center}.confirm-overlay.show{display:flex}
+.confirm-box{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:cIn .25s var(--spring);text-align:center}@keyframes cIn{0%{opacity:0;transform:scale(.95) translateY(8px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.confirm-icon{font-size:36px;margin-bottom:12px}.confirm-title{font-size:16px;font-weight:800;margin-bottom:4px}.confirm-desc{font-size:13px;color:var(--text-sec);margin-bottom:20px;line-height:1.5}
+.confirm-actions{display:flex;gap:8px;justify-content:center}.confirm-btn{padding:10px 24px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}
+.confirm-btn.cancel{border:1px solid var(--border);color:var(--text-dim)}.confirm-btn.danger{background:var(--red);color:#fff}.confirm-btn.warn{background:var(--amber);color:#000}
+
+/* Maxi + Toast */
+.toast{position:fixed;top:calc(var(--topbar-h) + 16px);right:28px;z-index:500;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transform:translateY(-8px);transition:all .3s var(--ease)}.toast.show{opacity:1;transform:translateY(0)}.toast.success{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.2);color:var(--teal)}
+.maxi-helper{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.maxi-msg{max-width:220px;padding:10px 14px;border-radius:12px 12px 4px 12px;background:var(--bg-card);border:1px solid var(--border);font-size:11.5px;font-weight:500;color:var(--text-dim);line-height:1.5;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);box-shadow:0 8px 24px rgba(0,0,0,.3)}.maxi-msg.show{opacity:1;transform:translateY(0)}
+.maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08)}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}.mob-overlay.show{display:block}
+@media(max-width:1024px){.streams-body{grid-template-columns:1fr}.detail-panel:has(.dp-empty){display:none!important}.detail-panel{min-height:0}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stream-table{display:block;overflow-x:auto}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.stream-tabs{flex-wrap:wrap}.st-tab{padding:6px 12px;font-size:12px}.tb-title{font-size:15px}.tb-btn{padding:6px 14px;font-size:12px}.stream-table th,.stream-table td{padding:8px 10px;font-size:11px}.st-icon{width:24px;height:24px;font-size:9px}.detail-panel{padding:16px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar"><div class="sb-logo"><span class="dot"></span><span>MAXMIN</span></div><button class="sb-toggle" id="sbToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button><nav class="sb-nav"><a href="dashboard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="sb-label">Tổng quan</span></a><a href="streams.html" class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49"/></svg><span class="sb-label">Luồng phát</span><span class="sb-badge">4</span></a><a href="library.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7z"/></svg><span class="sb-label">Thư viện video</span></a><a href="wizard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="sb-label">Tạo luồng mới</span></a><a href="pricing.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg><span class="sb-label">Gói dịch vụ</span></a><a href="settings.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg><span class="sb-label">Cài đặt</span></a></nav><div class="sb-footer"><div class="sb-dropdown" id="sbDropdown"><a href="admin.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span class="sb-label">Trang quản trị</span></a><a href="settings.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="sb-label">Cài đặt</span></a><div class="sb-dd-div"></div><a href="login.html" class="sb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="sb-label">Đăng xuất</span></a></div><div class="sb-user" onclick="document.getElementById('sbDropdown').classList.toggle('show')"><div class="sb-avatar">H</div><div class="sb-uinfo"><div class="sb-uname">Shop Hana</div><div class="sb-uplan">Pro Plan</div></div></div></div></aside>
+
+<div class="main-wrap">
+<header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button><h1 class="tb-title">Luồng phát</h1></div><a href="wizard.html" class="tb-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Tạo luồng mới</a></header>
+
+<main class="main">
+<div class="stream-tabs" id="tabs"></div>
+<div class="streams-body" id="streamsBody">
+  <div class="card"><table class="stream-table"><thead><tr><th>Nền tảng</th><th>Video</th><th>Trạng thái</th><th>Viewers</th><th>Thời gian</th><th>Hẹn tắt</th><th></th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  <div class="detail-panel" id="detailPanel">
+    <div class="dp-empty" id="dpEmpty"><div class="dp-empty-icon">📡</div><div class="dp-empty-text">Chọn luồng để xem chi tiết</div></div>
+    <div id="dpContent" style="display:none"></div>
+  </div>
+</div>
+</main></div></div>
+
+<div class="confirm-overlay" id="confirmOverlay"><div class="confirm-box"><div class="confirm-icon" id="confirmIcon"></div><div class="confirm-title" id="confirmTitle"></div><div class="confirm-desc" id="confirmDesc"></div><div class="confirm-actions"><button class="confirm-btn cancel" onclick="closeConfirm()">Hủy bỏ</button><button class="confirm-btn danger" id="confirmAction">Xác nhận</button></div></div></div>
+<div class="toast" id="toast"></div>
+<div class="maxi-helper"><div class="maxi-msg" id="maxiMsg"></div><div class="maxi-orb" id="maxiOrb"><svg viewBox="0 0 120 120" width="30" height="30" fill="none"><defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gm)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div></div>
+<div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('sidebar').classList.remove('mob-open');this.classList.remove('show')"></div>
+
+<script>
+(()=>{
+document.getElementById('sbToggle').addEventListener('click',()=>{const s=document.getElementById('sidebar');s.classList.toggle('collapsed');localStorage.setItem('sb-collapsed',s.classList.contains('collapsed'))});
+if(localStorage.getItem('sb-collapsed')==='true')document.getElementById('sidebar').classList.add('collapsed');
+document.addEventListener('click',e=>{const dd=document.getElementById('sbDropdown');if(dd&&!e.target.closest('.sb-user')&&!e.target.closest('.sb-dropdown'))dd.classList.remove('show')});
+
+// Confirm
+let _ccb=null;
+function showConfirm(i,t,d,b,cls,cb){document.getElementById('confirmIcon').textContent=i;document.getElementById('confirmTitle').textContent=t;document.getElementById('confirmDesc').textContent=d;const a=document.getElementById('confirmAction');a.textContent=b;a.className='confirm-btn '+(cls||'danger');_ccb=cb;document.getElementById('confirmOverlay').classList.add('show')}
+window.closeConfirm=function(){document.getElementById('confirmOverlay').classList.remove('show');_ccb=null};
+document.getElementById('confirmAction').addEventListener('click',()=>{if(_ccb)_ccb();closeConfirm()});
+document.getElementById('confirmOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeConfirm()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeConfirm()});
+
+function showToast(m){const t=document.getElementById('toast');t.textContent='✓ '+m;t.className='toast show success';setTimeout(()=>t.classList.remove('show'),2500)}
+
+// ── Stream data ──
+const streams=[
+  {id:'s1',plat:'TikTok',platCls:'tt',platLetter:'T',account:'@shophanavn',video:'Flash Sale T3 - Serum HA',status:'live',viewers:1239,time:'3h 20p',timer:'Tắt sau 8h',comments:287},
+  {id:'s2',plat:'YouTube',platCls:'yt',platLetter:'Y',account:'Shop Hana Official',video:'Flash Sale T3 - Serum HA',status:'live',viewers:859,time:'3h 20p',timer:'Tắt sau 8h',comments:142},
+  {id:'s3',plat:'Facebook',platCls:'fb',platLetter:'F',account:'Hana Beauty Page',video:'Flash Sale T3 - Serum HA',status:'live',viewers:2111,time:'3h 20p',timer:'Tắt sau 8h',comments:456},
+  {id:'s4',plat:'Shopee',platCls:'sp',platLetter:'S',account:'shophanavn',video:'Review Son MAC',status:'sched',viewers:0,time:'Hôm nay 20:00',timer:'Tắt lúc 23:00',comments:0},
+  {id:'s5',plat:'TikTok',platCls:'tt',platLetter:'T',account:'@shophanavn',video:'Unbox Skincare HQ',status:'sched',viewers:0,time:'Hôm nay 22:00',timer:'Không hẹn',comments:0},
+];
+let currentFilter='all',selectedId=null;
+
+const names=['Thanh Nga','Mai Linh','Hoàng Tuấn','Phương Anh','Bích Ngọc','Văn Hùng','Thu Trang','Minh Đức','Hải Yến','Quốc Bảo'];
+const texts=['Sản phẩm tốt không ạ?','Giá bao nhiêu?','Ship tỉnh được không?','Mình đặt 1 nha 💕','Hay quá!','Freeship không?','Combo giảm giá?','Mua 2 chai','Da dầu dùng được?','Like! 👍'];
+
+// Render tabs
+function renderTabs(){
+  const live=streams.filter(s=>s.status==='live').length;
+  const sched=streams.filter(s=>s.status==='sched').length;
+  document.getElementById('tabs').innerHTML=[
+    {f:'all',l:`Tất cả (${streams.length})`},{f:'live',l:`Đang phát (${live})`},{f:'sched',l:`Đặt lịch (${sched})`}
+  ].map(t=>`<button class="st-tab ${t.f===currentFilter?'active':''}" onclick="filterStreams('${t.f}')">${t.l}</button>`).join('');
+}
+
+// Render table
+function renderTable(){
+  const filtered=streams.filter(s=>currentFilter==='all'||s.status===currentFilter);
+  document.getElementById('tableBody').innerHTML=filtered.map(s=>`
+    <tr class="${s.id===selectedId?'selected':''}" onclick="selectStream('${s.id}')">
+      <td><div class="st-platform"><div class="st-icon ${s.platCls}">${s.platLetter}</div><div><div class="st-name">${s.plat}</div><div class="st-account">${s.account}</div></div></div></td>
+      <td style="font-size:12px">${s.video}</td>
+      <td><span class="st-status ${s.status}">${s.status==='live'?'<span class="dot"></span>Đang phát':'Lên lịch'}</span></td>
+      <td><span class="${s.status==='live'?'st-viewers':''}" style="${s.status!=='live'?'color:var(--text-muted)':''}">${s.status==='live'?s.viewers.toLocaleString('de-DE'):'—'}</span></td>
+      <td style="font-size:11px;color:var(--text-sec)">${s.time}</td>
+      <td style="font-size:11px;color:${s.timer==='Không hẹn'?'var(--text-muted)':'var(--amber)'}">${s.timer}</td>
+      <td><div class="st-actions" onclick="event.stopPropagation()">
+        ${s.status==='live'?`<button class="st-act" title="Tạm dừng" onclick="pauseStream('${s.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button><button class="st-act" title="Dừng" onclick="stopStream('${s.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></button>`
+        :`<button class="st-act" title="Sửa" onclick="window.location.href='wizard.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="st-act" title="Hủy" onclick="cancelStream('${s.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`}
+      </div></td>
+    </tr>`).join('');
+}
+
+// Select stream → show detail panel
+window.selectStream=function(id){
+  selectedId=id;const s=streams.find(x=>x.id===id);if(!s)return;
+  renderTable();
+  document.getElementById('dpEmpty').style.display='none';
+  const dp=document.getElementById('dpContent');dp.style.display='flex';dp.style.flexDirection='column';dp.style.flex='1';dp.style.overflow='hidden';
+  const isLive=s.status==='live';
+  dp.innerHTML=`
+    <div class="dp-screen">
+      ${isLive?'<div class="dp-live"><span class="dot"></span>LIVE</div>':''}
+      ${isLive?'<div class="dp-timer" id="dpTimer">03:20:00</div>':''}
+      <div class="dp-viewers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="dpViewers">${isLive?s.viewers.toLocaleString('de-DE'):'—'}</span></div>
+    </div>
+    <div class="dp-body">
+      <div class="dp-title">${s.plat} — ${s.account}</div>
+      <div class="dp-subtitle">Video: ${s.video}</div>
+      <div class="dp-stats">
+        <div class="dp-stat"><div class="dp-stat-val" style="color:var(--teal)" id="dpSViewers">${isLive?s.viewers.toLocaleString('de-DE'):'—'}</div><div class="dp-stat-lbl">Viewers</div></div>
+        <div class="dp-stat"><div class="dp-stat-val">${s.time}</div><div class="dp-stat-lbl">${isLive?'Thời lượng':'Lịch phát'}</div></div>
+        <div class="dp-stat"><div class="dp-stat-val" style="color:var(--coral)" id="dpOrders">${isLive?Math.floor(s.viewers/35):'—'}</div><div class="dp-stat-lbl">Đơn hàng</div></div>
+        <div class="dp-stat"><div class="dp-stat-val" style="color:rgba(255,155,106,.8)" id="dpCmts">${s.comments||'—'}</div><div class="dp-stat-lbl">Bình luận</div></div>
+      </div>
+      <div class="dp-controls">
+        ${isLive?`<button class="dp-ctrl warn" onclick="pauseStream('${s.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>Tạm dừng</button><button class="dp-ctrl danger" onclick="stopStream('${s.id}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Dừng</button>`
+        :`<button class="dp-ctrl" onclick="window.location.href='wizard.html'">Chỉnh sửa</button><button class="dp-ctrl danger" onclick="cancelStream('${s.id}')">Hủy lịch</button>`}
+      </div>
+      <div class="dp-timer-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hẹn tắt<span class="dp-timer-val">${s.timer}</span></div>
+      ${isLive?`<div class="dp-comments-head">Bình luận <span class="dp-comments-count" id="dpCmtCount">${s.comments}</span></div><div id="dpCmtFeed"></div>`:''}
+    </div>`;
+  if(isLive)startComments(s);
+};
+
+function startComments(s){
+  const feed=document.getElementById('dpCmtFeed');if(!feed)return;
+  feed.innerHTML='';let cnt=s.comments;
+  function addCmt(){
+    cnt++;const n=names[Math.floor(Math.random()*names.length)];
+    const t=texts[Math.floor(Math.random()*texts.length)];
+    const ini=n.split(' ').map(w=>w[0]).join('').slice(0,2);
+    const isO=Math.random()>.75;
+    const c=document.createElement('div');c.className='dp-cmt';
+    c.innerHTML=`<div class="dp-cmt-avatar">${ini}</div><div class="dp-cmt-body"><div class="dp-cmt-name">${n}</div><div class="dp-cmt-text">${t}</div><div class="dp-cmt-time">vừa xong</div>${isO?'<div class="dp-cmt-tag">🛒 Đơn hàng</div>':''}</div>`;
+    feed.insertBefore(c,feed.firstChild);
+    if(feed.children.length>15)feed.removeChild(feed.lastChild);
+    const el=document.getElementById('dpCmts');if(el)el.textContent=cnt;
+    const cc=document.getElementById('dpCmtCount');if(cc)cc.textContent=cnt;
+  }
+  for(let i=0;i<4;i++)addCmt();
+  const iv=setInterval(()=>{if(selectedId!==s.id){clearInterval(iv);return}addCmt()},3000+Math.random()*3000);
+  // Live timer update
+  let timerSec=3*3600+20*60;
+  const tiv=setInterval(()=>{if(selectedId!==s.id){clearInterval(tiv);return}timerSec++;const h=String(Math.floor(timerSec/3600)).padStart(2,'0');const m=String(Math.floor((timerSec%3600)/60)).padStart(2,'0');const sc=String(timerSec%60).padStart(2,'0');const el=document.getElementById('dpTimer');if(el)el.textContent=h+':'+m+':'+sc},1000);
+  // Viewers random update
+  const viv=setInterval(()=>{if(selectedId!==s.id){clearInterval(viv);return}const delta=Math.floor(Math.random()*21)-8;s.viewers=Math.max(50,s.viewers+delta);const v=s.viewers.toLocaleString('de-DE');const el=document.getElementById('dpViewers');if(el)el.textContent=v;const el2=document.getElementById('dpSViewers');if(el2)el2.textContent=v;const el3=document.getElementById('dpOrders');if(el3)el3.textContent=Math.floor(s.viewers/35)},2000);
+}
+
+// Actions with confirm modals
+window.pauseStream=function(id){showConfirm('⏸️','Tạm dừng luồng?','Luồng sẽ tạm dừng phát. Bạn có thể tiếp tục bất cứ lúc nào.','Tạm dừng','warn',()=>showToast('Đã tạm dừng luồng'))};
+window.stopStream=function(id){showConfirm('⏹️','Dừng luồng phát?','Luồng sẽ bị dừng hoàn toàn. Hành động này không thể hoàn tác.','Dừng live','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();showToast('Đã dừng luồng')})};
+window.cancelStream=function(id){showConfirm('❌','Hủy lịch phát?','Luồng đã lên lịch sẽ bị xóa.','Hủy lịch','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();showToast('Đã hủy lịch')})};
+window.filterStreams=function(f){currentFilter=f;renderTabs();renderTable()};
+
+renderTabs();renderTable();
+
+// Maxi
+const orb=document.getElementById('maxiOrb'),msg=document.getElementById('maxiMsg');
+const msgs=['Chọn luồng để xem chi tiết!','3 luồng đang phát ổn định','Shopee lên sóng lúc 20:00','TikTok viewers tăng đều','Maxi đang giám sát 👀'];
+let mi=0;function showM(t){msg.textContent=t;msg.classList.add('show');setTimeout(()=>msg.classList.remove('show'),3500)}
+orb.addEventListener('click',()=>{mi=(mi+1)%msgs.length;showM(msgs[mi])});
+setTimeout(()=>showM('Chọn luồng bên trái để xem chi tiết! 📡'),1500);
+})();
+</script>
+</body>
+</html>

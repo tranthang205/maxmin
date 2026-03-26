@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Cài đặt</title>
+<style>
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Regular.otf") format("opentype");font-weight:400}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Medium.otf") format("opentype");font-weight:500}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_SemiBold.otf") format("opentype");font-weight:600}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Bold.otf") format("opentype");font-weight:700}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Heavy.otf") format("opentype");font-weight:800}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Black.otf") format("opentype");font-weight:900}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Bold_Italic.otf") format("opentype");font-weight:700;font-style:italic}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Black_Italic.otf") format("opentype");font-weight:900;font-style:italic}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-card-h:#161632;--bg-input:#0e0e20;--bg-hover:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.1);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--amber:#FF9B6A;--amber-glow:rgba(255,155,106,.06);--green:#4AE3B5;--red:#FF5252;--font:'SVN-Gilroy',sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--sidebar-w:220px;--sidebar-collapsed:60px;--topbar-h:52px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5}a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}input{font-family:inherit;color:var(--text);background:var(--bg-input);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;outline:none;width:100%;transition:border-color .2s}input:focus{border-color:var(--coral)}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:width .3s var(--ease);overflow:hidden}.sidebar.collapsed{width:var(--sidebar-collapsed)}
+.sb-logo{display:flex;align-items:center;gap:8px;padding:16px 18px;font-size:17px;font-weight:900;border-bottom:1px solid var(--border);height:var(--topbar-h);flex-shrink:0;white-space:nowrap}.sb-logo .dot{width:5px;height:5px;background:var(--coral);border-radius:50%}.sb-logo span{transition:opacity .2s}.sidebar.collapsed .sb-logo span{opacity:0;width:0}
+.sb-nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px}.sb-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--text-dim);transition:all .2s;white-space:nowrap;position:relative}.sb-item:hover{background:var(--bg-hover);color:var(--text)}.sb-item.active{background:var(--coral-glow);color:var(--coral);font-weight:600}.sb-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--coral);border-radius:0 3px 3px 0}.sb-item svg{width:18px;height:18px;flex-shrink:0;opacity:.6}.sb-item.active svg{opacity:1}.sb-item .sb-label{transition:opacity .2s}.sidebar.collapsed .sb-label{opacity:0;width:0}.sb-item .sb-badge{margin-left:auto;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;background:var(--coral);color:#fff}.sidebar.collapsed .sb-badge{display:none}
+.sb-footer{padding:12px;border-top:1px solid var(--border);position:relative}.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}.sb-user:hover{background:var(--bg-hover)}.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--peach));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}.sb-uinfo{overflow:hidden}.sb-uname{font-size:12.5px;font-weight:700}.sb-uplan{font-size:10px;color:var(--teal);font-weight:600}.sidebar.collapsed .sb-uinfo{display:none}.sb-dropdown{position:absolute;bottom:100%;left:8px;right:8px;margin-bottom:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:all .2s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4)}.sb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}.sb-dd-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap}.sb-dd-item:hover{background:var(--bg-hover);color:var(--text)}.sb-dd-item svg{width:15px;height:15px;opacity:.6;flex-shrink:0}.sb-dd-div{height:1px;background:var(--border);margin:4px 0}
+.sb-toggle{position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101}.sb-toggle svg{width:14px;height:14px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;z-index:99;transition:left .3s var(--ease)}.sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
+.tb-title{font-size:18px;font-weight:800}
+.main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
+.main{padding:calc(var(--topbar-h) + 24px) 28px 40px;max-width:780px}
+
+/* ══ SETTINGS ══ */
+.set-section{margin-bottom:32px}
+.set-section h2{font-size:16px;font-weight:800;margin-bottom:4px}.set-section .set-desc{font-size:12px;color:var(--text-muted);margin-bottom:16px}
+.set-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px}
+.set-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.set-row:last-child{margin-bottom:0}
+.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:var(--text-dim)}
+
+/* Platform connections */
+.plat-list{display:flex;flex-direction:column;gap:10px}
+.plat-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;transition:all .2s}
+.plat-item:hover{border-color:var(--border-h)}
+.plat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.plat-icon.tt{background:#000}.plat-icon.yt{background:#F00}.plat-icon.fb{background:#1877F2}.plat-icon.sp{background:#EE4D2D}
+.plat-info{flex:1}.plat-name{font-size:13.5px;font-weight:700}.plat-account{font-size:11px;color:var(--teal)}
+.plat-status{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700}
+.plat-status.connected{color:var(--green);background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.15)}
+.plat-status.disconnected{color:var(--text-muted);background:rgba(255,255,255,.03);border:1px solid var(--border)}
+.plat-btn{padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;transition:all .2s;flex-shrink:0}
+.plat-btn.connect{color:var(--coral);border:1px solid rgba(255,107,84,.3);background:var(--coral-glow)}.plat-btn.connect:hover{background:var(--coral);color:#fff}
+.plat-btn.disconnect{color:var(--text-muted);border:1px solid var(--border)}.plat-btn.disconnect:hover{color:var(--red);border-color:rgba(255,82,82,.3)}
+
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border:none}
+.toggle-label{font-size:13px;font-weight:600}.toggle-desc{font-size:11px;color:var(--text-muted)}
+.toggle{width:40px;height:22px;border-radius:11px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--coral)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle.on::after{transform:translateX(18px)}
+
+/* AI Roadmap */
+.ai-roadmap{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ai-card{padding:16px;border:1px solid var(--border);border-radius:12px;transition:all .3s var(--ease)}
+.ai-card:hover{border-color:var(--border-h);background:var(--bg-hover)}
+.ai-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.ai-badge.soon{background:var(--amber-glow);color:var(--amber);border:1px solid rgba(255,181,71,.15)}
+.ai-badge.dev{background:rgba(255,255,255,.03);color:var(--text-dim);border:1px solid rgba(91,141,239,.15)}
+.ai-badge.plan{background:rgba(255,255,255,.03);color:var(--text-muted);border:1px solid var(--border)}
+.ai-card h4{font-size:13.5px;font-weight:800;margin-bottom:4px}
+.ai-card p{font-size:11.5px;color:var(--text-sec);line-height:1.5}
+
+.save-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:100px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 2px 12px rgba(255,107,84,.2);transition:all .2s;margin-top:8px}
+.save-btn:hover{transform:translateY(-1px)}
+.save-btn.dirty{box-shadow:0 2px 16px rgba(255,107,84,.4);animation:pulse-save 1.5s infinite}@keyframes pulse-save{0%,100%{box-shadow:0 2px 12px rgba(255,107,84,.2)}50%{box-shadow:0 2px 20px rgba(255,107,84,.45)}}
+
+.mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;position:relative;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px;transition:all .3s var(--ease)}.mob-toggle .ml2{margin:4px 0}@media(max-width:768px){.mob-toggle{display:flex}.sidebar.mob-open{transform:translateX(0)!important}.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}.mob-overlay.show{display:block}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main-wrap{margin-left:0!important}.topbar{left:0!important}.set-row,.ai-roadmap{grid-template-columns:1fr}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 14px 28px}.set-section h2{font-size:16px}.set-card{padding:14px}.toggle-row{flex-direction:column;gap:10px;align-items:flex-start}.toggle{align-self:flex-end}.plat-item{flex-wrap:wrap;gap:8px}.plat-btn{width:100%;text-align:center}.plat-status{width:100%}.tb-title{font-size:15px}.save-btn{width:100%}}
+.confirm-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center}.confirm-overlay.show{display:flex}.confirm-box{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:cIn .25s var(--spring);text-align:center}@keyframes cIn{0%{opacity:0;transform:scale(.95) translateY(8px)}100%{opacity:1;transform:scale(1) translateY(0)}}.confirm-icon{font-size:36px;margin-bottom:12px}.confirm-title{font-size:16px;font-weight:800;margin-bottom:4px}.confirm-desc{font-size:13px;color:var(--text-sec);margin-bottom:20px;line-height:1.5}.confirm-actions{display:flex;gap:8px;justify-content:center}.confirm-btn{padding:10px 24px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}.confirm-btn.cancel{border:1px solid var(--border);color:var(--text-dim)}.confirm-btn.cancel:hover{border-color:var(--border-h)}.confirm-btn.danger{background:var(--red);color:#fff}.confirm-btn.danger:hover{opacity:.9;transform:translateY(-1px)}.confirm-btn.warn{background:var(--amber);color:#000}.confirm-btn.warn:hover{opacity:.9;transform:translateY(-1px)}
+.maxi-helper{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}.maxi-msg{max-width:220px;padding:10px 14px;border-radius:12px 12px 4px 12px;background:var(--bg-card);border:1px solid var(--border);font-size:11.5px;font-weight:500;color:var(--text-dim);line-height:1.5;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);box-shadow:0 8px 24px rgba(0,0,0,.3)}.maxi-msg.show{opacity:1;transform:translateY(0)}.maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08);border-color:var(--border-h)}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="sb-logo"><span class="dot"></span><span>MAXMIN</span></div>
+<button class="sb-toggle" id="sbToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+<nav class="sb-nav">
+<a href="dashboard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="sb-label">Tổng quan</span></a>
+<a href="streams.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/></svg><span class="sb-label">Luồng phát</span><span class="sb-badge">4</span></a>
+<a href="library.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7z"/></svg><span class="sb-label">Thư viện video</span></a>
+<a href="wizard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="sb-label">Tạo luồng mới</span></a>
+<a href="pricing.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><span class="sb-label">Gói dịch vụ</span></a>
+<a href="settings.html" class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg><span class="sb-label">Cài đặt</span></a>
+</nav>
+<div class="sb-footer"><div class="sb-dropdown" id="sbDropdown"><a href="admin.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span class="sb-label">Trang quản trị</span></a><a href="settings.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="sb-label">Cài đặt</span></a><div class="sb-dd-div"></div><a href="login.html" class="sb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="sb-label">Đăng xuất</span></a></div><div class="sb-user" onclick="document.getElementById('sbDropdown').classList.toggle('show')"><div class="sb-avatar">H</div><div class="sb-uinfo"><div class="sb-uname">Shop Hana</div><div class="sb-uplan">Pro Plan</div></div></div></div>
+</aside>
+
+<div class="main-wrap">
+<header class="topbar"><button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button><div><h1 class="tb-title">Cài đặt</h1></div></header>
+<main class="main">
+
+<!-- Account -->
+<div class="set-section">
+  <h2>Tài khoản</h2><p class="set-desc">Thông tin cơ bản của bạn</p>
+  <div class="set-card">
+    <div class="set-row">
+      <div><label class="form-label" for="input-name">Tên hiển thị</label><input id="input-name" type="text" value="Shop Hana"></div>
+      <div><label class="form-label" for="input-email">Email</label><input id="input-email" type="email" value="hana@gmail.com"></div>
+    </div>
+    <div class="set-row">
+      <div><label class="form-label" for="input-phone">Số điện thoại</label><input id="input-phone" type="tel" value="0912 345 678"></div>
+      <div><label class="form-label" for="input-category">Ngành hàng</label><input id="input-category" type="text" value="Mỹ phẩm & Skincare"></div>
+    </div>
+    <button class="save-btn" id="saveBtn" onclick="saveSettings(this)">Lưu thay đổi</button>
+  </div>
+</div>
+
+<!-- Connected platforms -->
+<div class="set-section">
+  <h2>Nền tảng đã kết nối</h2><p class="set-desc">Quản lý các tài khoản live của bạn</p>
+  <div class="set-card">
+    <div class="plat-list">
+      <div class="plat-item"><div class="plat-icon tt">T</div><div class="plat-info"><div class="plat-name">TikTok</div><div class="plat-account">@shophanavn</div></div><span class="plat-status connected">✓ Đã kết nối</span><button class="plat-btn disconnect" onclick="((el)=>showConfirm('🔌','Ngắt kết nối?','Nền tảng sẽ bị ngắt kết nối. Các luồng đang phát trên nền tảng này cũng sẽ bị dừng.','Ngắt kết nối','danger',()=>{const item=el.closest('.plat-item');item.querySelector('.plat-account').textContent='Chưa kết nối';item.querySelector('.plat-status').className='plat-status disconnected';item.querySelector('.plat-status').textContent='Chưa kết nối';el.textContent='Kết nối';el.className='plat-btn connect'}))(this)">Ngắt kết nối</button></div>
+      <div class="plat-item"><div class="plat-icon yt">Y</div><div class="plat-info"><div class="plat-name">YouTube</div><div class="plat-account">Shop Hana Official</div></div><span class="plat-status connected">✓ Đã kết nối</span><button class="plat-btn disconnect" onclick="((el)=>showConfirm('🔌','Ngắt kết nối?','Nền tảng sẽ bị ngắt kết nối. Các luồng đang phát trên nền tảng này cũng sẽ bị dừng.','Ngắt kết nối','danger',()=>{const item=el.closest('.plat-item');item.querySelector('.plat-account').textContent='Chưa kết nối';item.querySelector('.plat-status').className='plat-status disconnected';item.querySelector('.plat-status').textContent='Chưa kết nối';el.textContent='Kết nối';el.className='plat-btn connect'}))(this)">Ngắt kết nối</button></div>
+      <div class="plat-item"><div class="plat-icon fb">F</div><div class="plat-info"><div class="plat-name">Facebook</div><div class="plat-account">Hana Beauty Page</div></div><span class="plat-status connected">✓ Đã kết nối</span><button class="plat-btn disconnect" onclick="((el)=>showConfirm('🔌','Ngắt kết nối?','Nền tảng sẽ bị ngắt kết nối. Các luồng đang phát trên nền tảng này cũng sẽ bị dừng.','Ngắt kết nối','danger',()=>{const item=el.closest('.plat-item');item.querySelector('.plat-account').textContent='Chưa kết nối';item.querySelector('.plat-status').className='plat-status disconnected';item.querySelector('.plat-status').textContent='Chưa kết nối';el.textContent='Kết nối';el.className='plat-btn connect'}))(this)">Ngắt kết nối</button></div>
+      <div class="plat-item"><div class="plat-icon sp">S</div><div class="plat-info"><div class="plat-name">Shopee Live</div><div class="plat-account">shophanavn</div></div><span class="plat-status connected">✓ Đã kết nối</span><button class="plat-btn disconnect" onclick="((el)=>showConfirm('🔌','Ngắt kết nối?','Nền tảng sẽ bị ngắt kết nối. Các luồng đang phát trên nền tảng này cũng sẽ bị dừng.','Ngắt kết nối','danger',()=>{const item=el.closest('.plat-item');item.querySelector('.plat-account').textContent='Chưa kết nối';item.querySelector('.plat-status').className='plat-status disconnected';item.querySelector('.plat-status').textContent='Chưa kết nối';el.textContent='Kết nối';el.className='plat-btn connect'}))(this)">Ngắt kết nối</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications -->
+<div class="set-section">
+  <h2>Thông báo</h2><p class="set-desc">Tùy chỉnh thông báo bạn muốn nhận</p>
+  <div class="set-card">
+    <div class="toggle-row"><div><div class="toggle-label" id="toggle-label-orders">Đơn hàng mới</div><div class="toggle-desc">Nhận thông báo khi có đơn hàng mới từ live</div></div><div class="toggle on" role="switch" aria-checked="true" tabindex="0" aria-labelledby="toggle-label-orders" onclick="toggleSwitch(this)" onkeydown="handleToggleKey(event,this)"></div></div>
+    <div class="toggle-row"><div><div class="toggle-label" id="toggle-label-errors">Luồng phát lỗi</div><div class="toggle-desc">Cảnh báo khi có luồng phát bị gián đoạn</div></div><div class="toggle on" role="switch" aria-checked="true" tabindex="0" aria-labelledby="toggle-label-errors" onclick="toggleSwitch(this)" onkeydown="handleToggleKey(event,this)"></div></div>
+    <div class="toggle-row"><div><div class="toggle-label" id="toggle-label-ai">Gợi ý giờ vàng từ AI</div><div class="toggle-desc">Maxi sẽ gợi ý khung giờ tối ưu hàng ngày</div></div><div class="toggle on" role="switch" aria-checked="true" tabindex="0" aria-labelledby="toggle-label-ai" onclick="toggleSwitch(this)" onkeydown="handleToggleKey(event,this)"></div></div>
+    <div class="toggle-row"><div><div class="toggle-label" id="toggle-label-report">Báo cáo hàng tuần</div><div class="toggle-desc">Tổng hợp hiệu suất gửi qua email</div></div><div class="toggle" role="switch" aria-checked="false" tabindex="0" aria-labelledby="toggle-label-report" onclick="toggleSwitch(this)" onkeydown="handleToggleKey(event,this)"></div></div>
+  </div>
+</div>
+
+<!-- AI Roadmap -->
+<div class="set-section">
+  <h2>Tính năng AI 🧠</h2><p class="set-desc">Các tính năng AI đang được phát triển cho MAXMIN</p>
+  <div class="set-card">
+    <div class="ai-roadmap">
+      <div class="ai-card"><span class="ai-badge soon">Sắp ra mắt</span><h4>AI gợi ý giờ vàng</h4><p>Phân tích traffic theo ngành hàng, gợi ý khung giờ live tối ưu nhất</p></div>
+      <div class="ai-card"><span class="ai-badge soon">Sắp ra mắt</span><h4>Tự động cắt highlight</h4><p>AI tự cắt những khoảnh khắc hay nhất từ video live để tái sử dụng</p></div>
+      <div class="ai-card"><span class="ai-badge dev">Đang phát triển</span><h4>Chatbot trả lời comment</h4><p>AI tự động trả lời bình luận của viewers trong live</p></div>
+      <div class="ai-card"><span class="ai-badge plan">Lên kế hoạch</span><h4>Phân tích đối thủ</h4><p>So sánh hiệu suất live với các seller cùng ngành hàng</p></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+</div>
+<div class="maxi-helper"><div class="maxi-msg" id="maxiMsg"></div><div class="maxi-orb" id="maxiOrb"><svg viewBox="0 0 120 120" width="30" height="30" fill="none"><defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gm)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div></div>
+<div class="confirm-overlay" id="confirmOverlay"><div class="confirm-box"><div class="confirm-icon" id="confirmIcon">⚠️</div><div class="confirm-title" id="confirmTitle"></div><div class="confirm-desc" id="confirmDesc"></div><div class="confirm-actions"><button class="confirm-btn cancel" onclick="closeConfirm()">Hủy bỏ</button><button class="confirm-btn danger" id="confirmAction">Xác nhận</button></div></div></div>
+<script>document.getElementById('sbToggle').addEventListener('click',()=>{const s=document.getElementById('sidebar');s.classList.toggle('collapsed');localStorage.setItem('sb-collapsed',s.classList.contains('collapsed'))});if(localStorage.getItem('sb-collapsed')==='true')document.getElementById('sidebar').classList.add('collapsed');
+document.addEventListener('click',e=>{const dd=document.getElementById('sbDropdown');if(dd&&!e.target.closest('.sb-user')&&!e.target.closest('.sb-dropdown'))dd.classList.remove('show')});
+
+// Dirty state tracking
+let _dirty=false;
+function markDirty(){if(!_dirty){_dirty=true;const btn=document.getElementById('saveBtn');if(btn)btn.classList.add('dirty')}}
+document.querySelectorAll('.set-card input').forEach(inp=>{inp.addEventListener('input',markDirty)});
+
+// Toggle switch helpers
+function toggleSwitch(el){el.classList.toggle('on');el.setAttribute('aria-checked',el.classList.contains('on'));markDirty()}
+function handleToggleKey(e,el){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleSwitch(el)}}
+
+// Save button
+function saveSettings(btn){if(!_dirty){return}btn.textContent='✓ Đã lưu';btn.style.background='var(--green)';btn.classList.remove('dirty');_dirty=false;setTimeout(()=>{btn.textContent='Lưu thay đổi';btn.style.background=''},2000)}
+
+// Confirm dialog
+let _confirmCb=null;
+function showConfirm(icon,title,desc,btnText,btnClass,cb){document.getElementById('confirmIcon').textContent=icon;document.getElementById('confirmTitle').textContent=title;document.getElementById('confirmDesc').textContent=desc;const btn=document.getElementById('confirmAction');btn.textContent=btnText;btn.className='confirm-btn '+(btnClass||'danger');_confirmCb=cb;document.getElementById('confirmOverlay').classList.add('show')}
+function closeConfirm(){document.getElementById('confirmOverlay').classList.remove('show');_confirmCb=null}
+document.getElementById('confirmAction').addEventListener('click',()=>{if(_confirmCb)_confirmCb();closeConfirm()});
+document.getElementById('confirmOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeConfirm()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeConfirm()});
+
+const _orb=document.getElementById('maxiOrb'),_msg=document.getElementById('maxiMsg');
+const _msgs=['Kết nối Shopee để phát trên 4 nền tảng!','Bật thông báo AI để nhận giờ vàng','Cập nhật ngành hàng để AI chính xác hơn','Maxi sẵn sàng hỗ trợ! 🔧'];
+let _mi=0;function _showM(t){_msg.textContent=t;_msg.classList.add('show');setTimeout(()=>_msg.classList.remove('show'),3500)}
+_orb.addEventListener('click',()=>{_mi=(_mi+1)%_msgs.length;_showM(_msgs[_mi])});
+setTimeout(()=>_showM('Kết nối thêm Shopee Live để tăng doanh thu! 🛒'),1500)</script>
+<div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('sidebar').classList.remove('mob-open');this.classList.remove('show')"></div>
+</body>
+</html>

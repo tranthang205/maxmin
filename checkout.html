@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Thanh toán</title>
+<style>
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_SemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-weight:800}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-weight:900}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-input:#0e0e20;--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.12);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--green:#4AE3B5;--font:'SVN-Gilroy',system-ui,sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+input{font-family:inherit;color:var(--text);background:var(--bg-input);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;outline:none;width:100%;transition:border-color .2s}
+input:focus{border-color:var(--coral)}
+input::placeholder{color:var(--text-muted)}
+
+.checkout-wrap{max-width:900px;margin:0 auto;padding:32px;animation:fadeIn .5s var(--spring)}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+.ck-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.ck-logo{font-size:20px;font-weight:900;letter-spacing:-.03em;display:flex;align-items:center}
+.ck-logo .dot{display:inline-block;width:5px;height:5px;background:var(--coral);border-radius:50%;margin:0 5px}
+.ck-back{font-size:13px;color:var(--text-muted);font-weight:600;display:flex;align-items:center;gap:6px;transition:color .2s}
+.ck-back:hover{color:var(--text-dim)}
+
+.ck-layout{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+
+/* Order summary */
+.ck-summary{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;position:sticky;top:32px}
+.ck-summary h3{font-size:16px;font-weight:800;margin-bottom:16px}
+.ck-plan{display:flex;align-items:center;gap:14px;padding:14px;border-radius:12px;background:rgba(255,107,84,.04);border:1px solid rgba(255,107,84,.12);margin-bottom:16px}
+.ck-plan-badge{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:800;background:var(--coral);color:#fff}
+.ck-plan-name{font-size:16px;font-weight:800;flex:1}
+.ck-plan-price{font-family:var(--mono);font-size:20px;font-weight:700}
+.ck-plan-period{font-size:11px;color:var(--text-muted)}
+.ck-divider{height:1px;background:var(--border);margin:16px 0}
+.ck-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:8px}
+.ck-row .label{color:var(--text-sec)}
+.ck-row .value{font-weight:700}
+.ck-row.total{font-size:15px;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.ck-row.total .value{color:var(--coral);font-family:var(--mono)}
+.ck-features{margin-top:16px}
+.ck-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim);margin-bottom:6px}
+.ck-feat::before{content:'✓';color:var(--teal);font-weight:800;font-size:11px}
+
+/* Payment form */
+.ck-form{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px}
+.ck-form h2{font-size:20px;font-weight:900;margin-bottom:20px}
+
+.pay-methods{display:flex;gap:8px;margin-bottom:24px}
+.pay-method{flex:1;padding:14px;border:2px solid var(--border);border-radius:12px;text-align:center;cursor:pointer;transition:all .2s}
+.pay-method:hover{border-color:var(--border-h)}
+.pay-method.active{border-color:var(--coral);background:var(--coral-glow)}
+.pay-method .pm-icon{font-size:24px;margin-bottom:4px}
+.pay-method .pm-name{font-size:12px;font-weight:700}
+
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text-dim)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Card preview */
+.card-preview{width:100%;height:140px;border-radius:14px;padding:20px;background:linear-gradient(135deg,#1a1a3e,#2a1a3e);border:1px solid rgba(255,255,255,.08);margin-bottom:20px;position:relative;overflow:hidden}
+.card-preview::before{content:'';position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:var(--coral);border-radius:50%;filter:blur(60px);opacity:.15}
+.cp-number{font-family:var(--mono);font-size:16px;font-weight:700;letter-spacing:2px;margin-top:24px}
+.cp-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px}
+.cp-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.cp-exp{font-size:11px;font-weight:700;color:var(--text-dim)}
+.cp-brand{position:absolute;top:16px;right:20px;font-size:20px;font-weight:900;color:var(--peach);opacity:.4}
+
+/* Bank transfer */
+.bank-info{padding:20px;border-radius:12px;background:var(--bg-input);border:1px solid var(--border);margin-bottom:16px}
+.bank-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px}
+.bank-row .label{color:var(--text-muted)}
+.bank-row .value{font-weight:700;font-family:var(--mono)}
+.bank-copy{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;color:var(--teal);border:1px solid rgba(74,227,181,.2);background:var(--teal-glow);transition:all .2s}
+.bank-copy:hover{background:rgba(74,227,181,.1)}
+
+/* QR */
+.qr-section{text-align:center;padding:20px}
+.qr-box{width:180px;height:180px;margin:0 auto 12px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#666;font-weight:700}
+.qr-hint{font-size:12px;color:var(--text-muted)}
+
+.btn-pay{width:100%;padding:14px 20px;border-radius:12px;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;transition:all .2s var(--ease);box-shadow:0 4px 16px rgba(255,107,84,.2);margin-top:8px}
+.btn-pay:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,107,84,.3)}
+.btn-loading{pointer-events:none;position:relative;color:transparent!important}
+.btn-loading::after{content:'';position:absolute;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;top:50%;left:50%;margin:-10px 0 0 -10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.ck-secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:11px;color:var(--text-muted)}
+
+/* Validation errors */
+.form-error{font-size:11px;color:#FF6B54;margin-top:4px;min-height:0;opacity:0;transition:opacity .2s}
+.form-error.visible{opacity:1}
+input.input-error{border-color:#FF6B54!important}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.btn-shake{animation:shake .4s ease}
+
+/* Clipboard feedback */
+.copy-toast{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--teal);color:#0a0a18;font-size:10px;font-weight:800;padding:3px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
+.copy-toast.show{opacity:1}
+
+/* Success */
+.ck-success{text-align:center;padding:40px 20px;opacity:0;transform:translateY(20px);pointer-events:none;position:absolute;top:0;left:0;right:0;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.ck-success.show{opacity:1;transform:translateY(0);pointer-events:auto;position:relative}
+.ck-success-icon{font-size:52px;margin-bottom:16px}
+.ck-success h2{font-size:22px;font-weight:900;margin-bottom:8px}
+.ck-success p{font-size:14px;color:var(--text-sec);margin-bottom:24px}
+.ck-success .btn-go{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:100px;font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--teal),#20c997);color:#0a0a18;transition:all .2s}
+.ck-success .btn-go:hover{transform:translateY(-1px)}
+
+/* Checkout layout transition */
+#checkoutLayout{transition:opacity .4s var(--ease),transform .4s var(--ease)}
+#checkoutLayout.fade-out{opacity:0;transform:translateY(-10px);pointer-events:none}
+
+@media(max-width:768px){.ck-layout{grid-template-columns:1fr}.ck-summary{position:static;order:-1}.pay-methods{flex-direction:column}.checkout-wrap{padding:20px}.form-row{grid-template-columns:1fr}}
+@media(max-width:480px){.checkout-wrap{padding:14px}.ck-header{flex-direction:column;gap:12px;align-items:flex-start}.ck-form{padding:20px}.ck-form h2{font-size:17px}.ck-summary{padding:18px}.ck-plan{padding:12px}.btn-pay{padding:12px 16px;font-size:14px}.card-preview{height:120px;padding:14px}.cp-number{font-size:14px;margin-top:16px}}
+@media(max-width:360px){.ck-form{padding:14px}.bank-row{flex-direction:column;gap:6px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="checkout-wrap">
+<div class="ck-header">
+<div class="ck-logo">MAXMIN<span class="dot"></span>VN</div>
+<a href="pricing.html" class="ck-back">← Quay lại bảng giá</a>
+</div>
+
+<div class="ck-layout" id="checkoutLayout">
+<div class="ck-form" id="payForm">
+<h2>Phương thức thanh toán</h2>
+
+<div class="pay-methods">
+<div class="pay-method active" onclick="setPayMethod(this,'card')"><div class="pm-icon">💳</div><div class="pm-name">Thẻ ngân hàng</div></div>
+<div class="pay-method" onclick="setPayMethod(this,'bank')"><div class="pm-icon">🏦</div><div class="pm-name">Chuyển khoản</div></div>
+<div class="pay-method" onclick="setPayMethod(this,'qr')"><div class="pm-icon">📱</div><div class="pm-name">QR Code</div></div>
+</div>
+
+<!-- Card payment -->
+<div id="payCard">
+<div class="card-preview">
+<div class="cp-brand">VISA</div>
+<div class="cp-number" id="cardNum">•••• •••• •••• ••••</div>
+<div class="cp-bottom"><div class="cp-name" id="cardName">TÊN CHỦ THẺ</div><div class="cp-exp" id="cardExp">MM/YY</div></div>
+</div>
+<div class="form-group"><label class="form-label">Số thẻ</label><input type="text" id="inputCardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this);updatePreview();clearError('inputCardNum')"><div class="form-error" id="errCardNum"></div></div>
+<div class="form-group"><label class="form-label">Tên chủ thẻ</label><input type="text" id="inputCardName" placeholder="NGUYEN VAN A" style="text-transform:uppercase" oninput="updatePreview();clearError('inputCardName')"><div class="form-error" id="errCardName"></div></div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Ngày hết hạn</label><input type="text" id="inputCardExp" placeholder="MM/YY" maxlength="5" oninput="formatExp(this);updatePreview();clearError('inputCardExp')"><div class="form-error" id="errCardExp"></div></div>
+<div class="form-group"><label class="form-label">CVV</label><input type="password" id="inputCVV" placeholder="•••" maxlength="4" oninput="clearError('inputCVV')"><div class="form-error" id="errCVV"></div></div>
+</div>
+</div>
+
+<!-- Bank transfer -->
+<div id="payBank" style="display:none">
+<div class="bank-info">
+<div class="bank-row"><span class="label">Ngân hàng</span><span class="value">Vietcombank</span></div>
+<div class="bank-row"><span class="label">Số tài khoản</span><span class="value">1234 5678 9012</span><button class="bank-copy" style="position:relative" onclick="copyToClipboard('1234 5678 9012',this)">Sao chép<span class="copy-toast"></span></button></div>
+<div class="bank-row"><span class="label">Chủ tài khoản</span><span class="value">CONG TY MAXMIN</span></div>
+<div class="bank-row"><span class="label">Nội dung CK</span><span class="value" style="color:var(--coral)">MAXMIN PRO HANA</span><button class="bank-copy" style="position:relative" onclick="copyToClipboard('MAXMIN PRO HANA',this)">Sao chép<span class="copy-toast"></span></button></div>
+</div>
+<p style="font-size:12px;color:var(--text-muted);text-align:center;line-height:1.6">Sau khi chuyển khoản, gói sẽ được kích hoạt trong vòng 5 phút.<br>Liên hệ hỗ trợ nếu quá 15 phút chưa nhận được.</p>
+</div>
+
+<!-- QR -->
+<div id="payQr" style="display:none">
+<div class="qr-section">
+<div class="qr-box">
+<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+<!-- Top-left finder pattern -->
+<rect x="5" y="5" width="40" height="40" fill="#000" rx="2"/>
+<rect x="10" y="10" width="30" height="30" fill="#fff" rx="1"/>
+<rect x="15" y="15" width="20" height="20" fill="#000" rx="1"/>
+<!-- Top-right finder pattern -->
+<rect x="105" y="5" width="40" height="40" fill="#000" rx="2"/>
+<rect x="110" y="10" width="30" height="30" fill="#fff" rx="1"/>
+<rect x="115" y="15" width="20" height="20" fill="#000" rx="1"/>
+<!-- Bottom-left finder pattern -->
+<rect x="5" y="105" width="40" height="40" fill="#000" rx="2"/>
+<rect x="10" y="110" width="30" height="30" fill="#fff" rx="1"/>
+<rect x="15" y="115" width="20" height="20" fill="#000" rx="1"/>
+<!-- Data modules row 1 -->
+<rect x="55" y="5" width="8" height="8" fill="#000"/><rect x="71" y="5" width="8" height="8" fill="#000"/><rect x="87" y="5" width="8" height="8" fill="#000"/>
+<rect x="55" y="17" width="8" height="8" fill="#000"/><rect x="79" y="17" width="8" height="8" fill="#000"/><rect x="95" y="17" width="8" height="8" fill="#000"/>
+<rect x="63" y="29" width="8" height="8" fill="#000"/><rect x="79" y="29" width="8" height="8" fill="#000"/>
+<rect x="55" y="41" width="8" height="8" fill="#000"/><rect x="71" y="41" width="8" height="8" fill="#000"/><rect x="95" y="41" width="8" height="8" fill="#000"/>
+<!-- Data modules middle -->
+<rect x="5" y="55" width="8" height="8" fill="#000"/><rect x="21" y="55" width="8" height="8" fill="#000"/><rect x="37" y="55" width="8" height="8" fill="#000"/>
+<rect x="55" y="55" width="8" height="8" fill="#000"/><rect x="71" y="55" width="8" height="8" fill="#000"/><rect x="95" y="55" width="8" height="8" fill="#000"/>
+<rect x="111" y="55" width="8" height="8" fill="#000"/><rect x="135" y="55" width="8" height="8" fill="#000"/>
+<rect x="13" y="67" width="8" height="8" fill="#000"/><rect x="29" y="67" width="8" height="8" fill="#000"/>
+<rect x="63" y="67" width="8" height="8" fill="#000"/><rect x="87" y="67" width="8" height="8" fill="#000"/>
+<rect x="119" y="67" width="8" height="8" fill="#000"/><rect x="135" y="67" width="8" height="8" fill="#000"/>
+<rect x="5" y="79" width="8" height="8" fill="#000"/><rect x="37" y="79" width="8" height="8" fill="#000"/>
+<rect x="55" y="79" width="8" height="8" fill="#000"/><rect x="71" y="79" width="8" height="8" fill="#000"/><rect x="87" y="79" width="8" height="8" fill="#000"/>
+<rect x="111" y="79" width="8" height="8" fill="#000"/><rect x="127" y="79" width="8" height="8" fill="#000"/>
+<rect x="13" y="91" width="8" height="8" fill="#000"/><rect x="29" y="91" width="8" height="8" fill="#000"/><rect x="37" y="91" width="8" height="8" fill="#000"/>
+<rect x="63" y="91" width="8" height="8" fill="#000"/><rect x="79" y="91" width="8" height="8" fill="#000"/><rect x="95" y="91" width="8" height="8" fill="#000"/>
+<rect x="119" y="91" width="8" height="8" fill="#000"/>
+<!-- Bottom-right data -->
+<rect x="55" y="111" width="8" height="8" fill="#000"/><rect x="71" y="111" width="8" height="8" fill="#000"/><rect x="95" y="111" width="8" height="8" fill="#000"/>
+<rect x="119" y="111" width="8" height="8" fill="#000"/><rect x="135" y="111" width="8" height="8" fill="#000"/>
+<rect x="63" y="123" width="8" height="8" fill="#000"/><rect x="87" y="123" width="8" height="8" fill="#000"/>
+<rect x="111" y="123" width="8" height="8" fill="#000"/><rect x="127" y="123" width="8" height="8" fill="#000"/>
+<rect x="55" y="135" width="8" height="8" fill="#000"/><rect x="79" y="135" width="8" height="8" fill="#000"/><rect x="95" y="135" width="8" height="8" fill="#000"/>
+<rect x="119" y="135" width="8" height="8" fill="#000"/><rect x="135" y="135" width="8" height="8" fill="#000"/>
+</svg>
+</div>
+<div class="qr-hint">Quét mã QR để thanh toán</div>
+</div>
+</div>
+
+<button class="btn-pay" id="payBtn" onclick="processPayment()">Thanh toán 99,000₫</button>
+<div class="ck-secure">🔒 Thanh toán được mã hóa SSL 256-bit</div>
+</div>
+
+<!-- Order summary -->
+<div class="ck-summary">
+<h3>Đơn hàng</h3>
+<div class="ck-plan">
+<div><div class="ck-plan-badge" id="planBadge">PRO</div></div>
+<div class="ck-plan-name" id="planName">Pro Plan</div>
+</div>
+<div class="ck-row"><span class="label">Gói</span><span class="value" id="planLabel">Pro — hàng tháng</span></div>
+<div class="ck-row"><span class="label">Giá gốc</span><span class="value" id="planOriginal">99,000₫</span></div>
+<div class="ck-row"><span class="label">Giảm giá</span><span class="value" style="color:var(--teal)">0₫</span></div>
+<div class="ck-row total"><span class="label">Tổng</span><span class="value" id="planTotal">99,000₫</span></div>
+
+<div class="ck-divider"></div>
+<div class="ck-features">
+<div class="ck-feat">5 luồng live đồng thời</div>
+<div class="ck-feat">50GB lưu trữ video</div>
+<div class="ck-feat">Dashboard cơ bản</div>
+<div class="ck-feat">Hỗ trợ ưu tiên</div>
+</div>
+</div>
+</div>
+
+<!-- Success state -->
+<div class="ck-success" id="successState">
+<div class="ck-success-icon">🎉</div>
+<h2>Thanh toán thành công!</h2>
+<p>Gói Pro đã được kích hoạt cho tài khoản của bạn. Bạn có thể sử dụng tất cả tính năng ngay bây giờ.</p>
+<a href="dashboard.html" class="btn-go">Về Dashboard →</a>
+</div>
+</div>
+
+<script>
+// Parse URL params for plan
+const params=new URLSearchParams(window.location.search);
+const plan=params.get('plan')||'pro';
+let currentMethod='card';
+if(plan==='business'){
+  document.getElementById('planBadge').textContent='BUSINESS';
+  document.getElementById('planName').textContent='Business Plan';
+  document.getElementById('planLabel').textContent='Business — hàng tháng';
+  document.getElementById('planOriginal').textContent='499,000₫';
+  document.getElementById('planTotal').textContent='499,000₫';
+  document.getElementById('payBtn').textContent='Thanh toán 499,000₫';
+  document.querySelector('.ck-features').innerHTML='<div class="ck-feat">10 luồng live đồng thời</div><div class="ck-feat">200GB lưu trữ</div><div class="ck-feat">Tất cả tính năng Pro</div><div class="ck-feat">Hỗ trợ 1-1</div>';
+}
+
+function setPayMethod(el,method){
+  currentMethod=method;
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('active'));el.classList.add('active');
+  document.getElementById('payCard').style.display=method==='card'?'block':'none';
+  document.getElementById('payBank').style.display=method==='bank'?'block':'none';
+  document.getElementById('payQr').style.display=method==='qr'?'block':'none';
+  document.getElementById('payBtn').textContent=method==='bank'?'Tôi đã chuyển khoản':'Thanh toán '+(plan==='business'?'499,000₫':'99,000₫');
+}
+
+function formatCard(inp){let v=inp.value.replace(/\D/g,'');inp.value=v.replace(/(.{4})/g,'$1 ').trim()}
+function formatExp(inp){let v=inp.value.replace(/\D/g,'');if(v.length>=2)v=v.slice(0,2)+'/'+v.slice(2);inp.value=v}
+function updatePreview(){
+  const num=document.getElementById('inputCardNum').value||'•••• •••• •••• ••••';
+  const name=document.getElementById('inputCardName').value||'TÊN CHỦ THẺ';
+  const exp=document.getElementById('inputCardExp').value||'MM/YY';
+  document.getElementById('cardNum').textContent=num;
+  document.getElementById('cardName').textContent=name;
+  document.getElementById('cardExp').textContent=exp;
+}
+
+// Validation helpers
+function showError(inputId, errId, msg){
+  const inp=document.getElementById(inputId);
+  const err=document.getElementById(errId);
+  inp.classList.add('input-error');
+  err.textContent=msg;
+  err.classList.add('visible');
+}
+function clearError(inputId){
+  const inp=document.getElementById(inputId);
+  const errId='err'+inputId.replace('input','');
+  const err=document.getElementById(errId);
+  if(err){inp.classList.remove('input-error');err.classList.remove('visible');err.textContent='';}
+}
+function validateCardForm(){
+  let valid=true;
+  // Card number: 16 digits
+  const numRaw=document.getElementById('inputCardNum').value.replace(/\s/g,'');
+  if(!/^\d{16}$/.test(numRaw)){showError('inputCardNum','errCardNum','Số thẻ phải gồm 16 chữ số');valid=false;}
+  // Card holder name
+  const name=document.getElementById('inputCardName').value.trim();
+  if(!name){showError('inputCardName','errCardName','Vui lòng nhập tên chủ thẻ');valid=false;}
+  // Expiry MM/YY, not in the past
+  const expVal=document.getElementById('inputCardExp').value;
+  if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expVal)){
+    showError('inputCardExp','errCardExp','Định dạng phải là MM/YY');valid=false;
+  } else {
+    const [mm,yy]=expVal.split('/').map(Number);
+    const now=new Date();
+    const expYear=2000+yy;
+    const expMonth=mm;
+    if(expYear<now.getFullYear()||(expYear===now.getFullYear()&&expMonth<now.getMonth()+1)){
+      showError('inputCardExp','errCardExp','Thẻ đã hết hạn');valid=false;
+    }
+  }
+  // CVV: 3-4 digits
+  const cvv=document.getElementById('inputCVV').value;
+  if(!/^\d{3,4}$/.test(cvv)){showError('inputCVV','errCVV','CVV phải gồm 3-4 chữ số');valid=false;}
+  return valid;
+}
+
+// Clipboard copy with feedback
+function copyToClipboard(text, btn){
+  const toast=btn.querySelector('.copy-toast');
+  navigator.clipboard.writeText(text).then(()=>{
+    toast.textContent='Đã sao chép!';
+    toast.classList.add('show');
+    setTimeout(()=>{toast.classList.remove('show');},1500);
+  }).catch(()=>{
+    // Fallback
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    toast.textContent='Đã sao chép!';
+    toast.classList.add('show');
+    setTimeout(()=>{toast.classList.remove('show');},1500);
+  });
+}
+
+function processPayment(){
+  const btn=document.getElementById('payBtn');
+  // Only validate if card method is active
+  if(currentMethod==='card'){
+    if(!validateCardForm()){
+      btn.classList.add('btn-shake');
+      btn.addEventListener('animationend',()=>btn.classList.remove('btn-shake'),{once:true});
+      return;
+    }
+  }
+  btn.classList.add('btn-loading');btn.textContent='';
+  const layout=document.getElementById('checkoutLayout');
+  const success=document.getElementById('successState');
+  setTimeout(()=>{
+    layout.classList.add('fade-out');
+    setTimeout(()=>{
+      layout.style.display='none';
+      success.classList.add('show');
+    },400);
+  },2000);
+}
+</script>
+</body>
+</html>

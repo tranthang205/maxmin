@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Gói dịch vụ</title>
+<style>
+@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Regular.otf") format("opentype");font-weight:400}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Medium.otf") format("opentype");font-weight:500}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_SemiBold.otf") format("opentype");font-weight:600}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Bold.otf") format("opentype");font-weight:700}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Heavy.otf") format("opentype");font-weight:800}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Black.otf") format("opentype");font-weight:900}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Bold_Italic.otf") format("opentype");font-weight:700;font-style:italic}@font-face{font-family:"SVN-Gilroy";src:url("fonts/SVN-Gilroy_Black_Italic.otf") format("opentype");font-weight:900;font-style:italic}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-card-h:#161632;--bg-input:#0e0e20;--bg-hover:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.1);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--amber:#FF9B6A;--green:#4AE3B5;--font:'SVN-Gilroy',sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--sidebar-w:220px;--sidebar-collapsed:60px;--topbar-h:52px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5}a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:100;transition:width .3s var(--ease);overflow:hidden}.sidebar.collapsed{width:var(--sidebar-collapsed)}
+.sb-logo{display:flex;align-items:center;gap:8px;padding:16px 18px;font-size:17px;font-weight:900;border-bottom:1px solid var(--border);height:var(--topbar-h);flex-shrink:0;white-space:nowrap}.sb-logo .dot{width:5px;height:5px;background:var(--coral);border-radius:50%}.sb-logo span{transition:opacity .2s}.sidebar.collapsed .sb-logo span{opacity:0;width:0}
+.sb-nav{flex:1;padding:12px 8px;display:flex;flex-direction:column;gap:2px}.sb-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13.5px;font-weight:500;color:var(--text-dim);transition:all .2s;white-space:nowrap;position:relative}.sb-item:hover{background:var(--bg-hover);color:var(--text)}.sb-item.active{background:var(--coral-glow);color:var(--coral);font-weight:600}.sb-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--coral);border-radius:0 3px 3px 0}.sb-item svg{width:18px;height:18px;flex-shrink:0;opacity:.6}.sb-item.active svg{opacity:1}.sb-item .sb-label{transition:opacity .2s}.sidebar.collapsed .sb-label{opacity:0;width:0}.sb-item .sb-badge{margin-left:auto;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;background:var(--coral);color:#fff}.sidebar.collapsed .sb-badge{display:none}
+.sb-footer{padding:12px;border-top:1px solid var(--border);flex-shrink:0;position:relative}.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background .15s}.sb-user:hover{background:var(--bg-hover)}.sb-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--peach));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}.sb-uinfo{overflow:hidden}.sb-uname{font-size:12.5px;font-weight:700}.sb-uplan{font-size:10px;color:var(--teal);font-weight:600}.sidebar.collapsed .sb-uinfo{display:none}.sb-dropdown{position:absolute;bottom:100%;left:8px;right:8px;margin-bottom:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:6px;opacity:0;visibility:hidden;transform:translateY(6px);transition:all .2s var(--ease);z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4)}.sb-dropdown.show{opacity:1;visibility:visible;transform:translateY(0)}.sb-dd-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--text-dim);transition:all .15s;white-space:nowrap}.sb-dd-item:hover{background:var(--bg-hover);color:var(--text)}.sb-dd-item svg{width:15px;height:15px;opacity:.6;flex-shrink:0}.sb-dd-div{height:1px;background:var(--border);margin:4px 0}
+.sb-toggle{position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:101}.sb-toggle svg{width:14px;height:14px;transition:transform .3s var(--ease)}.sidebar.collapsed .sb-toggle svg{transform:rotate(180deg)}
+.topbar{position:fixed;top:0;left:var(--sidebar-w);right:0;height:var(--topbar-h);background:rgba(12,12,24,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;z-index:99;transition:left .3s var(--ease)}.sidebar.collapsed~.main-wrap .topbar{left:var(--sidebar-collapsed)}
+.tb-title{font-size:18px;font-weight:800}
+.main-wrap{margin-left:var(--sidebar-w);transition:margin-left .3s var(--ease)}.sidebar.collapsed~.main-wrap{margin-left:var(--sidebar-collapsed)}
+.main{padding:calc(var(--topbar-h) + 24px) 28px 40px;max-width:900px;margin:0 auto}
+
+/* ══ PRICING IN-APP ══ */
+.current-plan{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.cp-info h3{font-size:15px;font-weight:800;margin-bottom:2px}.cp-plan{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--teal);background:var(--teal-glow);padding:3px 10px;border-radius:6px;margin-right:8px}
+.cp-meta{font-size:12px;color:var(--text-muted)}
+.cp-usage{text-align:right}
+.cp-bar{width:160px;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.cp-bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--coral));border-radius:3px;width:48%}
+.cp-usage-text{font-size:11px;color:var(--text-muted)}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;transition:all .4s var(--ease)}
+.price-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
+.price-card.current{border-color:var(--teal);background:linear-gradient(170deg,rgba(74,227,181,.03),var(--bg-card) 40%)}
+.price-card.current::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal)}
+.price-card.rec{border-color:rgba(255,107,84,.3);background:linear-gradient(170deg,rgba(255,107,84,.03),var(--bg-card) 40%)}
+.price-card.rec::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--coral),var(--peach))}
+.price-badge{position:absolute;top:14px;right:14px;padding:3px 9px;border-radius:100px;font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.price-badge.cur{background:var(--teal-glow);color:var(--teal);border:1px solid rgba(74,227,181,.2)}
+.price-badge.pop{background:var(--coral-glow);color:var(--coral);border:1px solid rgba(255,107,84,.2)}
+.price-tier{font-size:18px;font-weight:900;margin-bottom:3px}.price-sub{font-size:11.5px;color:var(--text-sec);margin-bottom:18px;min-height:16px}
+.price-amount{display:flex;align-items:baseline;gap:3px;margin-bottom:2px}.price-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1}.price-unit{font-size:13px;color:var(--text-dim)}
+.price-period{font-size:10.5px;color:var(--text-muted);margin-bottom:20px}
+.price-div{height:1px;background:var(--border);margin-bottom:16px}
+.price-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}.price-features li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--text-dim)}.price-features .ck{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.ck{background:rgba(255,255,255,.04);color:var(--teal)}.ck.c{background:var(--coral-glow);color:var(--coral)}
+.price-btn{display:block;width:100%;padding:11px 0;border-radius:100px;font-size:13px;font-weight:700;text-align:center;transition:all .3s var(--ease)}
+.price-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text)}.price-btn.outline:hover{border-color:var(--border-h)}
+.price-btn.fill{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 20px rgba(255,107,84,.2)}.price-btn.fill:hover{transform:translateY(-1px)}
+.price-btn.current-btn{background:var(--teal-glow);border:1px solid rgba(74,227,181,.2);color:var(--teal)}
+
+/* ══ DOWNGRADE MODAL ══ */
+.dg-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.5);align-items:center;justify-content:center}.dg-overlay.show{display:flex}
+.dg-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px;width:90%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:dgIn .25s var(--ease)}
+@keyframes dgIn{0%{opacity:0;transform:translateY(12px) scale(.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.dg-title{font-size:17px;font-weight:800;margin-bottom:8px}
+.dg-msg{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:24px}
+.dg-actions{display:flex;gap:10px;justify-content:flex-end}
+.dg-btn{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}
+.dg-btn.cancel{border:1px solid var(--border);color:var(--text-dim)}.dg-btn.cancel:hover{border-color:var(--border-h)}
+.dg-btn.confirm{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff}.dg-btn.confirm:hover{opacity:.9}
+
+/* ══ BILLING TOGGLE ══ */
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px}
+.billing-label{font-size:13px;font-weight:600;color:var(--text-muted);transition:color .2s}.billing-label.active{color:var(--text)}
+.billing-switch{position:relative;width:44px;height:24px;background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .3s var(--ease)}
+.billing-switch.on{background:var(--coral);border-color:var(--coral)}
+.billing-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.billing-switch.on::after{transform:translateX(20px)}
+.billing-save{font-size:11px;color:var(--teal);font-weight:700}
+.price-old{font-size:13px;color:var(--text-muted);text-decoration:line-through;margin-right:6px;font-family:var(--mono)}
+
+.mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;position:relative;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px;transition:all .3s var(--ease)}.mob-toggle .ml2{margin:4px 0}@media(max-width:768px){.mob-toggle{display:flex}.sidebar.mob-open{transform:translateX(0)!important}.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}.mob-overlay.show{display:block}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main-wrap{margin-left:0!important}.topbar{left:0!important}.pricing-grid{grid-template-columns:1fr}.current-plan{flex-direction:column;gap:16px;text-align:center}.cp-usage{text-align:center}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 14px 28px}.price-card{padding:20px}.price-amount{font-size:28px}.price-features li{font-size:12px}.tb-title{font-size:15px}.current-plan{padding:14px}.cp-badge{font-size:10px}}
+.toast{position:fixed;top:calc(var(--topbar-h) + 16px);right:28px;z-index:500;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(-8px);transition:all .3s var(--ease);pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}.toast.success{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.2);color:var(--green)}.toast.info{background:rgba(91,141,239,.12);border:1px solid rgba(91,141,239,.2);color:var(--text-dim)}
+.maxi-helper{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}.maxi-msg{max-width:220px;padding:10px 14px;border-radius:12px 12px 4px 12px;background:var(--bg-card);border:1px solid var(--border);font-size:11.5px;font-weight:500;color:var(--text-dim);line-height:1.5;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);box-shadow:0 8px 24px rgba(0,0,0,.3)}.maxi-msg.show{opacity:1;transform:translateY(0)}.maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08);border-color:var(--border-h)}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="sb-logo"><span class="dot"></span><span>MAXMIN</span></div>
+<button class="sb-toggle" id="sbToggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+<nav class="sb-nav">
+<a href="dashboard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="sb-label">Tổng quan</span></a>
+<a href="streams.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/></svg><span class="sb-label">Luồng phát</span><span class="sb-badge">4</span></a>
+<a href="library.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7z"/></svg><span class="sb-label">Thư viện video</span></a>
+<a href="wizard.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="sb-label">Tạo luồng mới</span></a>
+<a href="pricing.html" class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg><span class="sb-label">Gói dịch vụ</span></a>
+<a href="settings.html" class="sb-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg><span class="sb-label">Cài đặt</span></a>
+</nav>
+<div class="sb-footer"><div class="sb-dropdown" id="sbDropdown"><a href="admin.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span class="sb-label">Trang quản trị</span></a><a href="settings.html" class="sb-dd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="sb-label">Cài đặt</span></a><div class="sb-dd-div"></div><a href="login.html" class="sb-dd-item" style="color:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="sb-label">Đăng xuất</span></a></div><div class="sb-user" onclick="document.getElementById('sbDropdown').classList.toggle('show')"><div class="sb-avatar">H</div><div class="sb-uinfo"><div class="sb-uname">Shop Hana</div><div class="sb-uplan">Pro Plan</div></div></div></div>
+</aside>
+
+<div class="main-wrap">
+<header class="topbar"><button class="mob-toggle" id="mobToggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open');document.getElementById('mobOverlay').classList.toggle('show')"><span></span><span class="ml2"></span><span></span></button><div><h1 class="tb-title">Gói dịch vụ</h1></div></header>
+<main class="main">
+
+<div class="current-plan">
+  <div class="cp-info">
+    <h3>Gói hiện tại</h3>
+    <div><span class="cp-plan">✓ Pro</span><span class="cp-meta">Còn 22 ngày · Gia hạn 15/04/2025</span></div>
+  </div>
+  <div class="cp-usage">
+    <div class="cp-bar"><div class="cp-bar-fill"></div></div>
+    <div class="cp-usage-text">24 GB / 50 GB đã dùng</div>
+  </div>
+</div>
+
+<div class="billing-toggle">
+  <span class="billing-label active" id="blMonth">Hàng tháng</span>
+  <div class="billing-switch" id="billingSwitch" onclick="toggleBilling()"></div>
+  <span class="billing-label" id="blYear">Hàng năm</span>
+  <span class="billing-save">Tiết kiệm 20%</span>
+</div>
+
+<div class="pricing-grid">
+  <div class="price-card">
+    <div class="price-tier">Free</div><div class="price-sub"></div>
+    <div class="price-amount"><span class="price-num">0đ</span></div><div class="price-period">Mãi mãi miễn phí</div>
+    <div class="price-div"></div>
+    <ul class="price-features"><li><span class="ck g">✓</span>1 luồng live đồng thời</li><li><span class="ck g">✓</span>5GB lưu trữ video</li><li><span class="ck g">✓</span>Dashboard cơ bản</li><li><span class="ck g">✓</span>Live tối đa 5h/ngày</li></ul>
+    <button class="price-btn outline" onclick="document.getElementById('dgOverlay').classList.add('show')">Hạ cấp</button>
+  </div>
+  <div class="price-card current">
+    <div class="price-badge cur">Gói hiện tại</div>
+    <div class="price-tier">Pro</div><div class="price-sub">Cho người bán hàng nghiêm túc</div>
+    <div class="price-amount" id="proPriceAmount"><span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span></div><div class="price-period" id="proPeriod">Thanh toán hàng tháng</div>
+    <div class="price-div"></div>
+    <ul class="price-features"><li><span class="ck c">✓</span>5 luồng live đồng thời</li><li><span class="ck c">✓</span>50GB lưu trữ video</li><li><span class="ck c">✓</span>Hỗ trợ ưu tiên</li></ul>
+    <button class="price-btn current-btn" disabled style="opacity:.6;cursor:default">Gói hiện tại</button>
+  </div>
+  <div class="price-card rec">
+    <div class="price-badge pop">Nâng cấp</div>
+    <div class="price-tier">Business</div><div class="price-sub">Agency, đội bán hàng chuyên nghiệp</div>
+    <div class="price-amount" id="bizPriceAmount"><span class="price-num" id="bizPrice">499K</span><span class="price-unit">/tháng</span></div><div class="price-period" id="bizPeriod">Thanh toán hàng tháng</div>
+    <div class="price-div"></div>
+    <ul class="price-features"><li><span class="ck c">✓</span>10 luồng live đồng thời</li><li><span class="ck c">✓</span>200GB lưu trữ</li><li><span class="ck c">✓</span>Tất cả tính năng Pro</li><li><span class="ck c">✓</span>Hỗ trợ 1-1</li></ul>
+    <button class="price-btn fill" onclick="window.location.href='checkout.html?plan=business'">Nâng cấp Business</button>
+  </div>
+</div>
+</main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="maxi-helper"><div class="maxi-msg" id="maxiMsg"></div><div class="maxi-orb" id="maxiOrb"><svg viewBox="0 0 120 120" width="30" height="30" fill="none"><defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs><ellipse cx="60" cy="68" rx="33" ry="38" fill="url(#gm)"/><circle cx="47" cy="62" r="7" fill="#0a0a18"/><circle cx="73" cy="62" r="7" fill="#0a0a18"/><circle cx="48.5" cy="62" r="3.2" fill="#4AE3B5"/><circle cx="74.5" cy="62" r="3.2" fill="#4AE3B5"/><path d="M52 76Q60 83 68 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div></div>
+<script>document.getElementById('sbToggle').addEventListener('click',()=>{const s=document.getElementById('sidebar');s.classList.toggle('collapsed');localStorage.setItem('sb-collapsed',s.classList.contains('collapsed'))});if(localStorage.getItem('sb-collapsed')==='true')document.getElementById('sidebar').classList.add('collapsed');
+document.addEventListener('click',e=>{const dd=document.getElementById('sbDropdown');if(dd&&!e.target.closest('.sb-user')&&!e.target.closest('.sb-dropdown'))dd.classList.remove('show')});
+const _orb=document.getElementById('maxiOrb'),_msg=document.getElementById('maxiMsg');
+const _msgs=['Gói Pro đang là lựa chọn tốt nhất cho bạn!','Nâng cấp Business nếu cần 10 luồng','Dùng toggle để xem giá hàng năm nhé!','Maxi sẵn sàng hỗ trợ! 💪'];
+let _mi=0;function _showM(t){_msg.textContent=t;_msg.classList.add('show');setTimeout(()=>_msg.classList.remove('show'),3500)}
+_orb.addEventListener('click',()=>{_mi=(_mi+1)%_msgs.length;_showM(_msgs[_mi])});
+setTimeout(()=>_showM('Xem gói nào phù hợp với bạn nhé! 📦'),1500);
+let _annual=false;
+function toggleBilling(){_annual=!_annual;const sw=document.getElementById('billingSwitch');sw.classList.toggle('on',_annual);document.getElementById('blMonth').classList.toggle('active',!_annual);document.getElementById('blYear').classList.toggle('active',_annual);
+if(_annual){document.getElementById('proPriceAmount').innerHTML='<span class="price-old">1.188K</span><span class="price-num" id="proPrice">990K</span><span class="price-unit">/năm</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng năm';document.getElementById('bizPriceAmount').innerHTML='<span class="price-old">5.988K</span><span class="price-num" id="bizPrice">4.990K</span><span class="price-unit">/năm</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng năm'}else{document.getElementById('proPriceAmount').innerHTML='<span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span>';document.getElementById('proPeriod').textContent='Thanh toán hàng tháng';document.getElementById('bizPriceAmount').innerHTML='<span class="price-num" id="bizPrice">499K</span><span class="price-unit">/tháng</span>';document.getElementById('bizPeriod').textContent='Thanh toán hàng tháng'}}
+window.toggleBilling=toggleBilling</script>
+<!-- Downgrade modal -->
+<div class="dg-overlay" id="dgOverlay" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="dg-card">
+    <div class="dg-title">Xác nhận hạ cấp</div>
+    <div class="dg-msg">Bạn đang dùng gói Pro. Hạ cấp xuống Free sẽ mất các tính năng Pro. Bạn có chắc không?</div>
+    <div class="dg-actions">
+      <button class="dg-btn cancel" onclick="document.getElementById('dgOverlay').classList.remove('show')">Hủy</button>
+      <button class="dg-btn confirm" onclick="document.getElementById('dgOverlay').classList.remove('show')">Xác nhận hạ cấp</button>
+    </div>
+  </div>
+</div>
+
+<div class="mob-overlay" id="mobOverlay" onclick="document.getElementById('sidebar').classList.remove('mob-open');this.classList.remove('show')"></div>
+</body>
+</html>

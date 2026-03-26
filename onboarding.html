@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Thiết lập tài khoản</title>
+<style>
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_SemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-weight:800}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-weight:900}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-card-h:#161632;--bg-input:#0e0e20;--bg-hover:rgba(255,255,255,.03);--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.1);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--green:#4AE3B5;--red:#FF5252;--font:'SVN-Gilroy',system-ui,sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+
+/* Ambient */
+.amb{position:fixed;border-radius:50%;filter:blur(150px);pointer-events:none;z-index:0}
+.amb-1{width:500px;height:500px;background:var(--coral);top:-200px;left:-100px;opacity:.08}
+.amb-2{width:400px;height:400px;background:var(--teal);bottom:-150px;right:-60px;opacity:.06}
+
+/* Header */
+.ob-header{width:100%;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.ob-logo{font-size:20px;font-weight:900;letter-spacing:-.03em;display:flex;align-items:center}
+.ob-logo .dot{display:inline-block;width:5px;height:5px;background:var(--coral);border-radius:50%;margin:0 5px}
+.ob-skip{font-size:13px;color:var(--text-muted);font-weight:600;transition:color .2s}
+.ob-skip:hover{color:var(--text-dim)}
+
+/* Progress */
+.ob-progress{width:100%;max-width:600px;display:flex;gap:6px;margin:16px 0 32px;padding:0 32px;position:relative;z-index:1}
+.ob-bar{flex:1;height:4px;border-radius:2px;background:var(--border);overflow:hidden;transition:all .3s}
+.ob-bar .fill{height:100%;border-radius:2px;background:var(--coral);width:0;transition:width .5s var(--ease)}
+.ob-bar.done .fill{width:100%;background:var(--teal)}
+.ob-bar.active .fill{width:50%;background:var(--coral)}
+
+/* Content */
+.ob-content{width:100%;max-width:600px;padding:0 32px;position:relative;z-index:1}
+.ob-page{display:none;animation:fadeIn .4s var(--spring)}
+.ob-page.active{display:block}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+
+.ob-mascot{text-align:center;margin-bottom:20px;animation:mFloat 3s ease-in-out infinite}
+@keyframes mFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+.ob-title{font-size:26px;font-weight:900;letter-spacing:-.03em;text-align:center;margin-bottom:6px}
+.ob-desc{font-size:14px;color:var(--text-sec);text-align:center;margin-bottom:28px;line-height:1.6}
+
+/* Cards */
+.ob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:12px}
+
+/* Platform connect */
+.plat-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;transition:all .2s}
+.plat-item:hover{border-color:var(--border-h)}
+.plat-item.connected{border-color:rgba(74,227,181,.2);background:var(--teal-glow)}
+.plat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
+.plat-icon.tt{background:#000}.plat-icon.yt{background:#F00}.plat-icon.fb{background:#1877F2}.plat-icon.sp{background:#EE4D2D}
+.plat-info{flex:1}
+.plat-name{font-size:14px;font-weight:700}
+.plat-status{font-size:11px;color:var(--text-muted)}
+.plat-item.connected .plat-status{color:var(--teal)}
+.plat-btn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;transition:all .2s;flex-shrink:0}
+.plat-btn.connect{color:var(--coral);border:1px solid rgba(255,107,84,.3);background:var(--coral-glow)}
+.plat-btn.connect:hover{background:rgba(255,107,84,.1)}
+.plat-btn.done{color:var(--teal);border:1px solid rgba(74,227,181,.2);background:var(--teal-glow)}
+.plat-hint{text-align:center;font-size:12px;color:var(--text-muted);margin-top:12px}
+
+/* Upload area */
+.upload-zone{border:2px dashed var(--border);border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.upload-zone:hover{border-color:var(--coral);background:var(--coral-glow)}
+.upload-zone.dragover{border-color:var(--coral);background:rgba(255,107,84,.06);transform:scale(1.01)}
+.upload-zone.has-file{border-color:var(--teal);border-style:solid;background:var(--teal-glow)}
+.uz-icon{font-size:36px;margin-bottom:8px}
+.uz-text{font-size:14px;font-weight:700;margin-bottom:4px}
+.uz-hint{font-size:12px;color:var(--text-muted)}
+.uz-formats{font-size:11px;color:var(--text-muted);margin-top:8px}
+.uz-progress{margin-top:16px;display:none}
+.uz-progress.show{display:block}
+.uz-pbar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:6px}
+.uz-pfill{height:100%;border-radius:2px;background:var(--coral);width:0;transition:width .3s}
+.uz-ptext{font-size:11px;color:var(--text-dim);display:flex;justify-content:space-between}
+.uz-file-info{display:none;margin-top:12px;padding:12px;background:var(--bg);border-radius:8px}
+.uz-file-info.show{display:flex;align-items:center;gap:10px}
+.uz-fname{font-size:13px;font-weight:700;flex:1}
+.uz-fsize{font-size:11px;color:var(--text-muted)}
+.uz-fremove{color:var(--red);font-size:14px;cursor:pointer}
+
+/* Actions */
+.ob-actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-bottom:40px}
+.ob-btn-back{padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;color:var(--text-dim);border:1px solid var(--border);transition:all .2s}
+.ob-btn-back:hover{color:var(--text);border-color:var(--border-h)}
+.ob-btn-next{padding:12px 28px;border-radius:100px;font-size:14px;font-weight:700;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 16px rgba(255,107,84,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
+.ob-btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,107,84,.3)}
+.ob-btn-next svg{width:14px;height:14px}
+.ob-btn-finish{padding:14px 32px;border-radius:100px;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--teal),#20c997);color:#0a0a18;box-shadow:0 4px 20px rgba(74,227,181,.2);transition:all .2s;display:flex;align-items:center;gap:8px}
+.ob-btn-finish:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,227,181,.3)}
+.ob-btn-finish svg{width:18px;height:18px}
+
+/* Step counter */
+.ob-step-num{font-size:12px;color:var(--text-muted);font-weight:600;text-align:center;margin-bottom:6px}
+
+/* Complete animation */
+.confetti{position:fixed;pointer-events:none;z-index:100}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+
+@media(max-width:768px){.ob-header{padding:16px 20px}.ob-content{padding:0 20px}.ob-title{font-size:24px}.ob-progress{padding:0 20px}.plat-item{padding:12px 14px}.plat-icon{width:36px;height:36px;font-size:14px}.upload-zone{padding:28px 16px}}
+@media(max-width:480px){.ob-content{padding:0 14px}.ob-title{font-size:20px}.ob-desc{font-size:13px;margin-bottom:20px}.ob-progress{padding:0 14px}.ob-btn-next{padding:10px 20px;font-size:13px}.ob-btn-finish{padding:12px 24px;font-size:14px}.plat-item{flex-wrap:wrap;gap:10px}.plat-btn{width:100%;text-align:center}.ob-actions{flex-direction:column-reverse;gap:10px;align-items:stretch}.ob-actions>*{width:100%;text-align:center;justify-content:center}}
+@media(max-width:360px){.ob-header{padding:12px 14px}.ob-logo{font-size:18px}.ob-mascot svg{width:60px;height:60px}}
+</style>
+</head>
+<body>
+<div class="amb amb-1"></div><div class="amb amb-2"></div>
+
+<header class="ob-header">
+<div class="ob-logo">MAXMIN<span class="dot"></span>VN</div>
+<a href="dashboard.html" class="ob-skip" id="skipBtn">Bỏ qua →</a>
+</header>
+
+<div class="ob-progress" id="progressBars">
+<div class="ob-bar active"><div class="fill"></div></div>
+<div class="ob-bar"><div class="fill"></div></div>
+<div class="ob-bar"><div class="fill"></div></div>
+</div>
+
+<div class="ob-content">
+
+<!-- Step 1: Welcome + Connect platforms -->
+<div class="ob-page active" id="obStep1">
+<div class="ob-mascot">
+<svg viewBox="0 0 120 120" width="80" height="80" fill="none">
+<defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs>
+<path d="M44 32Q36 16 31 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="19" r="3.5" fill="#FFCABC"/>
+<path d="M76 32Q84 16 89 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="90" cy="19" r="3.5" fill="#FFCABC"/>
+<ellipse cx="18" cy="56" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(-20 18 56)"/>
+<ellipse cx="102" cy="56" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(20 102 56)"/>
+<ellipse cx="60" cy="68" rx="34" ry="40" fill="url(#gm)"/>
+<circle cx="46" cy="60" r="7.5" fill="#0a0a18"/><circle cx="74" cy="60" r="7.5" fill="#0a0a18"/>
+<circle cx="47.5" cy="60" r="3.5" fill="#4AE3B5"/><circle cx="75.5" cy="60" r="3.5" fill="#4AE3B5"/>
+<circle cx="49" cy="61.5" r="1.5" fill="white" opacity=".9"/><circle cx="77" cy="61.5" r="1.5" fill="white" opacity=".9"/>
+<path d="M50 76Q60 85 70 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/>
+<ellipse cx="48" cy="106" rx="10" ry="4" fill="#E85A3A"/><ellipse cx="72" cy="106" rx="10" ry="4" fill="#E85A3A"/>
+</svg>
+</div>
+<div class="ob-step-num">Bước 1 / 3</div>
+<h1 class="ob-title">Kết nối nền tảng live</h1>
+<p class="ob-desc">Kết nối ít nhất 1 nền tảng để bắt đầu. Bạn có thể thêm sau trong Cài đặt.</p>
+
+<div class="plat-item" id="plt-tiktok">
+<div class="plat-icon tt">T</div>
+<div class="plat-info"><div class="plat-name">TikTok</div><div class="plat-status">Chưa kết nối</div></div>
+<button class="plat-btn connect" onclick="connectPlat('tiktok')">Kết nối</button>
+</div>
+<div class="plat-item" id="plt-youtube">
+<div class="plat-icon yt">Y</div>
+<div class="plat-info"><div class="plat-name">YouTube</div><div class="plat-status">Chưa kết nối</div></div>
+<button class="plat-btn connect" onclick="connectPlat('youtube')">Kết nối</button>
+</div>
+<div class="plat-item" id="plt-facebook">
+<div class="plat-icon fb">F</div>
+<div class="plat-info"><div class="plat-name">Facebook</div><div class="plat-status">Chưa kết nối</div></div>
+<button class="plat-btn connect" onclick="connectPlat('facebook')">Kết nối</button>
+</div>
+<div class="plat-item" id="plt-shopee">
+<div class="plat-icon sp">S</div>
+<div class="plat-info"><div class="plat-name">Shopee Live</div><div class="plat-status">Chưa kết nối</div></div>
+<button class="plat-btn connect" onclick="connectPlat('shopee')">Kết nối</button>
+</div>
+
+<div class="plat-hint">Kết nối qua OAuth — MAXMIN không lưu mật khẩu nền tảng của bạn</div>
+
+<div class="ob-actions">
+<a href="login.html" style="font-size:13px;color:var(--text-dim);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-dim)'">← Quay lại</a>
+<button class="ob-btn-next" id="ob1Next" onclick="goOb(2)">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+</div>
+</div>
+
+<!-- Step 2: Upload first video -->
+<div class="ob-page" id="obStep2">
+<div class="ob-mascot">
+<svg viewBox="0 0 120 120" width="80" height="80" fill="none">
+<defs><linearGradient id="gm2" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs>
+<path d="M44 32Q36 16 31 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="19" r="3.5" fill="#FFCABC"/>
+<path d="M76 32Q84 16 89 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="90" cy="19" r="3.5" fill="#FFCABC"/>
+<ellipse cx="18" cy="50" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(-22 18 50)"/>
+<ellipse cx="102" cy="50" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(22 102 50)"/>
+<ellipse cx="60" cy="68" rx="34" ry="40" fill="url(#gm2)"/>
+<circle cx="46" cy="60" r="7.5" fill="#0a0a18"/><circle cx="74" cy="60" r="7.5" fill="#0a0a18"/>
+<circle cx="48" cy="57.5" r="3.2" fill="#4AE3B5"/><circle cx="74" cy="57.5" r="3.2" fill="#4AE3B5"/>
+<circle cx="49.5" cy="59" r="1.4" fill="white" opacity=".85"/><circle cx="75.5" cy="59" r="1.4" fill="white" opacity=".85"/>
+<path d="M50 76Q60 84 70 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/>
+<!-- Upload arrow -->
+<g><path d="M60 8L54 16H58V24H62V16H66Z" fill="#4AE3B5" opacity=".8"/></g>
+<ellipse cx="48" cy="106" rx="10" ry="4" fill="#E85A3A"/><ellipse cx="72" cy="106" rx="10" ry="4" fill="#E85A3A"/>
+</svg>
+</div>
+<div class="ob-step-num">Bước 2 / 3</div>
+<h1 class="ob-title">Upload video đầu tiên</h1>
+<p class="ob-desc">Tải lên video bạn muốn phát live. Hỗ trợ MP4, MOV, AVI. Tối đa 2GB.</p>
+
+<div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+<input type="file" id="fileInput" accept="video/*" style="display:none" onchange="handleFile(this.files[0])">
+<div class="uz-icon">📤</div>
+<div class="uz-text">Kéo thả video vào đây</div>
+<div class="uz-hint">hoặc bấm để chọn từ máy</div>
+<div class="uz-formats">MP4, MOV, AVI · Tối đa 2GB</div>
+<div class="uz-progress" id="uploadProgress">
+<div class="uz-pbar"><div class="uz-pfill" id="uploadFill"></div></div>
+<div class="uz-ptext"><span id="uploadPct">0%</span><span id="uploadSize">0 MB / 0 MB</span></div>
+</div>
+</div>
+<div class="uz-file-info" id="fileInfo">
+<span style="font-size:20px">🎬</span>
+<span class="uz-fname" id="fileName"></span>
+<span class="uz-fsize" id="fileSize"></span>
+<span class="uz-fremove" onclick="removeFile()">✕</span>
+</div>
+
+<div class="plat-hint">Bạn có thể upload thêm video sau trong Thư viện</div>
+
+<div class="ob-actions">
+<button class="ob-btn-back" onclick="goOb(1)">← Quay lại</button>
+<button class="ob-btn-next" onclick="goOb(3)">Tiếp theo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+</div>
+</div>
+
+<!-- Step 3: All set! -->
+<div class="ob-page" id="obStep3">
+<div class="ob-mascot" style="font-size:52px;animation:mFloat 2.5s ease-in-out infinite">🎉</div>
+<div class="ob-step-num">Bước 3 / 3</div>
+<h1 class="ob-title">Thiết lập hoàn tất!</h1>
+<p class="ob-desc">Tuyệt vời! Bạn đã sẵn sàng bắt đầu live bán hàng trên MAXMIN. Maxi sẽ đồng hành cùng bạn từ đây.</p>
+
+<div class="ob-card" style="text-align:center;padding:28px">
+<div style="font-size:14px;font-weight:800;margin-bottom:16px">Bạn muốn làm gì tiếp?</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+<a href="wizard.html" style="padding:12px 20px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:0 4px 16px rgba(255,107,84,.2);transition:all .2s">🚀 Tạo luồng phát đầu tiên</a>
+<a href="library.html" style="padding:12px 20px;border-radius:10px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s">📂 Upload thêm video</a>
+<a href="dashboard.html" style="padding:12px 20px;border-radius:10px;border:1px solid var(--border);color:var(--text-dim);font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;transition:all .2s">📊 Xem Dashboard</a>
+</div>
+</div>
+
+<div class="ob-actions">
+<div></div>
+<button class="ob-btn-finish" onclick="window.location.href='dashboard.html'">Vào Dashboard <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+</div>
+</div>
+</div>
+
+<script>
+let connectedPlats=new Set();
+function connectPlat(name){
+  const item=document.getElementById('plt-'+name);
+  const btn=item.querySelector('.plat-btn');
+  const status=item.querySelector('.plat-status');
+  btn.textContent='Đang kết nối...';btn.style.opacity='.6';
+  setTimeout(()=>{
+    item.classList.add('connected');
+    const names={tiktok:'@shophanavn',youtube:'Shop Hana Official',facebook:'Hana Beauty Page',shopee:'shophanavn'};
+    status.textContent=names[name]+' — Đã kết nối';
+    btn.textContent='✓ Đã kết nối';btn.className='plat-btn done';btn.style.opacity='1';
+    connectedPlats.add(name);
+  },1200);
+}
+
+function goOb(step){
+  document.querySelectorAll('.ob-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('obStep'+step).classList.add('active');
+  const bars=document.querySelectorAll('.ob-bar');
+  bars.forEach((b,i)=>{b.classList.remove('active','done');if(i<step-1)b.classList.add('done');else if(i===step-1)b.classList.add('active')});
+  if(step===3){document.getElementById('skipBtn').style.display='none';spawnConfetti()}
+}
+
+let uploadedFile=null;
+const uploadZone=document.getElementById('uploadZone');
+uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('dragover')});
+uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop',e=>{e.preventDefault();uploadZone.classList.remove('dragover');handleFile(e.dataTransfer.files[0])});
+
+function handleFile(file){
+  if(!file)return;
+  uploadedFile=file;
+  const size=(file.size/1024/1024).toFixed(1);
+  document.getElementById('uploadProgress').classList.add('show');
+  let pct=0;
+  const iv=setInterval(()=>{
+    pct+=Math.random()*15+5;if(pct>100)pct=100;
+    document.getElementById('uploadFill').style.width=pct+'%';
+    document.getElementById('uploadPct').textContent=Math.round(pct)+'%';
+    document.getElementById('uploadSize').textContent=((pct/100)*size).toFixed(1)+' MB / '+size+' MB';
+    if(pct>=100){
+      clearInterval(iv);
+      uploadZone.classList.add('has-file');
+      document.getElementById('uploadProgress').classList.remove('show');
+      document.getElementById('fileInfo').classList.add('show');
+      document.getElementById('fileName').textContent=file.name;
+      document.getElementById('fileSize').textContent=size+' MB';
+      uploadZone.querySelector('.uz-icon').textContent='✅';
+      uploadZone.querySelector('.uz-text').textContent='Upload thành công!';
+      uploadZone.querySelector('.uz-hint').textContent=file.name;
+    }
+  },200);
+}
+
+function removeFile(){
+  uploadedFile=null;
+  uploadZone.classList.remove('has-file');
+  document.getElementById('fileInfo').classList.remove('show');
+  uploadZone.querySelector('.uz-icon').textContent='📤';
+  uploadZone.querySelector('.uz-text').textContent='Kéo thả video vào đây';
+  uploadZone.querySelector('.uz-hint').textContent='hoặc bấm để chọn từ máy';
+  document.getElementById('fileInput').value='';
+}
+
+function spawnConfetti(){
+  const colors=['#FF6B54','#4AE3B5','#FFA490','#FFB84D','#FF5252'];
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div');c.className='confetti';
+    c.style.left=Math.random()*100+'vw';c.style.top='-10px';
+    c.style.width=(4+Math.random()*6)+'px';c.style.height=(4+Math.random()*6)+'px';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.borderRadius=Math.random()>.5?'50%':'2px';
+    c.style.animation='confettiFall '+(1.5+Math.random()*2)+'s ease-in forwards';
+    c.style.animationDelay=(Math.random()*.5)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+</body>
+</html>

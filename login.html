@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXMIN — Đăng nhập</title>
+<style>
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Regular.otf') format('opentype');font-weight:400}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Medium.otf') format('opentype');font-weight:500}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_SemiBold.otf') format('opentype');font-weight:600}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-weight:700}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-weight:800}
+@font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-weight:900}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-input:#0e0e20;--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.12);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(255,107,84,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(74,227,181,.05);--font:'SVN-Gilroy',system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
+input{font-family:inherit;color:var(--text);background:var(--bg-input);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;outline:none;width:100%;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,107,84,.08)}
+input::placeholder{color:var(--text-muted)}
+
+/* Layout */
+.auth-wrap{display:flex;min-height:100vh;width:100%}
+.auth-left{flex:1;display:flex;align-items:center;justify-content:center;padding:40px}
+.auth-right{width:480px;background:linear-gradient(135deg,rgba(255,107,84,.06),rgba(74,227,181,.04));border-left:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden}
+
+/* Ambient */
+.auth-right::before{content:'';position:absolute;width:400px;height:400px;background:var(--coral);border-radius:50%;filter:blur(160px);opacity:.08;top:-100px;right:-100px}
+.auth-right::after{content:'';position:absolute;width:300px;height:300px;background:var(--teal);border-radius:50%;filter:blur(140px);opacity:.06;bottom:-80px;left:-60px}
+
+/* Card */
+.auth-card{width:100%;max-width:400px;animation:authIn .5s var(--spring)}
+@keyframes authIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+
+.auth-logo{font-size:24px;font-weight:900;letter-spacing:-.03em;margin-bottom:32px;display:flex;align-items:center}
+.auth-logo .dot{display:inline-block;width:6px;height:6px;background:var(--coral);border-radius:50%;margin:0 5px;transform:translateY(-1px)}
+
+.auth-title{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-bottom:6px}
+.auth-desc{font-size:14px;color:var(--text-sec);margin-bottom:28px}
+
+/* Google button */
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 20px;border-radius:12px;font-size:14px;font-weight:700;background:#fff;color:#1a1a2e;border:none;transition:all .2s var(--ease);box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.btn-google:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.btn-google:active{transform:scale(.98)}
+.btn-google svg{width:20px;height:20px}
+
+/* Divider */
+.auth-divider{display:flex;align-items:center;gap:14px;margin:24px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-divider span{font-size:12px;color:var(--text-muted);font-weight:600}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--text-dim)}
+.form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.form-link{font-size:12px;color:var(--coral);font-weight:600;cursor:pointer;transition:opacity .2s}
+.form-link:hover{opacity:.8}
+
+.input-wrap{position:relative}
+.input-wrap .toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:16px;transition:color .2s}
+.input-wrap .toggle-pw:hover{color:var(--text-dim)}
+
+/* Submit */
+.btn-submit{width:100%;padding:14px 20px;border-radius:12px;font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;transition:all .2s var(--ease);box-shadow:0 4px 16px rgba(255,107,84,.2);margin-top:8px}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,107,84,.3)}
+.btn-submit:active{transform:scale(.98)}
+.btn-submit:disabled{opacity:.5;pointer-events:none}
+
+.auth-footer{margin-top:24px;text-align:center;font-size:13px;color:var(--text-sec)}
+.auth-footer a{color:var(--coral);font-weight:700;transition:opacity .2s}
+.auth-footer a:hover{opacity:.8}
+
+/* Right panel content */
+.auth-showcase{position:relative;z-index:1;text-align:center;max-width:340px}
+.auth-showcase-title{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:10px;line-height:1.2}
+.auth-showcase-desc{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:28px}
+
+/* Mascot */
+.auth-mascot{margin-bottom:24px;animation:mascotFloat 3s ease-in-out infinite}
+@keyframes mascotFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Feature pills */
+.auth-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.auth-pill{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text-dim);white-space:nowrap}
+.auth-pill .dot{display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:5px}
+.auth-pill .dot.green{background:var(--teal)}.auth-pill .dot.red{background:var(--coral)}
+
+/* Error state */
+.input-error{border-color:var(--coral)!important;box-shadow:0 0 0 3px rgba(255,107,84,.1)!important}
+.error-text{font-size:11px;color:var(--coral);margin-top:4px;display:none}
+.error-text.show{display:block}
+
+/* Loading */
+.btn-loading{pointer-events:none;position:relative;color:transparent!important}
+.btn-loading::after{content:'';position:absolute;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;top:50%;left:50%;margin:-10px 0 0 -10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){.auth-right{display:none}.auth-left{padding:24px}}
+@media(max-width:480px){.auth-card{padding:0 8px}.auth-title{font-size:22px}.auth-desc{font-size:13px;margin-bottom:20px}.btn-google{padding:12px 16px;font-size:13px}.btn-submit{padding:12px 16px;font-size:14px}.form-group{margin-bottom:12px}}
+@media(max-width:360px){.auth-logo{font-size:20px;margin-bottom:24px}.auth-title{font-size:20px}input{padding:10px 12px;font-size:13px}}
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+<div class="auth-left">
+<div class="auth-card">
+<div class="auth-logo">MAXMIN<span class="dot"></span>VN</div>
+<h1 class="auth-title">Chào mừng trở lại!</h1>
+<p class="auth-desc">Đăng nhập để quản lý luồng phát của bạn</p>
+
+<button class="btn-google" onclick="googleLogin()">
+<svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+Đăng nhập bằng Google
+</button>
+
+<div class="auth-divider"><span>hoặc đăng nhập bằng email</span></div>
+
+<div class="form-group">
+<label class="form-label" for="loginEmail">Email</label>
+<input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
+<div class="error-text" id="emailError">Email không hợp lệ</div>
+</div>
+
+<div class="form-group">
+<div class="form-row">
+<label class="form-label" for="loginPw" style="margin-bottom:0">Mật khẩu</label>
+<a href="javascript:void(0)" class="form-link" onclick="toggleForgotPw()">Quên mật khẩu?</a>
+</div>
+<div class="input-wrap">
+<input type="password" id="loginPw" placeholder="••••••••" autocomplete="current-password">
+<span class="toggle-pw" onclick="togglePw(this)">👁</span>
+</div>
+<div class="error-text" id="pwError">Mật khẩu không đúng</div>
+<div id="forgotPwMsg" style="display:none;font-size:12px;color:var(--text-sec);margin-top:6px">Vui lòng liên hệ support@maxmin.vn</div>
+</div>
+
+<button class="btn-submit" id="loginBtn" onclick="doLogin()">Đăng nhập</button>
+
+<div class="auth-footer">Chưa có tài khoản? <a href="register.html">Đăng ký miễn phí</a></div>
+</div>
+</div>
+
+<div class="auth-right">
+<div class="auth-showcase">
+<div class="auth-mascot">
+<svg viewBox="0 0 120 120" width="100" height="100" fill="none">
+<defs><linearGradient id="gm" x1="32" y1="32" x2="88" y2="106" gradientUnits="userSpaceOnUse"><stop stop-color="#FFA490"/><stop offset="1" stop-color="#FF6B54"/></linearGradient></defs>
+<path d="M44 32Q36 16 31 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="30" cy="19" r="3.5" fill="#FFCABC"/>
+<path d="M76 32Q84 16 89 20" stroke="#FFCABC" stroke-width="2.5" stroke-linecap="round"/><circle cx="90" cy="19" r="3.5" fill="#FFCABC"/>
+<ellipse cx="18" cy="58" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(-15 18 58)"/>
+<ellipse cx="102" cy="58" rx="12" ry="9.5" fill="#FF6B54" transform="rotate(15 102 58)"/>
+<ellipse cx="60" cy="68" rx="34" ry="40" fill="url(#gm)"/>
+<g><circle cx="46" cy="60" r="7.5" fill="#0a0a18"/><circle cx="74" cy="60" r="7.5" fill="#0a0a18"/><circle cx="47.5" cy="60" r="3.5" fill="#4AE3B5"/><circle cx="75.5" cy="60" r="3.5" fill="#4AE3B5"/><circle cx="49" cy="61.5" r="1.5" fill="white" opacity=".9"/><circle cx="77" cy="61.5" r="1.5" fill="white" opacity=".9"/></g>
+<path d="M50 76Q60 85 70 76" stroke="#0a0a18" stroke-width="2" stroke-linecap="round" fill="none"/>
+<ellipse cx="48" cy="106" rx="10" ry="4" fill="#E85A3A"/><ellipse cx="72" cy="106" rx="10" ry="4" fill="#E85A3A"/>
+</svg>
+</div>
+<h2 class="auth-showcase-title">Live bán hàng tự động<br>trên <span style="color:var(--coral)">4 nền tảng</span></h2>
+<p class="auth-showcase-desc">Quay video một lần, phát lại vô hạn trên TikTok, YouTube, Facebook, Shopee Live. Chốt đơn ngay cả khi bạn đang ngủ.</p>
+<div class="auth-pills">
+<div class="auth-pill"><span class="dot green"></span>Auto-live 24/7</div>
+<div class="auth-pill"><span class="dot red"></span>Đa nền tảng</div>
+<div class="auth-pill"><span class="dot green"></span>Setup 2 phút</div>
+<div class="auth-pill"><span class="dot red"></span>AI giờ vàng</div>
+<div class="auth-pill"><span class="dot green"></span>Miễn phí</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function togglePw(el){const inp=el.previousElementSibling;inp.type=inp.type==='password'?'text':'password';el.textContent=inp.type==='password'?'👁':'🙈'}
+function toggleForgotPw(){
+  const msg=document.getElementById('forgotPwMsg');
+  msg.style.display=msg.style.display==='none'?'block':'none';
+}
+function googleLogin(){
+  const btn=document.querySelector('.btn-google');btn.style.opacity='.6';
+  const origHTML=btn.innerHTML;btn.innerHTML='Đang kết nối Google...';
+  setTimeout(()=>window.location.href='onboarding.html',1500);
+}
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pw=document.getElementById('loginPw').value;
+  let ok=true;
+  document.getElementById('emailError').classList.remove('show');
+  document.getElementById('pwError').classList.remove('show');
+  document.getElementById('loginEmail').classList.remove('input-error');
+  document.getElementById('loginPw').classList.remove('input-error');
+  if(!email||!email.includes('@')){document.getElementById('emailError').classList.add('show');document.getElementById('loginEmail').classList.add('input-error');ok=false}
+  if(!pw||pw.length<6){document.getElementById('pwError').textContent='Mật khẩu tối thiểu 6 ký tự';document.getElementById('pwError').classList.add('show');document.getElementById('loginPw').classList.add('input-error');ok=false}
+  if(!ok)return;
+  const btn=document.getElementById('loginBtn');btn.classList.add('btn-loading');btn.textContent='';
+  setTimeout(()=>window.location.href='dashboard.html',1500);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&(document.activeElement.closest('form')||document.activeElement.closest('.auth-card')))doLogin()});
+</script>
+</body>
+</html>
