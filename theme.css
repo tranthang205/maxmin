@@ -373,6 +373,227 @@ html[data-theme="light"] .cta-section,
 html[data-theme="light"] .sec-cta { background: #f3f4f6; }
 
 
+/* ─────────────────────────────────────────────────────
+   LIGHT: Missing border overrides (hardcoded rgba(255) in dark)
+   ───────────────────────────────────────────────────── */
+
+/* Landing: "Xem cách hoạt động" secondary button — uses rgba(255,255,255,.07) in dark */
+html[data-theme="light"] .btn-s {
+  border: 1px solid rgba(0,0,0,.12) !important;
+  color: #374151;
+  background: #ffffff;
+}
+html[data-theme="light"] .btn-s:hover {
+  border-color: rgba(0,0,0,.2) !important;
+  background: #f3f4f6;
+}
+
+/* Landing: showcase play button — rgba(255,255,255,.1) border */
+html[data-theme="light"] .sc-play {
+  border-color: rgba(0,0,0,.1);
+  background: rgba(255,255,255,.9);
+}
+html[data-theme="light"] .sc-play:hover {
+  border-color: rgba(0,0,0,.16);
+  background: #ffffff;
+}
+
+/* Library: filter buttons */
+html[data-theme="light"] .lib-filter-btn {
+  border-color: rgba(0,0,0,.1);
+  color: #6b7280;
+  background: #ffffff;
+}
+html[data-theme="light"] .lib-filter-btn:hover {
+  border-color: rgba(0,0,0,.16);
+  color: #374151;
+  background: #f9fafb;
+}
+html[data-theme="light"] .lib-filter-btn.active {
+  border-color: rgba(229,77,58,.25);
+  color: #c7392a;
+  background: rgba(229,77,58,.04);
+}
+
+/* Wizard: auto-live mode buttons */
+html[data-theme="light"] .ao-btn {
+  border-color: rgba(0,0,0,.1);
+  color: #6b7280;
+  background: #ffffff;
+}
+html[data-theme="light"] .ao-btn:hover {
+  border-color: rgba(0,0,0,.16);
+  color: #374151;
+}
+html[data-theme="light"] .ao-btn.active {
+  border-color: rgba(229,77,58,.25);
+  color: #c7392a;
+  background: rgba(229,77,58,.04);
+}
+
+/* Wizard: review tags */
+html[data-theme="light"] .review-tag {
+  background: #f3f4f6;
+  color: #374151;
+}
+html[data-theme="light"] .review-tag.off {
+  background: #f9fafb;
+  color: #9ca3af;
+}
+
+/* Admin: filter/format buttons */
+html[data-theme="light"] .fbtn {
+  border-color: rgba(0,0,0,.1);
+  color: #6b7280;
+  background: #ffffff;
+}
+html[data-theme="light"] .fbtn:hover {
+  border-color: rgba(0,0,0,.16);
+  color: #374151;
+}
+html[data-theme="light"] .fbtn.on,
+html[data-theme="light"] .fbtn.active {
+  border-color: rgba(229,77,58,.25);
+  color: #c7392a;
+  background: rgba(229,77,58,.04);
+}
+
+/* Admin: outline buttons */
+html[data-theme="light"] .btn-o {
+  border-color: rgba(0,0,0,.12);
+  color: #374151;
+}
+html[data-theme="light"] .btn-o:hover {
+  border-color: rgba(0,0,0,.2);
+  background: #f3f4f6;
+}
+
+/* Streams: detail panel controls */
+html[data-theme="light"] .dp-ctrl {
+  border-color: rgba(0,0,0,.1);
+  color: #6b7280;
+}
+html[data-theme="light"] .dp-ctrl:hover {
+  border-color: rgba(0,0,0,.16);
+  color: #374151;
+  background: #f9fafb;
+}
+html[data-theme="light"] .dp-ctrl.danger {
+  color: #dc2626;
+  border-color: rgba(220,38,38,.2);
+}
+html[data-theme="light"] .dp-ctrl.warn {
+  color: #d97706;
+  border-color: rgba(217,119,6,.2);
+}
+
+/* Streams: action buttons in table */
+html[data-theme="light"] .st-act {
+  border-color: rgba(0,0,0,.1);
+}
+html[data-theme="light"] .st-act:hover {
+  border-color: rgba(0,0,0,.16);
+  background: #f3f4f6;
+}
+
+/* Checkout: plan selector card */
+html[data-theme="light"] .ck-plan {
+  background: rgba(229,77,58,.03);
+  border-color: rgba(229,77,58,.12);
+}
+
+/* Checkout: payment method tabs */
+html[data-theme="light"] .pay-method {
+  border-color: rgba(0,0,0,.1);
+  background: #ffffff;
+}
+html[data-theme="light"] .pay-method:hover {
+  border-color: rgba(0,0,0,.18);
+  background: #f9fafb;
+}
+html[data-theme="light"] .pay-method.active {
+  border-color: var(--coral);
+  background: rgba(229,77,58,.03);
+}
+
+/* Landing: blog coming soon badge */
+html[data-theme="light"] .blog-soon-badge {
+  border-color: rgba(0,0,0,.08);
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Topbar: notification button */
+html[data-theme="light"] .tb-notif {
+  border-color: rgba(0,0,0,.1);
+}
+html[data-theme="light"] .tb-notif:hover {
+  border-color: rgba(0,0,0,.16);
+  background: #f3f4f6;
+}
+
+/* Settings: toggle switch */
+html[data-theme="light"] .sw-track {
+  background: rgba(0,0,0,.1);
+  border-color: rgba(0,0,0,.06);
+}
+html[data-theme="light"] .sw-track.on {
+  background: #0d9668;
+}
+
+/* Settings: save button disabled state */
+html[data-theme="light"] .btn-save:disabled,
+html[data-theme="light"] .btn-save[disabled] {
+  background: #e5e7eb;
+  color: #9ca3af;
+  border-color: rgba(0,0,0,.06);
+}
+
+/* Dashboard: notification dot */
+html[data-theme="light"] .notif-dot {
+  border-color: #f9fafb;
+}
+
+/* Generic: all elements using var(--border) — ensure visible in light */
+html[data-theme="light"] .mob-toggle {
+  border-color: rgba(0,0,0,.1);
+  background: #ffffff;
+}
+html[data-theme="light"] .mob-toggle:hover {
+  border-color: rgba(0,0,0,.16);
+}
+
+/* Sidebar toggle */
+html[data-theme="light"] .sb-toggle {
+  border-color: rgba(0,0,0,.1);
+  background: #ffffff;
+}
+html[data-theme="light"] .sb-toggle:hover {
+  border-color: rgba(0,0,0,.16);
+  background: #f3f4f6;
+}
+
+/* Stream table header */
+html[data-theme="light"] .stream-table th {
+  color: #6b7280;
+  border-bottom-color: rgba(0,0,0,.06);
+}
+html[data-theme="light"] .stream-table td {
+  border-bottom-color: rgba(0,0,0,.04);
+}
+html[data-theme="light"] .stream-table tr:hover td {
+  background: #f9fafb;
+}
+html[data-theme="light"] .stream-table tr.selected td {
+  background: rgba(229,77,58,.03);
+}
+
+/* Landing: all hardcoded rgba(255) borders catchall */
+html[data-theme="light"] [style*="border"][style*="rgba(255"] {
+  border-color: rgba(0,0,0,.1) !important;
+}
+
+
 /* ══════════════════════════════════════════════════════
    ADVANCED HOVER & MOTION SYSTEM (both themes)
    ══════════════════════════════════════════════════════ */
