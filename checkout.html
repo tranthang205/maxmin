@@ -11,7 +11,7 @@
 @font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Bold.otf') format('opentype');font-display:swap;font-weight:700}
 @font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Heavy.otf') format('opentype');font-display:swap;font-weight:800}
 @font-face{font-family:'SVN-Gilroy';src:url('fonts/SVN-Gilroy_Black.otf') format('opentype');font-display:swap;font-weight:900}
-:root{--bg:#0b0b16;--bg-card:#111122;--bg-input:#0e0e20;--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.12);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.45);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(200,85,65,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(70,190,150,.05);--green:#4AE3B5;--font:'SVN-Gilroy',system-ui,sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
+:root{--bg:#0b0b16;--bg-card:#111122;--bg-input:#0e0e20;--border:rgba(255,255,255,.07);--border-h:rgba(255,255,255,.12);--text:#eeeef2;--text-dim:rgba(238,238,242,.5);--text-sec:#8a8a9a;--text-muted:rgba(240,240,245,.5);--coral:#FF6B54;--coral-dark:#e8533e;--coral-glow:rgba(200,85,65,.06);--peach:#FFA490;--teal:#4AE3B5;--teal-glow:rgba(70,190,150,.05);--green:#4AE3B5;--font:'SVN-Gilroy',system-ui,sans-serif;--mono:'Space Mono',monospace;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.16,1,.3,1)}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
 a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}button{border:none;cursor:pointer;font-family:inherit;background:none;color:inherit}
@@ -100,7 +100,7 @@ input.input-error{border-color:#FF6B54!important}
 .btn-shake{animation:shake .4s ease}
 
 /* Clipboard feedback */
-.copy-toast{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--teal);color:#0a0a18;font-size:11px;font-weight:800;padding:3px 10px;border-radius:6px;white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
+.copy-toast{position:absolute;top:-28px;left:50%;transform:translateX(-50%);background:var(--teal);color:#0a0a18;font-size:11px;font-weight:800;padding:4px 12px;border-radius:6px;white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none}
 .copy-toast.show{opacity:1}
 
 /* Success */
