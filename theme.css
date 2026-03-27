@@ -1258,15 +1258,18 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
    ══════════════════════════════════════════════════════ */
 
 /* ── R4: Touch targets — minimum 44px (Apple HIG) ── */
-button, a, [role="button"], input[type="submit"], .tb-action, .sb-item, .mob-toggle {
-  min-height: 44px;
-}
+/* ONLY apply to block-level interactive elements, NOT inline <a> tags */
+button { min-height: 44px; }
 input, select, textarea {
   min-height: 44px;
   font-size: 16px; /* R10: prevents iOS zoom on focus */
 }
-/* Icon buttons: visual 34px but touch target 44px via padding */
+/* Named interactive components */
 .tb-action { min-width: 44px; min-height: 44px; }
+.mob-toggle { min-height: 44px; min-width: 44px; }
+.sb-item { min-height: 40px; } /* sidebar items slightly smaller is fine */
+.lib-filter-btn, .chart-tab, .st-tab { min-height: 44px; }
+.price-btn, .btn-p, .btn-s, .btn-submit, .btn-google { min-height: 44px; }
 
 /* ── R10: Accessibility — prefers-reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {
@@ -1282,6 +1285,17 @@ input, select, textarea {
   outline: 2px solid var(--coral, #d4644f);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ── Shared .main baseline — ensures all pages center properly ── */
+.main {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Pages with max-width but missing margin auto (e.g. settings before fix) */
+.main[style*="max-width"], .main {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Tablet: ≤1024px ── */
