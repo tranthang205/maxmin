@@ -127,9 +127,39 @@
 .maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08)}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
 @media(max-width:1024px){.streams-body{grid-template-columns:1fr}.detail-panel:has(.dp-empty){display:none!important}.detail-panel{min-height:0}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.stream-table th,.stream-table td{font-size:12px}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.stream-tabs{flex-wrap:wrap}.st-tab{padding:6px 12px;font-size:11px}.stream-table th,.stream-table td{padding:8px 10px;font-size:11px}.st-icon{width:24px;height:24px;font-size:11px}.detail-panel{padding:16px}}
-@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 20px}.stream-table th,.stream-table td{padding:8px 8px;font-size:11px}}
+/* ══ MOBILE CARD VIEW ══ */
+.mob-stream-cards{display:none}
+.mob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s}
+.mob-card:active{transform:scale(.98)}
+.mob-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mob-card-info{flex:1;min-width:0}
+.mob-card-name{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mob-card-account{font-size:11px;color:var(--text-muted)}
+.mob-card-status{flex-shrink:0}
+.mob-card-bottom{display:flex;align-items:center;justify-content:space-between}
+.mob-card-viewers{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--teal)}
+.mob-card-viewers.inactive{font-size:12px;color:var(--text-muted);font-family:var(--font);font-weight:500}
+.mob-card-meta{font-size:11px;color:var(--text-sec)}
+.mob-card-detail-btn{display:flex;align-items:center;gap:4px;padding:6px 14px;border-radius:100px;font-size:11px;font-weight:700;border:1px solid var(--border);color:var(--text-dim);transition:all .15s;flex-shrink:0}
+.mob-card-detail-btn:hover{border-color:var(--border-h);color:var(--text)}
+.mob-card-detail-btn svg{width:12px;height:12px}
+
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}
+  .main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}
+  .tb-av-info{display:none}
+  /* Hide table, show cards */
+  .card:has(.stream-table){display:none}
+  .mob-stream-cards{display:block}
+  .detail-panel{position:fixed;inset:0;z-index:300;border-radius:0;max-height:100vh;top:0}
+  .detail-panel:has(.dp-empty){display:none!important}
+  .dp-close-mob{display:flex}
+}
+@media(min-width:769px){.dp-close-mob{display:none!important}}
+.dp-close-mob{position:absolute;top:8px;right:8px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);border:none;display:none;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+.dp-close-mob svg{width:16px;height:16px}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.stream-tabs{flex-wrap:wrap}.st-tab{padding:6px 12px;font-size:11px}}
+@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 20px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -165,7 +195,9 @@
 <div class="stream-tabs" id="tabs"></div>
 <div class="streams-body" id="streamsBody">
   <div class="card"><table class="stream-table"><thead><tr><th>Nền tảng</th><th>Video</th><th>Trạng thái</th><th style="text-align:right">Viewers</th><th>Thời gian</th><th>Hẹn tắt</th><th></th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  <div class="mob-stream-cards" id="mobCards"></div>
   <div class="detail-panel" id="detailPanel">
+    <button class="dp-close-mob" onclick="closeMobDetail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="dp-empty" id="dpEmpty"><div class="dp-empty-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 19.07a10 10 0 010-14.14"/></svg></div><div class="dp-empty-text">Chọn một luồng từ danh sách bên trái để xem chi tiết trạng thái, thống kê và bình luận.</div></div>
     <div id="dpContent" style="display:none"></div>
   </div>
@@ -203,6 +235,33 @@ const streams=[
   {id:'s5',plat:'TikTok',platCls:'tt',platLetter:'T',account:'@shophanavn',video:'Unbox Skincare HQ',status:'sched',viewers:0,time:'Hôm nay 22:00',timer:'Không hẹn',comments:0},
 ];
 let currentFilter='all',selectedId=null;
+
+// Mobile cards render
+function renderMobCards(){
+  const filtered=streams.filter(s=>currentFilter==='all'||s.status===currentFilter);
+  const mc=document.getElementById('mobCards');if(!mc)return;
+  if(!filtered.length){mc.innerHTML='<div style="text-align:center;padding:40px 16px;color:var(--text-muted)"><div style="font-size:32px;margin-bottom:8px">📡</div><div style="font-size:14px;font-weight:700;margin-bottom:4px">Chưa có luồng nào</div><a href="wizard.html" style="color:var(--coral);font-size:13px;font-weight:600">+ Tạo luồng đầu tiên</a></div>';return}
+  mc.innerHTML=filtered.map(s=>`
+    <div class="mob-card" onclick="selectStream('${s.id}')">
+      <div class="mob-card-top">
+        <div class="st-icon ${s.platCls}">${s.platLetter}</div>
+        <div class="mob-card-info">
+          <div class="mob-card-name">${s.plat}</div>
+          <div class="mob-card-account">${s.account}</div>
+        </div>
+        <div class="mob-card-status"><span class="st-status ${s.status}">${s.status==='live'?'<span class="dot"></span>Live':'Lên lịch'}</span></div>
+      </div>
+      <div class="mob-card-bottom">
+        <div>${s.status==='live'?'<span class="mob-card-viewers">'+s.viewers.toLocaleString('de-DE')+'</span><span class="mob-card-meta"> viewers · '+s.time+'</span>':'<span class="mob-card-viewers inactive">'+s.time+'</span>'}</div>
+        <button class="mob-card-detail-btn">Chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>`).join('');
+}
+window.closeMobDetail=function(){
+  document.getElementById('dpEmpty').style.display='';
+  document.getElementById('dpContent').style.display='none';
+  selectedId=null;renderTable();
+};
 
 const names=['Thanh Nga','Mai Linh','Hoàng Tuấn','Phương Anh','Bích Ngọc','Văn Hùng','Thu Trang','Minh Đức','Hải Yến','Quốc Bảo'];
 const texts=['Sản phẩm tốt không ạ?','Giá bao nhiêu?','Ship tỉnh được không?','Mình đặt 1 nha 💕','Hay quá!','Freeship không?','Combo giảm giá?','Mua 2 chai','Da dầu dùng được?','Like! 👍'];
@@ -296,11 +355,11 @@ function startComments(s){
 
 // Actions with confirm modals
 window.pauseStream=function(id){showConfirm('⏸️','Tạm dừng luồng?','Luồng sẽ tạm dừng phát. Bạn có thể tiếp tục bất cứ lúc nào.','Tạm dừng','warn',()=>showToast('Đã tạm dừng luồng'))};
-window.stopStream=function(id){showConfirm('⏹️','Dừng luồng phát?','Luồng sẽ bị dừng hoàn toàn. Hành động này không thể hoàn tác.','Dừng live','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();showToast('Đã dừng luồng')})};
-window.cancelStream=function(id){showConfirm('❌','Hủy lịch phát?','Luồng đã lên lịch sẽ bị xóa.','Hủy lịch','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();showToast('Đã hủy lịch')})};
-window.filterStreams=function(f){currentFilter=f;renderTabs();renderTable()};
+window.stopStream=function(id){showConfirm('⏹️','Dừng luồng phát?','Luồng sẽ bị dừng hoàn toàn. Hành động này không thể hoàn tác.','Dừng live','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();renderMobCards();showToast('Đã dừng luồng')})};
+window.cancelStream=function(id){showConfirm('❌','Hủy lịch phát?','Luồng đã lên lịch sẽ bị xóa.','Hủy lịch','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();renderMobCards();showToast('Đã hủy lịch')})};
+window.filterStreams=function(f){currentFilter=f;renderTabs();renderTable();renderMobCards()};
 
-renderTabs();renderTable();
+renderTabs();renderTable();renderMobCards();
 
 // Maxi
 const orb=document.getElementById('maxiOrb'),msg=document.getElementById('maxiMsg');
