@@ -124,9 +124,9 @@
 
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
 @media(max-width:1024px){.video-grid{grid-template-columns:1fr 1fr}.lib-body{grid-template-columns:1fr}}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important}.mob-toggle{display:flex}.video-grid{grid-template-columns:1fr 1fr}.lib-body{grid-template-columns:1fr}.preview-panel{position:fixed;right:0;top:var(--topbar-h);bottom:0;width:320px;z-index:50;border-radius:0;transform:translateX(100%);transition:transform .3s var(--ease)}.preview-panel.open{transform:translateX(0)}.pp-close{display:flex}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 10px) 12px 28px}.video-grid{grid-template-columns:1fr}.pp-detail{grid-template-columns:1fr}.lib-toolbar{flex-direction:column;gap:8px;align-items:stretch}.lib-search{width:100%}.lib-filter{flex-wrap:wrap}.lib-stats{justify-content:center}.preview-panel{width:100%}}
-@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 8px) 8px 20px}.lib-filter{gap:8px}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.mob-open{transform:translateX(0)!important}.main-wrap{margin-left:0!important}.topbar{left:0!important;padding:0 12px}.mob-toggle{display:flex}.tb-av-info{display:none}.video-grid{grid-template-columns:1fr 1fr}.lib-body{grid-template-columns:1fr}.preview-panel{position:fixed;right:0;top:var(--topbar-h);bottom:0;width:320px;z-index:50;border-radius:0;transform:translateX(100%);transition:transform .3s var(--ease)}.preview-panel.open{transform:translateX(0)}.pp-close{display:flex}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 8px) 12px 16px}.video-grid{grid-template-columns:1fr}.pp-detail{grid-template-columns:1fr}.lib-toolbar{flex-direction:column;gap:8px;align-items:stretch}.lib-search{width:100%}.lib-filter{flex-wrap:wrap}.lib-stats{justify-content:center}.preview-panel{width:100%}}
+@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 6px) 8px 12px}.lib-filter{gap:8px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
