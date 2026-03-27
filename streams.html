@@ -128,7 +128,7 @@
 .maxi-msg{max-width:220px;padding:8px 12px;border-radius:12px 12px 4px 12px;background:var(--bg-card);border:1px solid var(--border);font-size:11px;font-weight:500;color:var(--text-dim);line-height:1.5;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);box-shadow:0 8px 24px rgba(0,0,0,.3)}.maxi-msg.show{opacity:1;transform:translateY(0)}
 .maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08)}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
-@media(max-width:1024px){.streams-body{grid-template-columns:1fr}.detail-panel:has(.dp-empty){display:none!important}.detail-panel{min-height:0}}
+@media(max-width:1024px){.streams-body{grid-template-columns:1fr}.detail-panel:not(.dp-active){display:none!important}.detail-panel{min-height:0}}
 /* ══ MOBILE CARD VIEW ══ */
 .mob-stream-cards{display:none}
 .mob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s}
@@ -154,7 +154,7 @@
   .card:has(.stream-table){display:none}
   .mob-stream-cards{display:block}
   .detail-panel{position:fixed;inset:0;z-index:300;border-radius:0;max-height:100vh;top:0}
-  .detail-panel:has(.dp-empty){display:none!important}
+  .detail-panel:not(.dp-active){display:none!important}
   .dp-close-mob{display:flex}
 }
 @media(min-width:769px){.dp-close-mob{display:none!important}}
@@ -262,6 +262,7 @@ function renderMobCards(){
 window.closeMobDetail=function(){
   document.getElementById('dpEmpty').style.display='';
   document.getElementById('dpContent').style.display='none';
+  document.getElementById('detailPanel').classList.remove('dp-active');
   selectedId=null;renderTable();
 };
 
@@ -304,6 +305,7 @@ window.selectStream=function(id){
   selectedId=id;const s=streams.find(x=>x.id===id);if(!s)return;
   renderTable();
   document.getElementById('dpEmpty').style.display='none';
+  document.getElementById('detailPanel').classList.add('dp-active');
   const dp=document.getElementById('dpContent');dp.style.display='flex';dp.style.flexDirection='column';dp.style.flex='1';dp.style.overflow='hidden';
   const isLive=s.status==='live';
   dp.innerHTML=`
@@ -357,8 +359,8 @@ function startComments(s){
 
 // Actions with confirm modals
 window.pauseStream=function(id){showConfirm('⏸️','Tạm dừng luồng?','Luồng sẽ tạm dừng phát. Bạn có thể tiếp tục bất cứ lúc nào.','Tạm dừng','warn',()=>showToast('Đã tạm dừng luồng'))};
-window.stopStream=function(id){showConfirm('⏹️','Dừng luồng phát?','Luồng sẽ bị dừng hoàn toàn. Hành động này không thể hoàn tác.','Dừng live','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();renderMobCards();showToast('Đã dừng luồng')})};
-window.cancelStream=function(id){showConfirm('❌','Hủy lịch phát?','Luồng đã lên lịch sẽ bị xóa.','Hủy lịch','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none'}renderTabs();renderTable();renderMobCards();showToast('Đã hủy lịch')})};
+window.stopStream=function(id){showConfirm('⏹️','Dừng luồng phát?','Luồng sẽ bị dừng hoàn toàn. Hành động này không thể hoàn tác.','Dừng live','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none';document.getElementById('detailPanel').classList.remove('dp-active')}renderTabs();renderTable();renderMobCards();showToast('Đã dừng luồng')})};
+window.cancelStream=function(id){showConfirm('❌','Hủy lịch phát?','Luồng đã lên lịch sẽ bị xóa.','Hủy lịch','danger',()=>{const i=streams.findIndex(s=>s.id===id);if(i>-1)streams.splice(i,1);if(selectedId===id){selectedId=null;document.getElementById('dpEmpty').style.display='flex';document.getElementById('dpContent').style.display='none';document.getElementById('detailPanel').classList.remove('dp-active')}renderTabs();renderTable();renderMobCards();showToast('Đã hủy lịch')})};
 window.filterStreams=function(f){currentFilter=f;renderTabs();renderTable();renderMobCards()};
 
 renderTabs();renderTable();renderMobCards();
