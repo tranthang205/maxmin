@@ -82,7 +82,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 .nav-menu{display:flex;align-items:center;gap:2px;list-style:none}
 .nav-menu a{display:flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text-dim);transition:all .25s var(--ease)}
 .nav-menu a:hover{color:var(--text);background:rgba(255,255,255,.04)}
-.nav-menu a[aria-current="page"]::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--coral);margin:2px auto 0}
 .nav-acts{display:flex;align-items:center;gap:10px;flex-shrink:0;justify-self:end}
 .nav-login{padding:8px 16px;min-height:44px;display:inline-flex;align-items:center;border-radius:8px;font-size:13px;font-weight:600;color:var(--text-dim);transition:all .25s var(--ease)}
 .nav-login:hover{color:var(--text);background:rgba(255,255,255,.04)}
@@ -150,7 +149,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 .dash-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:rgba(255,255,255,.01);border:1px solid var(--border);border-radius:12px;padding:8px}
 .ds-item{text-align:center;padding:8px 4px}
 .ds-val{font-family:var(--mono);font-size:14px;font-weight:700}
-.ds-val.c-teal{color:var(--teal)}.ds-val.c-coral{color:var(--coral)}.ds-val.c-teal{color:var(--teal)}
+.ds-val.c-teal{color:var(--teal)}.ds-val.c-coral{color:var(--coral)}
 .ds-lbl{font-size:11px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--text-muted);margin-top:2px}
 
 /* Hero mascot */
@@ -172,7 +171,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 /* Hero stats bar — inline subtle style */
 .sbar{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:32px 32px 0}
 .sbar-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
-.sbar-inner::before,.sbar-inner::after{display:none}
 .sbar-item{display:flex;align-items:center;gap:6px;padding:0;border:none;background:none;transition:opacity .25s}
 .sbar-item:hover{opacity:.8}
 .sbar-item:not(:last-child)::after{content:'\00b7';display:inline-block;margin-left:24px;font-size:18px;color:var(--text-muted);font-weight:700}
@@ -236,7 +234,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;o
 
 /* ══ SECTION TRANSITIONS ══ */
 section{position:relative}
-section::before{transition:opacity .6s}
 .section-glow{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(120px);opacity:0;transition:opacity 1s var(--ease);pointer-events:none;z-index:0}
 .section-glow.vis{opacity:1}
 .section-glow.gl-coral{background:var(--coral);opacity:.02}
@@ -305,8 +302,8 @@ section::before{transition:opacity .6s}
 .mascot-ring{position:absolute;inset:4px;border-radius:50%;border:2px solid;opacity:.2;transition:all .5s var(--ease)}
 .step:nth-child(1) .mascot-ring{border-color:var(--coral)}.step:nth-child(2) .mascot-ring{border-color:var(--coral)}.step:nth-child(3) .mascot-ring{border-color:var(--teal)}
 .step:hover .mascot-ring{opacity:.35;transform:scale(1.06)}
-.step-badge{z-index:3;position:absolute;bottom:0;right:8px;z-index:3;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.15)}
-.step:nth-child(1) .step-badge{z-index:3;background:var(--coral)}.step:nth-child(2) .step-badge{z-index:3;background:var(--coral);color:#1a1a2e}.step:nth-child(3) .step-badge{z-index:3;background:var(--teal);color:#1a1a2e}
+.step-badge{position:absolute;bottom:0;right:8px;z-index:3;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;box-shadow:0 3px 12px rgba(0,0,0,.15)}
+.step:nth-child(1) .step-badge{background:var(--coral)}.step:nth-child(2) .step-badge{background:var(--coral);color:#1a1a2e}.step:nth-child(3) .step-badge{background:var(--teal);color:#1a1a2e}
 .step h3{font-size:16px;font-weight:900;letter-spacing:-.01em;margin-bottom:4px;margin-top:8px}
 .step p{font-size:12px;color:var(--text-sec);line-height:1.6;max-width:220px;margin:0 auto}
 
@@ -453,7 +450,7 @@ section::before{transition:opacity .6s}
 .footer-col a::before{content:'';display:inline-block;width:0;height:1px;background:var(--coral);transition:width .25s var(--ease);flex-shrink:0}
 .footer-col a:hover::before{width:12px}
 .footer-divider{height:1px;background:var(--border);margin:0}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:12px;color:var(--text-muted)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:12px;color:var(--text-muted);flex-wrap:wrap;gap:12px}
 .footer-badges{display:flex;gap:8px;align-items:center}
 .ft-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;background:var(--bg-card);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--text-sec)}
 .footer-copy{display:flex;align-items:center;gap:16px}
@@ -490,7 +487,7 @@ section::before{transition:opacity .6s}
 }
 @media(max-width:768px){.amb-wrap{display:none}
   .hero{padding:110px 20px 0}.hero-h1,.hero-h2{font-size:28px}
-  .nav-menu,.nav-acts .nav-login{display:none}.hamburger{display:flex}.nav-acts .nav-cta{display:none}
+  .nav-menu,.nav-acts{display:none}.hamburger{display:flex}
   .sbar{padding:24px 20px 0}.sbar-num{font-size:14px}.sbar-inner{gap:16px}.sbar-lbl{font-size:11px}
   .steps-grid,.feat-row-3{grid-template-columns:1fr}.steps-grid::before{display:none}
   .feat-row-2,.showcase-grid,.pricing-grid{grid-template-columns:1fr}
@@ -507,13 +504,12 @@ section::before{transition:opacity .6s}
 @media(max-width:480px){
   .hero{padding:100px 16px 0;gap:24px}
   .hero-h1,.hero-h2{font-size:24px}
-  .hero-sub{font-size:13px}
   .hero-actions{flex-direction:column;gap:8px;width:100%}
   .btn-p,.btn-s{width:100%;justify-content:center;padding:12px 20px;font-size:14px;min-height:44px}
   .hero-right{height:360px}
   .dash{left:4px;right:-4px}
   .pcard-num{font-size:16px}
-  .fnot{font-size:11px;padding:8px 8px}.fnot-ic{width:20px;height:20px;font-size:11px}
+  .fnot{padding:8px}.fnot-ic{width:20px;height:20px;font-size:11px}
   .fnot-orders{right:8px;top:-8px}.fnot-streak{left:-8px;bottom:60px}.fnot-sched{right:-4px;bottom:10px}
   .sbar{padding:16px 16px 0}.sbar-inner{flex-direction:column;gap:8px}.sbar-item:not(:last-child)::after{display:none}.sbar-num{font-size:14px}.sbar-lbl{font-size:12px}
   .sec-title{font-size:24px}
@@ -533,10 +529,9 @@ section::before{transition:opacity .6s}
   .footer-col a::before{display:none}
   .footer-badges{justify-content:center}
   .footer-copy{flex-direction:column;gap:4px}
-  .cta-section{padding:40px 16px}
+  .cta-final{padding:40px 16px}
   .cta-title{font-size:24px}
-  .announce{font-size:11px;padding:4px 8px}
-  .h-inner{height:52px;padding:0 16px;display:flex;justify-content:space-between}
+  .h-inner{height:52px;padding:0 16px;display:flex;gap:0}
   .logo{font-size:18px;justify-self:unset}
   .maxi-hero{top:-20px;left:-12px}
   .maxi-hero svg{width:56px!important;height:56px!important}
@@ -546,16 +541,13 @@ section::before{transition:opacity .6s}
   .maxi-bubble{font-size:11px;padding:4px 8px}
 }
 @media(max-width:360px){
-  .hero{padding:100px 16px 0}
   .hero-h1,.hero-h2{font-size:20px}
   .hero-desc{font-size:14px}
   .sbar-num{font-size:13px}.sbar-lbl{font-size:11px}
   .price-num{font-size:24px}
   .sec-title{font-size:20px}
   .sec-desc{font-size:12px}
-  .container{padding:0 16px}
   .pcard-lbl,.pcard-name,.ds-lbl{font-size:11px}
-  .fnot{font-size:11px}
   .step p{font-size:12px}
   .feat-card p{font-size:12px}
 }
@@ -566,16 +558,13 @@ section::before{transition:opacity .6s}
 .btn-p:active,.btn-s:active,.price-btn:active{transform:scale(.97) !important}
 @keyframes countUp{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
 .sbar-item{animation:countUp .6s var(--ease) both;transform:none}.sbar-item:nth-child(2){animation-delay:.15s}.sbar-item:nth-child(3){animation-delay:.3s}
-/* footer link hover handled by ::before pseudo-element */
 .price-card.pop:hover{box-shadow:0 16px 48px rgba(200,85,65,.1) !important}
-
 
 /* Hero claw wave animation */
 @keyframes heroWaveL{0%,65%,100%{transform:rotate(-15deg) translateY(0)}72%{transform:rotate(-40deg) translateY(-12px)}76%{transform:rotate(-25deg) translateY(-10px)}80%{transform:rotate(-42deg) translateY(-12px)}85%{transform:rotate(-20deg) translateY(-8px)}92%{transform:rotate(-15deg) translateY(0)}}
 @keyframes heroWaveR{0%,65%,100%{transform:rotate(15deg) translateY(0)}72%{transform:rotate(40deg) translateY(-12px)}76%{transform:rotate(25deg) translateY(-10px)}80%{transform:rotate(42deg) translateY(-12px)}85%{transform:rotate(20deg) translateY(-8px)}92%{transform:rotate(15deg) translateY(0)}}
 .m-live .cl{animation:heroWaveL 5s ease-in-out infinite;transform-origin:20px 65px}
 .m-live .cr{animation:heroWaveR 5s ease-in-out infinite;transform-origin:100px 65px}
-
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -670,15 +659,6 @@ section::before{transition:opacity .6s}
 
 <!-- ══ TICKER ══ -->
 <div class="ticker rv vis"><div class="ticker-track" id="tickerTrack">
-<div class="ticker-item"><span class="ti-icon">🔴</span>Live không cần ngồi trước máy</div>
-<div class="ticker-item"><span class="ti-icon">📡</span>Phát đồng thời <span class="ti-num">4</span> nền tảng</div>
-<div class="ticker-item"><span class="ti-icon">⚡</span><span class="ti-num">2 phút</span> setup xong</div>
-<div class="ticker-item"><span class="ti-icon">🛒</span>Chốt đơn cả khi ngủ</div>
-<div class="ticker-item"><span class="ti-icon">🧠</span>AI gợi ý giờ vàng</div>
-<div class="ticker-item"><span class="ti-icon">📊</span>Dashboard realtime</div>
-<div class="ticker-item"><span class="ti-icon">📅</span>Lên lịch kéo thả</div>
-<div class="ticker-item"><span class="ti-icon">🆓</span>Dùng thử <span class="ti-num">miễn phí</span></div>
-
 <div class="ticker-item"><span class="ti-icon">🔴</span>Live không cần ngồi trước máy</div>
 <div class="ticker-item"><span class="ti-icon">📡</span>Phát đồng thời <span class="ti-num">4</span> nền tảng</div>
 <div class="ticker-item"><span class="ti-icon">⚡</span><span class="ti-num">2 phút</span> setup xong</div>
@@ -800,7 +780,7 @@ section::before{transition:opacity .6s}
 <div class="footer-divider"></div>
 <div class="footer-bottom">
   <div class="footer-copy">
-    <span>© 2025 MAXMIN.VN</span>
+    <span>© 2026 MAXMIN.VN</span>
     <span style="color:var(--border)">|</span>
     <span>Made with ❤️ in Vietnam</span>
   </div>
