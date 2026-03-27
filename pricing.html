@@ -61,15 +61,15 @@
 .price-badge.cur{background:var(--teal-glow);color:var(--teal);border:1px solid rgba(70,190,150,.2)}
 .price-badge.pop{background:var(--coral-glow);color:var(--coral);border:1px solid rgba(200,85,65,.2)}
 .price-tier{font-size:18px;font-weight:900;margin-bottom:3px}.price-sub{font-size:12px;color:var(--text-sec);margin-bottom:18px;min-height:16px}
-.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:2px}.price-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1;transition:all .3s ease}.price-unit{font-size:13px;color:var(--text-dim)}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:2px;transition:opacity .3s ease,transform .3s ease}.price-num{font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-2px;line-height:1;transition:all .3s ease}.price-unit{font-size:13px;color:var(--text-dim)}
 .price-period{font-size:11px;color:var(--text-muted);margin-bottom:20px}
 .price-div{height:1px;background:var(--border);margin-bottom:16px}
 .price-features{list-style:none;margin-bottom:24px;display:flex;flex-direction:column;gap:8px}.price-features li{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}.price-features .ck{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
 .ck{background:rgba(255,255,255,.04);color:var(--teal)}.ck.c{background:var(--coral-glow);color:var(--coral)}
-.price-btn{display:block;width:100%;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;text-align:center;transition:all .3s var(--ease)}
+.price-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;text-align:center;transition:all .3s var(--ease);min-height:44px}
 .price-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text-muted)}.price-btn.outline:hover{border-color:var(--border-h)}
 .price-btn.fill{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;box-shadow:0 4px 20px rgba(200,85,65,.2)}.price-btn.fill:hover{transform:translateY(-1px)}
-.price-btn.current-btn{background:var(--teal-glow);border:1px solid rgba(70,190,150,.2);color:var(--teal);pointer-events:none;cursor:not-allowed}.price-btn.current-btn:hover{transform:none;box-shadow:none}
+.price-btn.current-btn{background:transparent;border:none;color:var(--teal);pointer-events:none;cursor:default;font-size:13px;font-weight:700;padding:10px 22px;letter-spacing:0;border-radius:0;opacity:.8}.price-btn.current-btn:hover{transform:none;box-shadow:none}
 
 /* ══ DOWNGRADE MODAL ══ */
 .dg-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.2);align-items:center;justify-content:center}.dg-overlay.show{display:flex}
@@ -78,14 +78,14 @@
 .dg-title{font-size:17px;font-weight:800;margin-bottom:8px}
 .dg-msg{font-size:13px;color:var(--text-sec);line-height:1.6;margin-bottom:24px}
 .dg-actions{display:flex;gap:8px;justify-content:flex-end}
-.dg-btn{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s}
+.dg-btn{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;transition:all .2s;min-height:44px}
 .dg-btn.cancel{border:1px solid var(--border);color:var(--text-dim)}.dg-btn.cancel:hover{border-color:var(--border-h)}
 .dg-btn.confirm{background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff}.dg-btn.confirm:hover{opacity:.9}
 
 /* ══ BILLING TOGGLE ══ */
 .billing-toggle{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:24px}
 .billing-label{font-size:13px;font-weight:600;color:var(--text-muted);transition:color .2s}.billing-label.active{color:var(--text)}
-.billing-switch{position:relative;width:44px;height:28px;background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .3s var(--ease)}
+.billing-switch{position:relative;width:48px;height:28px;background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:100px;cursor:pointer;transition:all .3s var(--ease)}.billing-switch::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:44px}
 .billing-switch.on{background:var(--coral);border-color:var(--coral)}
 .billing-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
 .billing-switch.on::after{transform:translateX(20px)}
@@ -94,8 +94,8 @@
 
 .mob-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;flex-direction:column;border-radius:8px;z-index:101;position:relative;border:1px solid var(--border);background:var(--bg-card);transition:all .15s}.mob-toggle:hover{border-color:var(--border-h)}.mob-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:1px;transition:all .3s var(--ease)}.mob-toggle .ml2{margin:4px 0}
 @media(max-width:768px){.pricing-grid{grid-template-columns:1fr}.current-plan{flex-direction:column;gap:16px;text-align:center}.cp-usage{text-align:center}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 8px) 12px 16px}.price-card{padding:16px}.price-num{font-size:28px}.price-features li{font-size:11px}.current-plan{padding:14px 16px}.cp-badge{font-size:11px}}
-@media(max-width:360px){.price-card{padding:14px}.price-num{font-size:24px}.price-sub{font-size:11px;margin-bottom:16px}.price-features{gap:8px}.price-period{margin-bottom:16px}}
+@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 8px) 16px 16px}.price-card{padding:16px}.price-num{font-size:28px}.price-features li{font-size:11px}.current-plan{padding:14px 16px}.cp-badge{font-size:11px}}
+@media(max-width:360px){.price-card{padding:16px}.price-num{font-size:24px}.price-sub{font-size:11px;margin-bottom:16px}.price-features{gap:8px}.price-period{margin-bottom:16px}}
 .toast{position:fixed;top:calc(var(--topbar-h) + 16px);right:28px;z-index:500;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(-8px);transition:all .3s var(--ease);pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}.toast.success{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.2);color:var(--green)}.toast.info{background:rgba(91,141,239,.12);border:1px solid rgba(91,141,239,.2);color:var(--text-dim)}
 .maxi-helper{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px}.maxi-msg{max-width:220px;padding:10px 14px;border-radius:12px 12px 4px 12px;background:var(--bg-card);border:1px solid var(--border);font-size:11px;font-weight:500;color:var(--text-dim);line-height:1.5;opacity:0;transform:translateY(8px);transition:all .3s var(--ease);box-shadow:0 8px 24px rgba(0,0,0,.3)}.maxi-msg.show{opacity:1;transform:translateY(0)}.maxi-orb{width:48px;height:48px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.35);cursor:pointer;transition:all .3s var(--ease)}.maxi-orb:hover{transform:scale(1.08);border-color:var(--border-h)}
 </style>
@@ -173,7 +173,7 @@
     <div class="price-amount" id="proPriceAmount"><span class="price-num" id="proPrice">99K</span><span class="price-unit">/tháng</span></div><div class="price-period" id="proPeriod">Thanh toán hàng tháng</div>
     <div class="price-div"></div>
     <ul class="price-features"><li><span class="ck c">✓</span>5 luồng live đồng thời</li><li><span class="ck c">✓</span>50GB lưu trữ video</li><li><span class="ck c">✓</span>Hỗ trợ ưu tiên</li></ul>
-    <button class="price-btn current-btn" disabled style="opacity:.6;cursor:not-allowed">Gói hiện tại</button>
+    <div class="price-btn current-btn">&#10003; Gói hiện tại</div>
   </div>
   <div class="price-card rec">
     <div class="price-badge pop">Nâng cấp</div>

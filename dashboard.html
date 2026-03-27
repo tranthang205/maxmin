@@ -124,7 +124,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 .chart-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px}
 .chart-label{font-size:13px;font-weight:700;color:var(--text-dim)}
 .chart-tabs{display:flex;gap:4px}.chart-tab{padding:4px 8px;border-radius:6px;font-size:11px;font-weight:600;color:var(--text-muted);transition:all .15s}.chart-tab:hover{color:var(--text-dim)}.chart-tab.active{color:#fff;background:var(--coral);border-radius:6px}
-.chart-wrap{position:relative;height:200px}
+.chart-wrap{position:relative;height:200px;min-height:140px}
 .chart-canvas{display:block;width:100%;height:100%}
 
 /* ══ ACTIVITY PANEL ══ */
@@ -152,9 +152,9 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:99}.mob-overlay.show{display:block}
 @media(max-width:1024px){.stat-row{grid-template-columns:repeat(2,1fr)}.plat-status-row{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.main{padding:calc(var(--topbar-h) + 8px) 12px 16px}.stat-row{grid-template-columns:1fr 1fr;gap:8px}.plat-status-row{grid-template-columns:1fr 1fr;gap:8px}.dash-grid{grid-template-columns:1fr}.dash-right{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dash-right .card:first-child{grid-column:1/-1}.chart-wrap{height:180px}.welcome{padding:12px 16px}.wc-left h3{font-size:14px}.wc-left p{font-size:11px}}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 8px) 8px 12px}.stat-row{grid-template-columns:1fr 1fr;gap:6px}.plat-status-row{grid-template-columns:1fr 1fr;gap:6px}.stat-card{padding:10px 12px}.sc-value{font-size:16px}.pc-viewers{font-size:16px}.tb-bc-page{font-size:12px}.chart-wrap{height:160px}.pc-card{padding:12px}.pc-name{font-size:13px}.pc-account{font-size:10px}}
-@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 6px) 8px 12px}.stat-row{gap:4px}.plat-status-row{gap:4px}.stat-card{padding:8px 10px}.sc-value{font-size:14px}.pc-viewers{font-size:14px}.chart-wrap{height:140px}.dash-right{grid-template-columns:1fr}}
+@media(max-width:768px){.stat-row{grid-template-columns:1fr 1fr;gap:8px}.plat-status-row{grid-template-columns:1fr 1fr;gap:8px}.dash-grid{grid-template-columns:1fr}.dash-right{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dash-right .card:first-child{grid-column:1/-1}.chart-wrap{height:180px}.welcome{padding:12px 16px}.wc-left h3{font-size:14px}.wc-left p{font-size:11px}}
+@media(max-width:480px){.stat-row{grid-template-columns:1fr 1fr;gap:8px}.plat-status-row{grid-template-columns:1fr 1fr;gap:8px}.stat-card{padding:10px 12px}.sc-value{font-size:16px}.pc-viewers{font-size:16px}.tb-bc-page{font-size:12px}.chart-wrap{height:160px;min-height:140px}.pc-card{padding:12px}.pc-name{font-size:13px}.pc-account{font-size:11px}}
+@media(max-width:360px){.stat-row{grid-template-columns:1fr;gap:8px}.plat-status-row{grid-template-columns:1fr;gap:8px}.stat-card{padding:8px 10px}.sc-value{font-size:14px}.pc-viewers{font-size:14px}.chart-wrap{height:140px;min-height:140px}.dash-right{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -200,7 +200,7 @@ a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--cora
 <div style="font-size:12px;color:var(--text-sec);line-height:1.5">Upload video và tạo luồng phát đầu tiên. Maxi sẽ hướng dẫn bạn.</div>
 </div>
 <div style="display:flex;gap:8px;flex-shrink:0">
-<a href="wizard.html" style="padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;background:var(--coral);color:#fff;transition:all .2s;display:flex;align-items:center;gap:8px">🚀 Tạo luồng phát đầu tiên</a>
+<a href="wizard.html" style="padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;background:var(--coral);color:#fff;transition:all .2s;display:flex;align-items:center;gap:8px;min-height:44px">🚀 Tạo luồng phát đầu tiên</a>
 </div>
 </div>
 </div>

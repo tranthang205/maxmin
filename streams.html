@@ -71,7 +71,7 @@
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 .st-viewers{font-family:var(--mono);font-weight:700;color:var(--teal);font-size:13px;font-variant-numeric:tabular-nums}
 .st-actions{display:flex;gap:4px}
-.st-act{min-width:36px;min-height:36px;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);transition:all .2s}.st-act:hover{border-color:var(--border-h);background:var(--bg-card-h)}.st-act svg{width:14px;height:14px;color:var(--text-dim)}
+.st-act{min-width:44px;min-height:44px;width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);transition:all .2s}.st-act:hover{border-color:var(--border-h);background:var(--bg-card-h)}.st-act svg{width:16px;height:16px;color:var(--text-dim)}
 .st-act:disabled,.st-act[disabled]{opacity:.4;pointer-events:none;cursor:default}
 .dp-ctrl:disabled,.dp-ctrl[disabled]{opacity:.4;pointer-events:none;cursor:default}
 
@@ -131,7 +131,7 @@
 @media(max-width:1024px){.streams-body{grid-template-columns:1fr}.detail-panel:not(.dp-active){display:none!important}.detail-panel{min-height:0}}
 /* ══ MOBILE CARD VIEW ══ */
 .mob-stream-cards{display:none}
-.mob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s}
+.mob-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;transition:all .2s;width:100%}
 .mob-card:active{transform:scale(.98)}
 .mob-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .mob-card-info{flex:1;min-width:0}
@@ -142,9 +142,13 @@
 .mob-card-viewers{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--teal)}
 .mob-card-viewers.inactive{font-size:12px;color:var(--text-muted);font-family:var(--font);font-weight:500}
 .mob-card-meta{font-size:11px;color:var(--text-sec)}
-.mob-card-detail-btn{display:flex;align-items:center;gap:4px;padding:8px 16px;border-radius:100px;font-size:11px;font-weight:700;border:1px solid var(--border);color:var(--text-dim);transition:all .15s;flex-shrink:0}
+.mob-card-detail-btn{display:flex;align-items:center;gap:4px;padding:8px 16px;border-radius:100px;font-size:11px;font-weight:700;border:1px solid var(--border);color:var(--text-dim);transition:all .15s;flex-shrink:0;min-height:44px}
 .mob-card-detail-btn:hover{border-color:var(--border-h);color:var(--text)}
 .mob-card-detail-btn svg{width:12px;height:12px}
+.mob-card-expand{display:none;padding:10px 0 0;border-top:1px solid var(--border);margin-top:10px;font-size:12px;color:var(--text-dim);line-height:1.6}
+.mob-card-expand.show{display:block}
+.mob-card-expand-row{display:flex;justify-content:space-between;padding:2px 0}
+.mob-card-expand-row strong{color:var(--text);font-weight:600}
 
 @media(max-width:768px){
   /* Hide table, show cards */
@@ -157,8 +161,7 @@
 @media(min-width:769px){.dp-close-mob{display:none!important}}
 .dp-close-mob{position:absolute;top:8px;right:8px;z-index:10;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);border:none;display:none;align-items:center;justify-content:center;cursor:pointer;color:#fff}
 .dp-close-mob svg{width:16px;height:16px}
-@media(max-width:480px){.main{padding:calc(var(--topbar-h) + 8px) 12px 16px}.stream-tabs{flex-wrap:wrap}.st-tab{padding:6px 12px;font-size:11px}}
-@media(max-width:360px){.main{padding:calc(var(--topbar-h) + 6px) 8px 12px}}
+@media(max-width:480px){.stream-tabs{flex-wrap:wrap}.st-tab{padding:6px 12px;font-size:11px;min-height:44px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 <script src="theme-toggle.js"></script>
@@ -241,8 +244,8 @@ function renderMobCards(){
   const mc=document.getElementById('mobCards');if(!mc)return;
   if(!filtered.length){mc.innerHTML='<div style="text-align:center;padding:40px 16px;color:var(--text-muted)"><div style="font-size:32px;margin-bottom:8px">📡</div><div style="font-size:14px;font-weight:700;margin-bottom:4px">Chưa có luồng nào</div><a href="wizard.html" style="color:var(--coral);font-size:13px;font-weight:600">+ Tạo luồng đầu tiên</a></div>';return}
   mc.innerHTML=filtered.map(s=>`
-    <div class="mob-card" onclick="selectStream('${s.id}')">
-      <div class="mob-card-top">
+    <div class="mob-card" id="mobcard-${s.id}">
+      <div class="mob-card-top" onclick="selectStream('${s.id}')">
         <div class="st-icon ${s.platCls}">${s.platLetter}</div>
         <div class="mob-card-info">
           <div class="mob-card-name">${s.plat}</div>
@@ -252,10 +255,21 @@ function renderMobCards(){
       </div>
       <div class="mob-card-bottom">
         <div>${s.status==='live'?'<span class="mob-card-viewers">'+s.viewers.toLocaleString('de-DE')+'</span><span class="mob-card-meta"> viewers · '+s.time+'</span>':'<span class="mob-card-viewers inactive">'+s.time+'</span>'}</div>
-        <button class="mob-card-detail-btn">Chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        <button class="mob-card-detail-btn" onclick="toggleMobExpand(event,'${s.id}')">Chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="mob-card-expand" id="mobexpand-${s.id}">
+        <div class="mob-card-expand-row"><span>Video:</span><strong>${s.video}</strong></div>
+        <div class="mob-card-expand-row"><span>Thời gian:</span><strong>${s.time}</strong></div>
+        <div class="mob-card-expand-row"><span>Hẹn tắt:</span><strong>${s.timer}</strong></div>
+        ${s.status==='live'?'<div class="mob-card-expand-row"><span>Bình luận:</span><strong>'+s.comments+'</strong></div>':''}
       </div>
     </div>`).join('');
 }
+window.toggleMobExpand=function(e,id){
+  e.stopPropagation();
+  const el=document.getElementById('mobexpand-'+id);
+  if(el)el.classList.toggle('show');
+};
 window.closeMobDetail=function(){
   document.getElementById('dpEmpty').style.display='';
   document.getElementById('dpContent').style.display='none';
